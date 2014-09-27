@@ -1,0 +1,623 @@
+1. 图像或图片的居中，定位
+2.欠缺：
+  实战
+  浏览器兼容
+  常见的信息系统
+  命名规则:ID命名，类名，html和CSS文件名，图片名
+  注释的书写规则
+3.属性的继承性和浏览器的支持
+4.CSS的层叠原理：
+   优先级规则：行内样式>ID样式>类别样式>标记样式
+5.内容决定网页的形式
+6.不使用CSS也能保证良好的结构和可读性
+7.线框图（Wireframe） Axure RP设计
+8.布局目标分析，每个盒子每个元素找到自己的位置
+9.PS切图
+10.错误积累
+11.浮动的充分理解
+12. 可以分析和研究好的网页，并融入自己的思想和设计
+13. Spry框架技术
+14. 精确定位
+15. 两列布局方法
+16. 圆角边框：分解组合，考虑扩展
+17. 面包屑导航：标识浏览者目前所处的网站位置
+18. 快速知道范例网页的字体名称、大小
+19. body的初始化：文字，边距，背景等
+20. 列表的横向：对li用浮动，或转为内行元素
+21. 尽量避免使用CSS hack和滤镜
+22.常用字体和颜色的感性认识,字体大小与字体类型的确定
+23.网格系统
+24.“滑动门”技术：圆角框的实现方法
+25. 读别人的代码明白每条属性的目的
+26. 切图时尺寸如何确定
+27. 属性的书写顺序
+28. 性能优化，代码规范，SVN代码管理工具，OOP思想
+29. 二维滑动门：margin与padding以及尺寸的控制
+30. 网站风格定位：可参考同行业同类型网站（根本上还是自己网站定位与目标用户）
+31. 可以锻炼自己的大脑为浏览器，解析代码，看是否和浏览器的效果一样；同时可以将看的的效果转化为代码
+31. Fireworks的页面功能
+32. 页面方案设计：在原型设计图基础上完善细节，搜索素材图片并处理，图片的合成，图片的尺寸存储大小保真度确定
+33. 纹理平铺时的结合处是否过度自然
+34. 经常加1px的边框可以随时验证
+35. h1，li，a文本垂直居中
+36. 无边框时，可以看成宽度为0
+37. 代码无效可能是前代选择器错误
+38. 《别具光芒CSS》游戏网站为什么头部图片用多个图片和表格
+39. 没事可以打别人的代码，边打字，边理解
+40. 百度搜索或Google搜索框的添加
+41. hover伪类经常color和background一起设置
+42. 定期复习参考手册
+43. 代码无效的原因：type="css/text" 中text与css反了
+44.简写：list-style-type:none 可写成list-style:none
+45.IE5的最终宽度=左外边距+宽度+右外边距
+46.一旦把某个元素设定了float属性，那么它们将不在进行空白边叠加
+	四维margin都会恢复
+47. IE6，浮动盒模型左右margin会加倍，通过display:inline;来解决
+48. 网站导航：横向、纵向和下拉；
+	导航：一个简便、快捷的操作入口
+49. 一个网页打开后，图片被下载，应该以缓存形式，所以即使服务器端的图片变化而名称不变则客户端图片仍是之前的图片
+50. ul列表的padding设置为0后，列表标志没了，那还用设置list-style-type:none吗
+51. 图片合成一张图在浏览器放大或缩小时显示会出现差别，可能是用的系统自带的画图工具吧，画其他图片时也会出现
+52. radio同一个name只能有一个选项
+53. border-width可用值 thin=1px medium=3px thick=5px
+	length 变成默认的，包括颜色，border-color设置成color也会这样
+54. border-style  double时3px才可看出效果
+55. .textInput {
+	border-width: 2px;
+	border-color: #324d84 #c77cdc #dddb0eb #5179b6;
+	}
+    ie8显示宽度对颜色不对，Chrome中2px显示不出来显示为默认text
+    加上border-style: solid; 后颜色变成黑色
+  难道不能缩写？
+56. 行高line-height和缩进text-indent可以控制文本的位置
+57.表单设计的一些建议
+  明确的输入域标识；即时验证数据合法性；有搜索历史；日期、地区等有标准的下拉表单；友好的提示
+58. 表格在Chrome中默认无边框
+59. 所有html标签的默认处理
+60.各种文字提示，表格，图片在网页中飘着  用来做笔记用
+61. italic和oblique的区别：显示效果类似，italic表示使用斜体字（部分字体的正常体与斜体是两个字体文件），而oblique则表示将文字倾斜
+62. 浏览器判断网页所用语言英文、中文简体、中文繁体还是其他
+63. 特别的下划线可以使用背景图像 repeat-x，文字下划线可用border-bottom
+64. W3School的CSS参考手册属性不全
+65. line-height等于一行字的高度（最低点与最高点的距离英文字母y，p等下端为最低点）加上两行之间的空白
+66. word-spacing仅对英文及英文字符作用，letter-spacing对英文字母和汉字均起作用
+67.text-indent与letter-spacing可设置为负值，line-height与word-spacing设置为负值时无论多大显示为特定值
+**68. DW中显示的CSS属性与可能取值，也算是CSS参考表；各个浏览器识别的属性与取值
+@69. white-space, vertical-align
+70. 注重em单位的相对性，在可伸缩方面作用很大
+71. 图片应用width和height属性相当于放大或缩小
+72. clip 只对绝对定位的对象有效，对图片剪切；图片加的border也会剪除
+？73. 文本替代方式：sIFR，也可用flash代替
+74. a与a:link区别：a:link表示a有href属性
+**75. 源代码的管理,svn,vss
+76. css属性名称与值之间是否该有空格？
+77. 理论上，我们可以控制源文件上的任意元素的浮动，但由于IE浏览器的BUG，
+	被浮动层需要首先出现在源文件上，也就是说我们把副标题放在版权和认证的前面：
+78. css文件背景图片的路径是相对于css的存放位置而言，若images与css两个文件夹为同一层级
+	则路径应为'../images/pic.jpg'
+	而img标签的src应为"./images/pic.jpg" 即一个点
+	html文件中的路径为"/index.html"加"/"则表示从根目录开始，而且地址路径中不能有中文文件夹
+	名？？？不加表示同一目录下
+79. background-position: x y;图片的左上角是（0，0）坐标
+80. css/html 快速书写
+81. http://www.ux265.net/content.php/?http://www.ibm.com/developerworks/cn/web/1109_zhouxiang_optcss/
+清单 5. Child selector
+				 
+ #toc > li {font-weight: bold} 
+
+按照我们惯常的理解，编译器应该是先查找 id 为“toc”的节点，然后在他的所有直接子节点中查找类型（tag）为“li”的节点，将“font-weight”属性应用到这些节点上。
+但是，不幸的是，恰恰相反，浏览器是“从右往左”来分析 class 的，它的匹配规则是从右向左来进行匹配的。这里，浏览器首先会查找页面上所有的“li”节点，然后再去做进一步的判断：如果它的父节点的 id 为“toc”，则匹配成功。
+由此可知，CSS 选择器的匹配远比我们想象的要慢的多，CSS 的性能问题不容忽视。
+82. CSS参考手册、兼容性、常用模块、id与class命名规则、实例、性能优化 待补充
+83. 尽量使用有意义的html元素，如h1/h2/strong/em/abbr/acronym/code/cite/blockquote/
+	caption/thead/tbody/tfoot
+84. ID与类命名一定要与样式的表现方式无关，还有除非非常确定页面只有这一个元素才用ID
+85. “多类症”，类可以合并
+86. 微格式：特定的方式标记，其他程序或服务可以访问它，如hCalendar,hCard,XFN
+87. 有效性验证有助于找到bug，尽早和经常验证很重要。有很多种，bookmarklet
+88. IE盒模型
+89. 两个按钮之间的默认距离[margin]是多少
+90. PPT中的 1厘米=200/3像素？？？
+91. CSS兼容性列表（持续更新）
+92. 浏览器对各元素的默认属性设置和操作系统主题也有关联？？
+93. radio同一个form中的也可以多选吗？
+94. checkbox与radio的CSS属性有哪些
+95. 内边距在内容周围创建一个隔离带，用以对比内容与背景
+96. 外边距常用来控制元素之间的间隔，边框也可以提供视觉上的分离效果
+97. outline属性（IE7.0及以下版本不支持）：不影响元素的大小和定位，可用于修复bug
+98. 外边距负值的作用：
+99. IE6,IE5盒模型中内边距包含在高度与宽度之中，使得显示出来的元素小于标准盒模型
+100. 外边距叠加：只有普通文档类中块框的垂直外边距才叠加；
+	叠加的情形：包含叠加，空元素自身叠加，空元素之间叠加
+101. IE5.5和IE6 bug：
+	相对于已相对定位的祖先元素绝对定位时，如果相对于祖先元素的右边获底部定位，而祖先元素
+	的尺寸没有设置时，这个元素会错误地相对于画布定位。
+	避免这个问题就要保证祖先元素已经设置了尺寸
+102. 绝对定位一旦确定尺寸便极少更改为好，否则会破坏整个布局
+103. 固定定位：总是相对于窗口固定，IE6以下版本不支持，IE7部分支持，可用js实现
+	snook.ca 在拖动文章时，网站右侧的评论框总是固定，
+	可以边读文章边记笔记，笔记本不动，可导出多种格式
+104. 包含于一个div class=“layout”中的段落p 为什么要写成.layout p {},不可以直接写p？？？
+105. 清理空div：（所有的原理是什么？？？***）
+		底部添加空div（实际经常清理footer）
+		浮动容器：容器尺寸会变为刚好容纳内部元素
+		overflow设置为hidden或auto：原理尚不清楚
+		CSS或JS添加内容：CSS使用:after
+		还有复杂的holly hack
+106. 背景图像定位单位：尽量不要混用，百分比时要注意20%不是图像的边角
+107. 必须熟练的几款软件：Photoshop，Firebug，Dreamweaver，Web Developer，
+	Notepad++，源代码管理，
+108. 弹性和流式布局
+109. Chrome: font:14px/21px;   不起作用
+110. 使用圆角框的地方很多时，可以利用Js添加额外的元素
+111. 山顶角：四个角添加白色的蒙板，以便遮住背景的角落，这样背景可以灵活的换颜色
+112. 在线图形编辑工具：圆角生成（输入宽度、高度、半径、背景色、输出格式、文件夹、命名等等）
+	配色工具
+	弄成一个平台，满足网页设计师高效制作的需求
+113. 深刻理解Web标准，对可用性、可访问性等相关知识有实际的了解和实践经验
+114. "	font-family: Arial, Verdana, sans-serif;"
+	Chrome与ff、ie6显示的字体不一样，似乎ff、ie6调用sans-serif字体
+115. border-radius :使用时可加上前缀-moz、-webkit，但是这个属性是浏览器试用属性，
+	将来有可能取消，所以要慎用
+116.CSS投影好处：只需对CSS文件修改即可添加或去除样式
+117. 投影效果在IE6中实现要添加代码
+118. CSS不透明度：opacity 不仅对背景，对内容也实现透明，这样就可以对图片设置透明度了
+	图片作为背景或者作为内容
+119. CSS属性和html标签属性的排列顺序
+120. 有色盲的人无法区分具有相似亮度或饱和度的某些颜色。
+121. 等待条，等待圈可以用gif动画制作。
+122. PS纹理，比如高级CSSP86的下划线
+123. 避免不必要的回溯操作和应该提供回溯操作时却打开了另一个标签或窗口导致不能回溯
+	回溯：就是后退；
+124. 经常犯的错误：类与ID混淆；属性名拼写错误；标签未关闭；
+125. 矢量图工具，图标工具
+126. 通常链接指向本站某个页面，若是：email，调用聊天，下载文件，RSS提要等应该用标识说明
+127. 标签属性父子元素关系继承问题:比如span元素的字体、颜色、背景等属性可以继承a标签的
+128. 用line-height而不是height控制按钮的高度，因为文本在行框中默认垂直居中，但是要避免
+	文本换行；
+129. #RRGGBB  RR GG BB中最大的值决定颜色的亮度？？wiki下HSL
+130. a:visited 在现代浏览器中只被允许改变文本的颜色，背景设置不起作用，IE6、7下还起作用，
+	这是为了防止js遍历用户的浏览历史
+131. 在IE6中，即是在css文件开头设置了a ｛margin:0;} 遇到带有ID的a时还得在设置一次；
+	上面说法也不对，在 D:\My documents\CSS\CSS Mastery\a_button.html文件中是这样。
+132. W3C规范中规定不能用混合单位（比如border，margin，padding），但是大多数浏览器均支持
+	混合单位，【具体那几个浏览器支持呢？？？？】
+133. 在列表型链接中，若a的display设置为block，则IE6会无缘无故？？？在项目列表上下
+	增加额外的空间，令人费解，可以把给li添加display:inline;解决
+134. 在导航条上突出显示此页面：body ID与a class 组合选择器，如
+	#home #mainnav .home a
+135. ul.nav 与.nav 有什么区别
+136. mainnav 横向导航（链接浮动）怎么水平居中？
+137. 横向导航：锚链接之间分割线可以通过设置li或a边框，或者其背景；
+	设置背景兼容性好，IE6不支持锚之外的hover，此时的锚高度也不可以通过height设置，
+	通过line-height可以控制，但是若这样，且分割线通过a边框设置，边框的高度达不到
+	line-height的值，也即分割线并没有完全分割导航栏
+138. font-family: sans-serif; 在Chrome中不起作用，IE6没问题
+139. 父元素包含浮动子元素的方法：
+	1).在父元素中添加清理元素（此种方法添加了不必要的标记，尽量避免）
+	2).使父元素浮动，并且使用某个元素清理，比如页脚
+	3).overflow: hidden; 技术
+	另外可设置ul的宽度，这样在浏览器最小化时，导航栏不至于换行
+140. 标签页式导航条，利用了滑动门技术
+141.各种选择器的执行效率？？？？
+142. Suckerfish下拉菜单IE6下不兼容
+143. 该开始积累图像图标文件了：按钮，纹理，icon，渐变条，好看的模块等等
+144.题外话：smashingmagazine等外文网站的评论挺口语化的，学英语很好
+145. FF对十六进制颜色代码缩写好像有问题，比如#0aa
+146. notepad通过录制宏，并设置快捷键，可以简化光标移动，可以细细研究；
+	比如可以设置Alt加I/M/J/K为方向键的上下左右
+147. th 的scope rowgroup colgroup
+148. thead,tbody,tfoot可以将表格划分几个逻辑部分，便于设置样式，类似于加class的div，
+	若使用thead或tfoot元素，则至少要用一个tbody元素
+149. 不同浏览器在解析css缩写时如何进行的？？？
+150. 顶右底左四个边框有一种或两种属性不同时可以通过缩写，而不用每条边框分别设置；
+151. 为什么高级CSS里设置这样的数值 	padding: 0.385em 0.692em 0.308em 0.692em;
+152. input type="text" 在Chrome ff ie6中长度也即宽度一样啊
+153. label的for属性可以链接input 这样点击label可使input获得焦点
+154. ??? 如果表单标签可能跨多行，还应该清理容器div。这会避免他们干扰下一组标签
+	和弄乱布局
+155. 实际的网站设计中可能会定义很多id和类，到时写CSS也是个麻烦，不断查看id和类名，
+	有没有好的工具或者方法可以简化？？？
+156. 怎么在网页里创建一个代码预览功能的框框
+**157. 原型图设计：要思考结构和意义，反复出现的元素，不同内容块有什么共同的模式、
+	此阶段应该基本完成元素命名约定、内容区域尺寸、需要用到的颜色编码、交互方式等。
+158. 绘图纸和彩色铅笔，打印机，直尺等工具
+159. 给每一个内容块或结构区域起一个有意义的名字：如登录栏、顶部导航、主菜单、侧菜单、
+	页脚、文章、公告、列表、logo、评论模块等等
+	其实这也和id与class命名相关
+160. 清理方法：clear或溢出方法；溢出清理的原理机制是什么？？
+	overflow: hidden清理方法对IE8不适用
+161. 两列的浮动布局将主体放在侧边栏的前面，有助于屏幕阅读器直接找到主体部分
+162. CSS框架如YUI Grids、960、Blueprint等表现性标记增多，何为表现性标记？？？
+	使用框架会使设计僵化，会使框架决定用户体验，可以使用CSS系统，也即包含
+	全局reset、排版样式和表单处理，以及登录表单、日历表格和导航使用的系统等
+163. 行内元素上下内边距无效，需将display设置成block
+164. CSS度量值：px,em,pt,ex,百分比，rem,vh,vw等等
+165. 弹性或流式布局为了适应不同分辨率和屏幕尺寸
+166. faux列图像在最大尺寸的元素内平铺，通常为容器
+167. 定期整理书签，分类，排序，提炼出有用的资源
+168. column-count定义非默认值auto，将液态分布填满容器，即使此时定义较小column-width
+169. 有些ID或类选择器或标签选择器等前加其他的选择器是为了提高选择器的特殊性，
+	否则该选择器因特殊性较低而不会起作用，即使位置靠后。如：
+	.content p {
+		background-color: blue;
+		}
+	.content .intro {
+		background-color: red;
+		}
+170. IE下的layout专有属性会引发诸多问题，参考“On having layout"
+171. IE条件注释：
+	<!--[if IE]>
+		<link rel="stylesheet" type="text/css" href="/css/ie.css" />
+	<![endif]-->
+	
+	<!--[if IE 6]>
+		<link rel="stylesheet" type="text/css" href="/css/ie6.css" />
+	<![endif]-->
+	
+	<!--[if lt IE 6]>
+		<link rel="stylesheet" type="text/css" href="/css/ie5x.css" />
+	<![endif]-->
+	
+	<!--[if !IE]>
+	
+	<!--[if gte IE 6]> 对IE5.x隐藏样式
+
+172. 尽量避免利用CSS兼容性过滤器或hack？？？？？
+	受控制的方式应用某种hack或过滤器，加注释，将hack或过滤器css隔离
+173. 基于浏览器解析错误的过滤器,又称带通过滤器（band pass filter)
+174. 星号 HTML hack----针对IE6及更低版本，在IE7中已经修复了
+	* html p {
+		width: 1px;
+		}
+175. 子选择器hack：(IE6不支持子选择器，IE7支持，因此可以针对IE6）
+	html>body {
+		background-image: url(bg.png);
+		}
+176. 常见bug及修复：
+	1）双外边距浮动bug：每当对具有水平方向上的外边距元素进行浮动时，应该将
+		display设置inline
+	2）
+177. IE6重复字符bug：
+	当在一系列浮动元素的第一个元素和最后一个元素之间有多个注释时，就会产生这个bug
+	修复方法：通过设置负的外边距从最后一个浮动元素中减去3像素或者使容器扩大3像素，
+	但是最安全的方法是去掉html中的注释
+178. IE6中的“藏猫猫”（peek-a-boo）bug：
+	当一个浮动元素后面跟着一些非浮动元素，然后是一个清理元素时，所有这些元素都包含在一个
+	设置了背景颜色或图像的父元素中时，如果清理元素碰到了浮动元素，那么中间的非浮动元素
+	看起来消失了，只有在刷新页面时才重新出现。
+	
+	解决方法：去掉父元素的背景颜色或图像（通常不实际），给容器指定行高，或将
+	浮动元素和容器元素的position属性设置为relative
+179. 相对容器中的绝对定位：
+	原因在于相对定位的元素没有获取IE/Win的hasLayout属性，可以通过条件注释只为
+	IE6设置较小的高度（比如1%），IE6下元素尺寸将会随内容扩展，此设置不影响内容显示
+180. 分级浏览器支持，不同项目，不同站点分级支持表也不同
+181. 一直没有复习html参考手册，一半不常用的标签都忘记了，一大半也都不熟悉，自己的
+	手册。
+182. block,inline,inline-block:
+	block:块元素，元素前后有换行符，可设置高度和宽度，具有上下外边距；
+	inline:行内元素，元素前后无换行符，不可以设置高度和宽度，不具有上下外边距；
+	inline-block:行内框元素，元素前后无换行符，可设置高度和宽度，具有上下外边距；
+	（IE6与IE7不支持此属性，不过内联元素触发了haslayout属性后，相当于设置了
+	inline-block，
+	参考链接：http://ued.taobao.com/blog/2012/08/inline-block/
+183. 块级元素外边距合并，取较大值：如果两个块级元素是包含关系，相当于父元素具有父子元素
+	中的较大的外边距，ps：子元素此时即使设置了正的外边距，也与父元素边框接触；
+184.为什么要对浮动元素进行清理：就是因为浮动元素对后面的标准流元素布局产生影响，
+	主要是margin，子元素全部浮动后，父元素变成了空元素。
+	是不是要对所有浮动元素都进行清理？？
+185. html/css/js书写效率:
+		可以考虑换软件平台：vim或emacs或者前端专用的aptana,sublime text 2等
+		基于Notepad++的：
+			熟悉快捷键，修改快捷键，录制宏；
+			Zen Coding：熟悉标签、属性、对象等缩写，语法，快捷键等
+186. notepad++中zen coding有时会失效，比如div展开为d<di></di>
+187. 高级CSS――roma实例记录：
+	1) 什么时候用ID？什么时候用类？全部用类不可以吗？两者渲染机制？
+	2) 原型图，看到原型图时第一步做什么？先分析区域，那些类似，整个布局等
+	3) 区域的尺寸由margin,padding,width,height控制，那如何确定具体数值呢？
+	4) 还是配色，颜色值怎么确定呢？
+188.Keep in mind that padding adds to the total width of your element. 
+189. 网页选中某区域文本时，其背景色怎么设置？
+190.  when center-aligning inline elements that you must add display: block.
+191. To horizontally align non-textual elements, use the margin property.
+192. To center-align an image:
+	img.center {
+		margin: 0 auto;
+		display: block; /*--Since IMG is an inline element--*/
+		}
+193. http://coding.smashingmagazine.com/2009/10/05/mastering-css-coding-getting-started/
+	网页中的示意图是用什么做的？
+194. 浏览器后退之后，怎么仍然定位到你已经看到的位置？
+195. 水平居中：文本类用text-align，非文本类用margin: 0 auto；
+	垂直居中：文本类用vertical-align或者line-height=height，非文本类用position加负的
+			margin（被居中元素尺寸一半）
+	ps：非文本类居中需要指定元素的具体尺寸
+196. Relative positioning is also commonly used to define the new point of origin 
+	(the x and y coordinates) of absolutely positioned nested elements. 
+197. 似乎所有的知识点只有用过才能掌握
+198. 西方网站设计流行背景图片，怎么实现弹性布局
+199. 图像<img>是行框，即display属性值为inline
+200. notepad++ zen coding在写CSS文件时前面有一句font-family包含中文字体，
+    后面的缩写就不能展开了，无效了
+201. col/colgroup各浏览器支持程度：Chrome似乎不支持text-align
+202. notepad++ zencoding 竟然有border-length，有这个属性吗？搜不到
+    bdrs重复了border-right-style和border-radius,后者修改成bdrds
+    q:ru q:en显示错误
+203. ul中的li浮动，也即横向导航条，怎么使得ul里的内容水平居中？？
+    ul浮动包裹li（其宽度为所有li之和）
+    ul相对于父元素绝对定位 left: 50%;
+    li相对于ul绝对定位 right: -50%;
+    
+204. a 与 a:link 写法区别
+205. 导航栏：水平导航，垂直导航，Tab导航
+        水平导航：导航栏整体水平居中，二级导航/下拉菜单，跨浏览器支持，
+        样式：三种状态(link,hover,active)，导航栏背景渐变，项目分割线，
+            导航栏配色原则，弹性布局，html5与css3，
+206. 只用键盘操作怎么显示二级下拉菜单？？？
+207. 代码高亮插件：怎么实现斑马条纹，行距设置，代码复制功能
+208. 利用相对定位和负外边距水平居中div，但是在ie6下负的外边距似乎无效
+209. A good font stack:'Generic font', 'Next best thing','Something common and 
+    sorta close', 'Similar Web-safe', 'Generic font'.
+210. IE6使用左外边距控制列表的缩进，Chrome,ff,ie8用左内边距控制，这影响项目符号
+    的背景设置，因此可以将列表内外边距重置为零，再选择设置左内边距或左外边距控制
+    ，以便统一效果。不过一般不用默认项目符号，采用列表项左内边距加背景图像方法。
+211. CSS测试工具集：通过选择菜单定制测试内容，显示一个h1或p或div,设置其内外边距，
+    浮动属性等，设置其字体等等
+    有各种尺寸的图片，有大片的文本可供插入，有列表共插入，有背景图像等
+    可以直接编辑代码
+    多种语言版本，至少有中英文两种
+    可以保存测试用例
+212. 哪些元素默认有margin
+213. Web Developer不能直接在页面上显示所有元素对应的颜色值，hover也不直接display
+214. 若值为若干单词，则要给值加引号？经实验不加也起作用
+215. #sidebar 可能会被老版本的Windows/IE 忽略，可以指定所作用的元素，如 div#sidebar
+216. IE7及更高版本在声明了DOCTYPE的情况下支持属性浏览器，IE6不支持
+217. 所有背景属性都不能继承，在向textareas/select等元素应用背景时，可能有些浏览器不支持
+218. text-indent无法应用于行内元素或图像
+219. 请用text-transform 控制文本字母的大小写
+210. text-decoration: underline overline; 可以这样写，但是对同一元素应用两条
+    text-decoration属性并不会叠加
+211. IE7及更早版本不支持 white-space: pre;
+212. 5种通用字体系列：Serif, Sans-serif, Monospace, Cursive, Fantasy
+213. font-variant: small-caps 设置小型大写字母
+214. 在body中以百分比定义字体大小，其余用em表示，可允许在所有浏览器缩放文本
+215. caption-side: top/bottom; 若规定!DOCTYPE 则IE8及更高版本支持此属性
+216. table-layout: automatic/fixed; 设置自动表格布局或固定表格布局
+217. IE6 IE5.X怪异模式中的盒模型，高度与宽度决定，怎么兼容这个问题？？？
+218. 网站header部分：
+    顶部距离浏览器显示窗口上边界有一定距离，可以用#header or .wrapper 的padding-top控制
+    logo一般用图像替换技术(text-indent)，logo可点击故是一个链接，再用h1包裹住
+    logo左浮动，其他如搜索框、顶部导航等用div包裹，向右浮动
+219. 搜索框：要与网站主体设计相匹配，但又要有所突出，
+    最简单有一个文本框和提交按钮组成，按钮要有按钮的样式，
+    搜索框一定要精简，高级搜索毕竟复杂，不能设为默认
+    尺寸设置，可以显示的设置form/div/input/button的高度和宽度
+220. 知乎不支持 IE6，搜索输入框在IE6中不能输入
+221. button的默认padding：1px 6px (chrome); 0px 6px (ff); 1px 8px(IE8)
+    reset.css中padding:0; 可以用padding、line-height和height控制总显示高度
+222. h1~h6 的在IE8，FF，Chrome默认尺寸：32px 24px 19px 16px 13px 11px
+    注：Chrome 中最小显示为12px
+        通过 body 标签设置的像素值尺寸比如12px，则h1~h6继承的是 12px/16px 缩放因子
+223. 如果某元素有多个类，且多个类设置了同一样式属性，则后者覆盖前者
+224. span文本 鼠标双击会选中，怎么防止双击时选中？？？
+225. span之类的行框不能显式设置高度和宽度
+226. 两个span:A与B，设置向右浮动时，处于html结构前面的span在右边
+227. 网站换肤功能：关键<li>的id与皮肤css文件名相同，那些是要变色的设好类名
+    类似有不同模板，如QQ空间换肤功能，新浪博客的不同布局等
+    Q1：QQ空间换肤功能也是和简单的网站换肤功能原理一样吗？
+    Q2：QQ空间皮肤会有很多图片吧，怎么管理的？
+    Q3：假如有1000张图片：一是放在一个文件夹中，即一层目录；二是按主题建立文件夹放，比如
+        有10个文件夹，那么这两种方案的区别是什么？
+228. <li>元素包含<img>时，行高也会对<li>元素的高度产生影响，从而在图片底部产生空白行，
+    最好设置：line-height:1; 另，font-size: 0; 此时由于line-height默认normal,应该是
+    大约1.2的缩放因子，计算后还是0；
+    line-height默认值大约1.1-1.2，不同浏览器，不同字体大小也不一样；？？？
+229. 绝对定位元素里面的子元素都浮动，该容器元素好像不会发生高度塌陷？？？
+230.span与a均设置display:inline-block;span为空,a不为空,无法通过设置高度，内边距使两者
+    底边对齐，要设置vertical-align:bottom;才行；
+231. Chrome中div里面的几个span设置display:inline-block;后，若标签span换行，则换行符会
+        使得span之间有间隔，可以设置div的font-size:0;解决
+232. text-align应用于包含元素，vertical-align应用于本身
+233. 默认情况下，即使显式设置表格单元格宽度，其宽度也会随内容而变化
+234.TinyMCE超链接advlink文件夹下link.htm和css文件后缓存在Chrome中，导致编辑文件后
+    浏览器没有反应，开发者工具查看link.htm和css文件还是修改前状态
+235. label标签与input/img等标签不在一行时，之间的空白会被浏览器解析出来，大概
+    相当于一个空格宽度
+236. VirtualBox XP的IE7、8：颜色亮度>=#959595时，选区背景色无，文本反而变成蓝色
+237. VirtualBox虚拟机CPU、内存均够，但打开网页超慢，难道是显卡性能不足？
+238. dotted outline or dotted line around links
+    IE6链接虚线框：给<a>添加hideFocus="true"属性即可
+    FF 设置 a:active { outline: none  }
+239. IE6 negative margin clipping issue:
+        IE6中设置负margin会剪切掉负的部分，可以通过一下方法解决
+        需要设置负外边距的元素加入：position: relative;
+240. 使用滤镜filter来设置下拉菜单子菜单链接的背景为半透明，会使mouseout移出子菜单
+        的父元素（li）时触发
+241. Internet Explorer 7 chokes when positioning elements that have MS filters 
+    applied. I’ve noticed this is certainly the case when dealing with drop-down
+    or fly-out menus. If your drop-down or fly-out menu uses a gradient and
+    seems to be z-indexed improperly (maybe it appears to be positioned behind
+    another element), then try adding this to your CSS:
+242. 相同颜色值的字体，在IE6中显示亮度高些，因此看起来偏白，可以单独设置
+243. ie6 div>img 若img尺寸大于div设置的尺寸会溢出，应该给div添加overflow: hidden
+244. img默认为inline-block，在reset.css中设置为display: block
+    在IE6中 ul>li*3>a>img 会使图片之间有1px空白间隙，即使设置了li的字体大小为0
+245. multi-column: 
+		Supported: IE10+, Ch/SF/Op加-webkit-，FF加-moz
+246. repeating-gradient: iOS5+, Android4+, IE10+, Op18+
+247. CSS3 Colors: rgb(), hsl(), rgba(), hsla()
+		Supported: IE9+及其他PC+Mobile浏览器，没有前缀
+248. 3D Transforms:
+		Supported: IE10+(partial)及其他浏览器，Android3.0+
+249. CSS3 Background-image options: background-clip, background-option, background-size
+		Supported: IE9+, (partial) SF6/7, iOS4+, Android2.1+
+250. CSS3 Selectors: :nth-child(), :last-child, :first-of-type, etc.
+		Supported: IE9+, Other Browsers
+251. rem(root em) units:  Relative to html font-size
+		Supported: IE9+, Other Browsers
+252. CSS3 text-overflow:
+		Supported: IE8+, Other Browsers
+253. ::selection pseudo-element
+		Supported: IE9+, FF(-moz-),Ch, Op, SF7.0, Android4.4
+		Notes:
+			 1) Don't write the selectors like the below. Otherwise all browsers
+				can't recognise it.
+				::-moz-selection,
+				::selection {
+				}
+				The correct:
+				::-moz-selection {
+				}
+				::selection {
+				}
+			2) Ch31- doesn't support input elements
+254. CSS user-select: none;
+		Supported: IE10+ And Other Browsers, all must add prefix
+255. CSS Selector Optimization:
+		浏览器从右至左匹配选择器，因此最右的选择器应尽量具体化，尽快定位到元素
+		最右选择器尽量不要用通用的，如：*, :first-child, :nth-child(), [href]
+		组合选择器：div a，要比div > a性能低
+		但是对于普通的网站，简单的页面，优化CSS的性价比很低
+256. background-clip: Android2.1-2.3需要加前缀，其他浏览器不必加
+		background-origin, background-size同理
+266. type="text/css"在html5中已经没必要添加，即使在IE6中也可以
+267. 打印链接的href属性值，设置下面CSS即可
+	@media print {
+		a[href]:after {
+			content: " [" attr(href) "]";
+		}
+	}
+	Note: 对于IE6/7不支持，可以使用IE的专有事件onbeforeprint
+268. 没有设置viewport时，默认的viewport(css)：
+	UC/Chrome for Android: 有个最小宽度980px，若文档宽度大于980px，
+		则宽度为文档实际宽度
+	Safari/Chrome for iPad mini: 宽度始终为980px
+269. img元素：未设置其高度时，offsetHeight与getComputedStyle(img)['height']分别返回 0 和 0px
+270. media="only screen and (max-device-width: 320px)"
+		加"only"前缀将会被不兼容CSS3的的浏览器忽略
+271. box-shadow的blur-radius越大，scroll/resize/redraw的性能越低，可以使用偏移量来
+	替代，这是webkit的一个bug
+272. DNS Prefetching：
+		On/Off：服务器端设置，浏览器端设置，http header，http-equiv，link:rel
+		作用：能预解析域名，从而降低域名解析时间带来的影响，通常预解析图片、样式表等
+		静态文件的域名，另外Firefox, Chrome与IE9+会自动检查页面的链接，然后通过
+		js注入的内容，如广告代码、统计代码等，需要手动加入
+		预解析是与页面加载并行进行的，但是不是增加了request了吗？
+273. 外部样式表的加载会阻塞脚本执行
+274. :active作用于<a>上时，设置背景色，在Android Chrome起作用
+	在Android (4.0.3) Browser或UC中不起作用
+	作用于div标签时不起作用
+	而-webkit-tap-highlight-color在Android Chrome上表现与期望一样，但在UC中，会
+	使背景色变为淡色，边框似乎与设置的颜色一样，而在Android (4.0.3) Browser中不起作用
+275. 任何3D transform均会触发硬件加速，即使实际是2d变换，甚至没有变换的
+	translate3d(0,0,0)也会，至少在safari中会
+	3d变换函数：translate3d(), scale3d(), rotate3d()
+276. pointer-events: none;使元素不能成为mouse events的target，对hover/
+	click无反应，该元素下面的元素会成为mouse events的target。但若其
+	子元素设置为auto，则click/hover事件可以冒泡从而触发改元素的click
+	或hover事件，也可通过捕获触发
+	Support: IE11及其他
+277. 滚动文档时时，给document.body添加pointer-events: none;可以避免
+	鼠标触发hover效果，从而提高帧率
+278. 条件注释：适用于IE5-9
+	针对IE9+及其他现代浏览器写发如下：
+	<!--[if gt IE 8]<!-->
+	script, link or others
+	<!--<![endif]-->
+279. data:url image 用单色可以减少大小，下载的图片最好通过透明度、亮度
+	色相等调整颜色，而不应该用PS的选区填充颜色
+280. 添加 img { max-width: 100%; }可以保证图像宽度不超过容器宽度，
+	对于IE6/7需要添加 width: 100%;
+	对于Retina images：需要限制容器的最大宽度
+281. 浏览器会预加载源码中的图片，在执行CSS或JS之前，不一定，要注意
+	CSS或JS的阻塞行为
+282. column-span在FF28中不起作用
+	column-fill在Chrome34，SF5.1/Win, Opera20中不起作用，效果默认为auto
+283. user-scalabe=no在微信安卓5.2版中不起作用，得用
+	minimum-scale=1.0, maximum-scale=1.0
+284. 可以建一个网站，以浏览器bug或特性测试为主，可以作为quirksmode和
+	caniuse的补充
+285. input:file
+	UC9.5安卓版：被定制了，有三个横排的按钮：拍照、图片和文件。
+		拍照、图片和文件的程序都是定制的
+	其他浏览器没有被定制，通常是弹出一个选择列表，有拍照和图片浏览应用，
+	QQ浏览器定制了图片浏览应用，Opera在拍照时可能会失败，难道是File API？
+	微信中没有拍照，照片浏览应用有很多，但不是都起作用
+286. hr在Firefox(28)里默认盒模型为border-box，而其他浏览器为content-box，
+	这样在设置宽度或高度时Firefox要减去边框和内边距的尺寸，应该像
+	normalize.css中设置统一，且要加上height: 0;
+287. <meta name="apple-mobile-web-app-capable" content="yes">
+	网页是否以全屏模式显示，适用iOS2.1+
+	注意全屏模式不是指浏览器中，而是保存书签图标到桌面上，然后启动桌面图标
+	会以类似原生app全屏显示
+288. <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	在全屏模式下有效，即先设置上面一行，content有三个可选值，适用iOS2.1+
+	default(默认)：status bar正常显示，在内容上方
+	black: 黑色背景，在内容上方
+	black-translucent: 半透明黑色背景，内容占据整个屏幕
+289. <meta name="format-detection" content="telephone=no">
+	<meta name="format-detection" content="address=no">
+	禁止自动探测电话号码和地址，适用iOS1.0+
+290. <meta name="apple-touch-fullscreen" content="yes">
+	也是让内容全屏显示的
+291. 不支持JS的浏览器跳转到非JS版本
+	<noscript><meta http-equiv="refresh" content="0; URL=http://s.domain.com/"></noscript>
+291. <link rel="apple-touch-startup-image" href="/startup.png">
+	设置桌面启动图标
+292.// hide the address bar 
+	setTimeout(function(){ window.scrollTo(0, 1); }, 100);
+293. 360浏览器可以通过meta标签来控制内核切换
+	<meta name="renderer" content="webkit|ie-comp|ie-stand">
+294. meta X-UA-Compatible应该紧接在head开始标签后面
+295. 立即执行的函数，若无闭包，执行完成之后会从内存中销毁
+296. 每当函数调用时，就会创建一个执行环境及相应的作用域链，然后初始化活动对象
+	其包含this、arguments、本地变量，以及参数变量，注意内部函数里永远不可以
+	访问外部函数的this和arguments对象，这两个变量在函数调用时自动获取，所以
+	只会搜索到本地函数的活动对象为止
+297. 命名函数表达式，即创建一个函数表达式，再赋值给一个变量，
+	var factorial = (function f(num) {
+		if (num <= 1) {
+			return 1;
+		} else {
+			return num * f(num-1);
+		}
+	});
+	注意函数表达式与函数声明不同，外面包了一层括号
+	function (){
+	}(); // 这种写法错误，以function关键字开头必须包含函数的名字
+	应该用括号包住函数声明，变成函数表达式
+	(function() {
+	})();
+298. jeans-corp在IE6里面调试时，主页全尺寸背景图片总是比窗口小，
+	本地测试良好，所有代码都一样，以前是好的，最后经过右击保存
+	背景图片发现尺寸为961，小于上传的1900，原来是响应式图片的
+	adaptive-images.php里面设置的参数问题，最大宽度为961，修改即可
+	以后减少怀疑IE6的诡异bug，所有代码都一样，结果还是不同，那就应该
+	是其他代码的问题了
+299. 谁帮我看下这个页面里，当我快速上下滚动页面（用鼠标滚轮）时，最上面的position:fixed的部分会上下跳动，在Chrome/XP里出现这个现象，其他浏览器正常
+	http://www.xiaocaoge.com/demo/jd/jd-product-show.html
+	解决方法：
+	在html或body里面加上
+	background-image: url(about:blank);
+	background-attachment: fixed;
+300. :empty伪类表示无子节点的元素，空格属于文本节点，但是默认情况下，只含有
+	空格的元素高度为0，因为空格不会显示出来，除非设置white-space，但只要
+	源码还有空格就表示一个文本节点
+301. :invalid伪类：手机端不支持
+	input:radio，若一组，即相同name，全部有required属性，而没有一个被
+		选中时，所有的radio都会应用:invalid伪类，一旦一个被选中则全部没有
+		:invalid伪类
+	select:默认状态时第一个被选中，此时Chrome34仍会应用:invalid，一旦选中
+	一个非默认的则不在应用:invalid；但是对于FF28始终会应用:invalid，而且
+	还会应用:-moz-ui-invalid的默认box-shadow效果
+302. :root伪类表示html，不能 h1:root 这样使用，应单独使用，其特殊性比
+	html要高
+303. :not()伪类不会增加特殊性，其特殊性是其参数的特殊性，其参数不可以包含
+	另一个:not()或其他伪元素
+304. CSS3中的伪元素有两个冒号，伪元素只对有维度的元素有效，比如display:block
+	而对display:inline的不可设置width/height的元素无效
+305. 隐藏option，在Chrome、Firefox可以，但是要隐藏的不能有checked属性，
+	而IE6里面测试无法隐藏
+306. h1 的 marginTop 默认值与 font-size 有关，大约是其 0.67 倍

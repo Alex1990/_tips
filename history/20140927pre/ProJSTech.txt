@@ -1,0 +1,112 @@
+/*
+ * Name: Pro JavaScript book notes
+ * Create Date: 2013-5-17
+ * Author: Alex Chao
+ */
+
+// Chapter01
+1. 结合构造函数与原型的对象制造模式：属性用构造函数，方法用原型
+2. 代码测试平台：Firebug, Chrome Web developer Tools
+3. 多个库引用：使用命名空间防止冲突
+4. Ajax应用：Google Suggest, Google Maps and so on.
+5. 分离式代码：unobstrusive
+6. 浏览器分级：grade browser
+
+// Chapter02
+7. 将接受的参数转换为数组的函数
+8. 用一个变量类型列表检测一组变量的函数
+9. 作用域-scope：全局作用域与块级作用域
+*10. 闭包-closure：闭包的功能、应用、易错点等
+    ref: http://jibbering.com/faq/faq_notes/closures.html
+11. 上下文对象-this
+*12. 利用原型添加的方法中的上下文，也就是this指向实例化的对象
+    eg: User.prototype.getAge = function(){
+            return this.age;
+        }
+*13. Private method: 构造函数内部定义的函数，只能被构造函数调用，实例无法调用
+    更多参考：Private Members in JavaScript一文，以及Crockford更多博文
+*14 Privilege method: 也称特权方法，只能通过给定的函数来访问或设置对象的私有属性
+    eg: 动态生成代码
+    function User( properties ){
+        for ( var i in properties ) { 
+            (function(obj){
+                var p = i;
+                obj[ "get" + p ] = function(){
+                    return properties[p];
+                };
+                obj[ "set" + p ] = function(val){
+                    properties[p] = val;
+                };
+            })(this);
+        }
+    }
+*15 静态方法：只属于主对象，可保证对象的命名空间整洁，仅为组织代码而用
+    eg:
+        User.cloneUser = function( user ){
+            return new User(
+                user.getName(),
+                user.getAge()
+            );
+        };
+16. 编写专业JavaScript的方法之一是：快速、静态地提供与其他代码的接口，同时保证自身的
+    可理解性。
+
+// Chapter04
+17. 调试：控制台、DOM查看器、源代码等工具
+    调试工具：各浏览器自带开发者工具（Chrome，Opera很好，FF集成的Firebug有不错）
+            IE Web Developer Tools, venkman
+*18. 测试：单元测试，工具有JsUnit、J3Unit、Test.Simple/Test.More
+
+// Chapter05
+19. 遍历：自己写遍历元素节点树的相关函数，如prev()/next()/first()/last()/parent(num)
+*20. 链式操作：把函数写到HTMLElement.prototype上，这样元素可以直接调用方法，
+        要注意的是节点变量通过 this 传递
+        ps：要兼容IE需要专门的代码，以便访问HTMLElement对象
+*21. 如果加载远程XML文档，使用getElementById()默认不会使用id属性
+*22. getElementsByTagName返回一个NodeList对象数组，与常规数组不同之处在于：
+        不支持.push(), .pop(), .shift()等数组方法
+*23. getElementById与getElementsByTagName的封装:id(name)好tag(name, elem)
+*24. 等待HTML DOM加载：三种判断方法
+        window.onload
+        引入js的script标签放</body>前
+        检测一些函数和元素：document,document.body,getElementById,getElementsByTagName
+*25. cssQuery & XPath
+26. 获取或设置元素的特性值
+27. 获取或设置元素的文本值
+*28. 创建、插入、删除DOM节点
+
+// Chapter06
+*30. 线程？
+31. 禁止换行符：return e.keyCode != 13;
+*32. 事件代码中 this 的作用
+*33. 组织默认事件：在文本域中防止敲击和<iframe>内的行为等情况下可能发生问题
+*34. 绑定事件处理函数：
+        传统方法：仅支持冒泡阶段，绑定多个函数麻烦
+        W3C标准方法：IE不支持
+        IE方法：仅支持冒泡阶段
+                this 指向window对象
+                事件以 ontype 形式命名
+*35. addEvent和removeEvent：Dean Edwards的函数最强大
+*36. 分离式Javascript编程
+        禁止在HTML代码中绑定事件
+        禁用JavaScript情形下，链接能导航正确位置，表单能提交
+        ？不用链接来处理删除、编辑或修改用户数据，用表单处理
+        考虑禁用CSS的情形
+        键盘用户：同时编写悬停事件与获得焦点事件，鼠标离开事件与失去焦点事件
+                的处理函数
+
+// Chapter07
+*37. 动画三要素：位置、尺寸、可见性
+38. 动画效果类库：domdrag.js, moo.fx, scriptaculous.js
+
+// Chapter08
+*38. 规则集合对象
+*39. 验证时机：提交表单时，表单字段值改变时，有新的输入时，加载时
+40. 提示信息：用JS生成合理，因为错误信息与验证是一起的，而且禁用JS和CSS时不显示
+
+// Chapter09
+41. 图库：LightBox, ThickBox
+42. 分离式脚本编程：
+        禁用JS时，也可以正确浏览图片，用<a>跳转到图片地址
+        利用JS注入HTML
+

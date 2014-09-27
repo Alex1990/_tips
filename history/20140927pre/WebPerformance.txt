@@ -1,0 +1,45 @@
+/*
+ * 高性能网站建设进阶指南
+ * Performance Best Practices for Web Developers Even Faster Web Sites
+ */
+
+// Chapter01
+1. 权衡(Trade-offs)：时间、质量与成本之间的权衡
+2. 开发人员的高配置环境会掩盖性能问题，额外配置低网速、低配置电脑测试
+3. 通常情况下性能瓶颈不是JavaScript而是DOM，要把功夫花在刀刃上
+4. 善加利用Ajax技术能极大改善响应时间，比如下拉显示
+// Chapter02
+5. 响应时间三个关键时间点：
+        0.1秒：用户直接操作UI中对象的感觉极限
+        1秒：操作无需过度等待的极限，超过1秒应该给出忙提示，如光标变化
+        10秒：需要百分比进度指示器
+6. Jakob Nielson是Web可用性知名专家
+7. 性能分析工具：分析每个函数执行时间百分比，找出优化关键点
+8. Web Workers可实现后台进程，支持：IE10, Chrome, Firefox, Safari, Opera
+9. 定时器：拆分长时间运算，传统的方法
+10. 垃圾回收：垃圾回收时会冻结UI，当需要回收的垃圾很多时，会出现用户感觉到的停滞
+11. 虚拟内存中的进程运行很慢，硬盘读写速度慢于内存太多
+12. delete删除不再需要的对象，移出DOM树上不必要的节点
+// Chapter03
+13. doloto代码拆分工具，根据页面加载时是否调用来拆分，哪里下载啊
+// Chapter04
+14. 现代浏览器可以并行加载脚本，但是还得等脚本执行完成后才能下载其他资源，也就是说
+    脚本下载阶段会阻塞其他资源
+15. 几种避免阻塞导致的减速影响的技术
+        内嵌脚本：少量和首页时才应用
+        XHR Eval: 异步获取脚本后通过eval()执行
+        XHR Injection：异步获取脚本后注入<script>标签之间
+        Script in Iframe：
+                <iframe src="a.html" frameborder="0"></iframe>
+                a.html里用<script>标签包裹脚本
+        Script DOM Element：用js动态创建<script>标签并修改src，此种方法允许跨域
+        Script Defer：<script defer src='a.js'></script>，但只有IE支持
+        document.write Script Tag：只在IE中有用
+16. 忙指示器：状态栏、进度条、标签页图标、光标、阻塞渲染、阻塞onload
+        忙指示器是否触发与所使用的技术和浏览器有关，通常SCRIPT SRC加载脚本会触发
+        所有指示器
+17. 当多个脚本间无关联时，最好先执行下载完的，XHR Eval和XHR Injection可以实现
+18. 根据各种技术是否支持跨域、是否并行下载、是否并行执行、忙指示器触发等来选择
+    合适的技术，可以在后台实现自动选择最合适的技术
+// Chaper05
+19. 

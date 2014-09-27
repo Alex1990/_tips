@@ -1,0 +1,963 @@
+1.兼容不支持js的浏览器：
+    <!--
+    document.write("Hello World!");
+    //-->
+    注释行末尾的两个正斜杠是js的注释符，会阻止对此行的编译
+    浏览器如何执行html与js的？？？？
+2.head中js调用前载入，可以页面加载时调用
+    body中js页面载入时执行
+3.外部调用js：
+    <script src="../js/external.js">
+    </script>
+4.js语句中的分号结尾是可选的，到底该不该保留这个习惯呢？？？
+    可能为了满足c，java程序员门的习惯吧
+5.Javascript变量名称的规则：大小写敏感；以字母或下划线开始；
+6. 以下语句效果相同：
+    var x; x=5;
+    var x=5;
+    x=5;
+7. 赋值运算符：+=，-=，*=，/=, %=
+    x+=y 相当于x=x+y;
+8. +连接符，把数字与字符串相加，结果将成为字符串
+9. The entire function ends with a semi-colon
+10. Don't Repeat Yourself(D.R.Y) principle
+11. 石头剪刀布 rock,paper,scissors game
+12. 为什么在codecademy运行：var a=prompt("sentence"); Chrome 会崩溃？？？
+13. i<=10与i<11 执行的效率区别？
+14. html与js文件中的js句末有分号与无分号的区别？？
+15. for...in 遍历对象的属性
+16. 题外：计算机编程的难点：指针和递归,函数式编程，不动点，Scheme编程语言
+17. for...in遍历对象的属性，嵌套对象
+18. 淘宝商城性能：导航栏一般不变，用cookies或者浏览器缓存存起来，可定期清理，
+    这样每次打开首页时速度加快很多
+19. 学完三基础后拿实际的主流网站练习
+20. 对象有方法（就是函数），可以定义对象函数，专门用来创建对象
+21. 可以用变量替代对象的属性名，定义方法为：
+    var variables = “propertyname”；
+    这样与字符串赋值给变量有什么区别？？
+22. for in loop 遍历对象的属性，就是要console.log全部的属性值 不能用Object.variable
+    而是把它赋值给一个变量；或者用Object[variable]
+23. 函数的作用，方便调用，可以多次使用
+24. 事件通常与函数配合使用，当事件发生时函数才会执行
+25. alert写成addlert Chrome还是能自动纠正 好像无论拼写成什么
+26. 类似于indexOf()和match()这些方法，可以自己写出来
+27. 拼写错误导致未能正常执行显示
+28. myDate.setFullYear(2012,11,21) 表示的12月份，即表月份的参数用0到11表示
+29. 单词字符包括：a-z、A-Z、0-9,以及下划线
+30. 函数名的命名规则，好像包括数字时有问题？？？
+    {用num1有问题，用num和num_1均没问题）还是不能同标签的Id或Name名重复
+    函数名用clear也有问题？？？
+    变量名的命名规则（匈牙利命名法）
+31. 注意“=”是赋值符号，“===“才是等于符号
+32. 拼写错误导致的无法执行
+33. \w 元字符用于查找单词字符
+    单词字符：a-z、A-Z、0-9,以及下划线_
+34. \s 空白字符：空格符，制表符，回车符，换行符，垂直换行符，换页符
+35. Unicode字符集、字符格式（UTF-8、UTF-16）、字符转换器
+36. \uxxxx 查找以十六进制数xxxx规定的Unicode字符
+37. RegExp 构造函数
+38. RegExpObject 得exec()方法功能强大，规则复杂点
+39. onunload Chrome中未执行，IE可以？？？
+40. event.clientX and event.clientY 好像边缘几像素不会发生？？？
+41. 事件调用函数时参数设置问题：如onmousedown="isKeyPressed(event)" event可以用其他名字吗
+42. dom2中的事件传播，起泡事件bubbles
+43. formObject action属性 method属性
+44. form对象的reset方法和onreset属性的区别
+45. 一条var语句可以定义多个变量：
+    var test = "hi", age = 25;
+46. 著名的变量命名规则：
+    Camel标记法：首字母是小写的，接下来的字母都以大写字符开头，
+    Pascal标记法首字母是大洗牌，接下来的字母都以大写字符开头，
+    匈牙利类型标记法：在Pascal标记法基础上前面加一个小写字母表示变量要存储的数据类型
+47. ECMAScript变量声明不是必须的，但还是使用前声明所有变量习惯好
+48. 编写计算器时，每个按钮都调用相同的事件函数，不可以批量吗
+49. 对象：方法与属性 便可以包含万物？ 都可以通过字符、语法来描述 
+    红色 可以看作一个词组，两个字，甚至小的图片，属性值，。。。
+50. JavaScript的同源策略
+51. document.cookie 该属性的行为与普通的读/写属性是不同的
+52. 一般情况下，该属性的值与包含文档的 Window 的 location.href 属性相同。
+   不过，在 URL 重定向发生的时候，这个 URL 属性保存了文档的实际 URL，而 
+   location.href 保存了请求的 URL。
+53. HTTP引用头部
+54. tabIndex在整页当中是如何使用的
+55. Anchor对象的rel与rev属性可采用值的列表
+56. area对象的search 查询字符串是什么意思
+57. 重置按钮在重置之前触发onclick句柄，并且这个句柄可以通过返回false来取消
+58. 具有良好的代码风格、接口设计与程序架构???
+59. 注意，会用jquery很简单，可是你会返回去研究js原生代码么，插件写过么？
+    会用几个效果就说自己会jquery的，我要怎么跟你们说呢，学习框架，是学习实现
+    思想，如果你只是知道API用法，那么基本上还是停留在表面吧
+60. 在正式的网站上，js、css代码会将回车与空格等不必要的字符去掉，以便缩小文件体积
+61. 视差滚动效果
+62. 与其把<script>标签放到<head>之间，不如放到HTML文档的最后，</body>标签之前，这样
+    可以更快地加载页面
+63. <script>标签的type属性默认为"text/javascript"，所以不加也可以
+64. 最有效率的声明方法：一条语句声明并赋值多个变量，如：
+    var mood="happy", age=33;
+65. 通常驼峰格式(camel case)是函数名、方法名何对象属性名命名的首选格式
+    函数名用驼峰格式，变量名用下划线隔开，这样容易看出哪些是变量，哪些是函数名
+66. 反斜杠转义,比如给字符串赋值时，若字符串包含单引号以及双引号，可以通过\',\"转义
+67. 用单引号或双引号均可以包住字符串，但应该在整站中保持一致，也要养成一致的编程风格
+68. 在JavaScript中，所有的变量实际上都是某种类型的对象
+69. 花括号、注释符号、缩进等都可以提高代码的可读性
+70. 严格相等“===”，严格不相等“！==”
+71. 定义函数是，要把内部变量全都明确地声明为局部变量（即用var声明），这样可以避免
+    二义性隐患
+72.    HTML5 DOM 中增加了getElementsByClassName
+73. 一份文档就是一个节点树，每个节点都是一个对象
+74. 节点类型：元素节点、属性节点、文本节点
+75. 注意getElementById拼写中间是Element;
+    而getElementsByTagName、getElementsByName、getElementsByClassName是Elements,复数
+76. noteType属性值有12种，但只有下面三种有用：
+    元素节点：1；属性节点：2；文本节点：3；
+77. DOMScripting 最佳实践：
+    平稳退化：没有Javascript的情况下也能正常工作，内容能正常访问；
+    分离Javascript：结构内容与行为分离；在更改html的标签、内容后，不会影响的行为，
+        比如，不能依赖某个“钩子”，因此函数使用“钩子”前检查是否存在这个“钩子”
+    向后兼容性：老版本浏览器不会因为Javascript而死掉；
+    性能考虑：执行效率优化；
+78. 性能优化方法：
+    尽量减少访问DOM和尽量减少标记，为了缩减遍历DOM树的次数和一次时间；
+    合并和放置脚本：放在</body>标签之前；
+    压缩脚本：工具有JSMin,YUI Compressor, Closure Compiler
+79. 变量的作用：被赋予值，以便重用
+80. h1,h2,...,p的nodeValue为Null，其第一个子节点元素即firstChild才为文本内容
+81. 代码错误：漏写圆括号
+82. 虽然可以通过 nodeObject.onkeypress = nodeObject.onclick; 将onclick事件的功能
+    赋给 onkeypress 但是还是少用 onkeypress，因为很多按键，甚至Tab键都可能触发
+    onkeypress 事件
+83. document.write违背了“行为与表现分离”的原则
+    而且与MIME类型application/xhtml+xml不兼容
+84. innerHTML是HTML的专有属性，不能用于其他标记语言，如正宗的xhtml
+85. 每天学习三个小时w3school上的js基础知识，十天学完，但是忘得也很快，学得不深入，
+    不会留下深刻的印象
+86. 新学的函数：
+    document.getElementById("id");
+    document.getElementsByTagName("tagName");
+    document.getElementsByClassName("className");//HTML5,但可以自己写出来
+    object.NodeType(node);
+    object.NodeName(node);//返回标签也即节点的大写名称
+    object.NodeValue(node);
+    object.getAttribute("attribute");
+    object.setAttribute("attribute", value);
+    addLoadEvent,insertAfter加入脚本库中；
+    document.createElement(element);
+    document.createTextNode(text);
+    parent.appendChild(newElement);
+    nextSibling
+    parent.insertBefore(newElement, targetElement,)
+87. 构建Ajax网站的方法，先构建一个常规的网站，然后Hijax它
+88. 代码缩进处理，为了可读性，用空格还是用Tab，自己觉得用Tab来做快捷键输出N个空格
+    理由：1.不同编辑器默认对Tab的字符数处理不同，虽然可以设置，但是不同人不一样设置
+        2.可以通过快捷键或者宏设置一键删除四个空格
+    但是该缩进几个字符呢？
+89. <abbr> <acronym>:
+        <abbr> 指所有缩略语，包括首字母缩写词；
+        <acronym> 仅指首字母缩写词；在HTML5 中已被<abbr>代替；
+    ps: IE6及低版本不支持<abbr>，只支持<acronym>，这是当初浏览器大战的结果
+90. html命名空间虽然可以让浏览器识别出新的标签，但是这改变了文档的结构，不提倡
+91. 浏览器嗅探技术代码复杂，无法估计所有的浏览器版本号
+92. 编写DOM脚本时容易想当然地认为某个节点就是元素节点，但是也可能是文本节点，
+    所以没有把握时要检查nodeType 的属性值，有很多DOM方法只能应用于元素节点，
+    应用于文本节点时会出错
+93. 一般来说，在适用于Windows系统的浏览器里，快捷键的用法是在键盘上同时按下Alt键
+    和特定按键，在适用于Mac系统的浏览器里，快捷键的用法是同时按下Ctrl键和特定按键
+94. 常用的变量名：
+    links       anchor数组
+    text        文本节点，文本内容
+    str         字符串
+    list        列表
+    item        列表项
+    url         网址
+    elem        元素节点
+    
+95. 如果使用JavaScript为某个元素加 onclick 事件，则要考虑将鼠标指向改元素时指针类型
+    更改为合适的，如手型、或者元素本身能暗示出具有单击事件
+96. 字符串连接成语句时，一定要注意是否加空格
+97. 什么时候用DOM脚本来设置样式：CSS选择器很难选择，或者方法麻烦，或者浏览器支持性差时；
+        重复设置某种样式时（如斑马表格）
+98. DOM的style对象不包括外链样式表或者内联样式表中的样式，只包括通过style属性设置的
+    行内样式
+99. 设计文本编辑器、表格编辑器、甚至画图工具、图像处理工具、类PPT工具、动画工具等
+100. 使用DOM改变表格文本的fontWeight时，行高发生变化
+101. this 关键词：当函数被作为对象的方法调用时，this指这个对象
+102. 下面代码中的条件判断语句为什么要加 “！”，为什么不去掉然后执行分支再调换，
+    结果应该一样吧，但是可以省一个字符；
+103. null undefined “”（空值） false 0 的区别
+104. 对函数进行抽象：函数名抽象，变量名抽象，特定值抽象
+105. 设计小游戏：贪吃蛇、扫雷、是男人就下100层、俄罗斯方块、连连看、五子棋、大鱼吃小鱼
+    狼吃羊、龙虎斗（象狮虎豹狼）、赛车游戏、超级马里奥、魂斗罗、第一人称射击、
+    角色扮演等
+106. 一个变量没有在函数内部声明便直接使用，则该声明为全局变量？？？
+107. 把先执行的文件放前面，可先加载，比如addLoadEvent.js
+108. notepadd++ 在取消(Ctrl+Shift+K) CSS文件中的多行注释时 崩溃
+109. DOM编程艺术 P192 示例，图片移动动画，闪烁，甚至无限闪烁，变量作用域解释的不清楚
+    ？？？？？？？
+110. Math对象的取整方法:
+    Math.ceil  向上取整，向大的方向
+    Math.floor  向下取整，向小的方向
+    Math.round  取最近的整数，四舍五入
+111. 图片轮播：每张图片对应的“项目区域”应该有明显的界限
+112. 图片轮播：单纯的移动也分均速移动，速度逐渐变快移动，速度逐渐变慢移动；
+        不仅是图片移动切换效果，还有渐变切换，棋盘式切换，轮盘式切换等
+113. 结构层、表现层、行为层的分离：
+        禁用CSS和JavaScript，也不影响内容的可读性；
+        属于结构层的事，尽量用Html完成；
+        属于表现性的事，尽量用CSS完成；
+        属于行为的事，尽量用JavaScript完成（与行为有关的标记应该用Js动态添加）
+114. 注释经常是一句接下来代码目的或者所做之事的描述，为了让自己或他人能读懂代码
+115. 修改Js后，在wamp下好像刷新并没有重新加载，而在直接在浏览器中反而重新加载了？？
+116. HTML/CSS/JS模拟客户端软件，比如QQ
+117. [JQuery]Jqurey对象与DOM对象的互相转换[index]或get(index)方法
+118. [JQuery]Jquery与其他库冲突，$ 函数冲突：
+    JQurey在其他库之后导入：
+        1) jQuery.noConflict();
+            jQuery(function($){
+                $("p").click(function(){  // 在函数内部继续使用$()
+                    alert($(this).text());
+                })
+            })
+            $("pp").style.display = 'none';  // 使用 prototype
+        2) jQuery.noConflick();
+        (function($){
+            $(function(){  // 定义匿名函数并设置形参 $
+                $("p").click(function(){  // 匿名函数内部 $ 均为 JQurey
+                    alert($(this).text());
+                })
+            })
+            $("pp").style.display = 'none';  // 使用 prototype
+    JQurey在其他库之前导入：
+        1) 无需调用jQuery.noConflick()，直接使用jQuery，$为其他库的名称
+119. 直接用getElementById()方法获取不存在的元素也即对象时，浏览器会报错，而用
+    JQurey的方法就不会。
+120. [JQuery]表单对象属性选择器:enabled 似乎选择不了 type="checkedbox" input
+121. [JQuery]选择器中".","#","[","("等特殊字符需转义,eg:\\#
+122. [JQuery]JQurey变量命名第一位加“￥”
+123. [JQuery]detach()会保留所删除元素的绑定事件和数据，其实保留了完整的JQurey对象
+            而remove()会删除绑定事件和数据
+124. [JQuery]如果要连元素绑定的事件、数据一起复制，则clone()的传递参数设为true
+125. [JQuery]使用replaceWith或replaceAll替换元素之后，绑定的事件随被替换元素消失
+126. [JQuery]hasClass方法实际上调用了is()方法
+127. [JQuery]text()方法可以返回指定元素所包含的文本，不一定是子文本节点
+128. [JQuery]children()方法只考虑子元素，不包含其他后代元素
+129. [JQuery]siblings()返回的是JQurey对象，却不能用html()方法？？？
+130. [JQuery]css()方法获得的高度或宽度与样式设置有关；
+            而height()/width()获得的高度或宽度是元素实际显示尺寸；
+131. [Jquery]参照锋利JQurey第三章做出的图片放大提示会出现图片闪烁
+132. [jQuery]$(document).ready(function()>>>$().ready(function()>>>$(function()
+133. [jQuery]hover()方法替代bind("mouseenter")和bind("mouseleave")的***
+134. [jQuery]stopPropagation() 阻止事件冒泡，preventDefault() 阻止元素默认行为
+        如超链接的跳转、表单的提交等，可以用 return false;代替
+135. 事件捕获，jQuery不支持，需要原生的JavaScript
+136. [jQuery]hide()方法在使用时，先将元素原来的display属性值储存起来，再设置为
+        none,当下次调用show()方法时再将其设置为储存的值
+137. [jQuery]callback函数适用于所有动画效果方法
+138. 直接定制生成导航栏的代码工具
+139. [jQuery]$('tr:odd') $('tr:even')选择器中的索引是从0开始的，因此第一行是偶数
+140. keyCode与是否字符键，不同浏览器，不同键盘事件的关系
+    比如：方向键的keyCode
+141. AJAX应用：
+        表单实时验证（是否存在该用户名）
+        搜索提示
+        购物车
+        聊天应用
+        下拉刷新
+        文章摘要=>全文
+        图片缩略图=>全图
+        投票
+        无刷新评论
+        RSS
+        分页显示
+        。。。
+142. FF与Op对浮点数的支持问题，WEB/slide/里面的左右滑动显示图片列表，在左滑动时
+    会出现没有滑动到尽头问题，Ch与IE没有此问题
+143. 匿名函数和闭包在动画中应用：
+        各个匿名函数中的pos其实是不同的变量
+    
+        for ( var i = 0; i <= opacity; i += 10 ) {
+            (function(){
+                var pos = i;
+                setTimeout(function(){
+                    setOpacity( elem, pos );
+                }, ( pos + 1 ) * 5 );
+            })();
+        }
+144. 视口高度减去窗口内高，即pageHeight - windowHeight应该等于滚动条滚动到底部时
+    的坐标(scrollY/scrollTop)，在IE6、Ch、SF是这样，在FF与Op中scrollY会大一点21px，
+    视口高度(document.body.scrollHeight)在Chrome中会比document.body.clientHeight
+    大一点
+145. innerHTML: The innerHTML property is read-only on the col, colgroup,
+        frameset, html, head, style, table, thead, tbody, tfoot, title and tr
+        object.(It is IE6-9, IE10 is seem to be writable)
+        解决办法：封装了DOM方法的一个函数
+146. 理解作用域、this、闭包的一道题：
+    /***** 理解this： this指所在函数被调用时，调用函数的对象
+        var length = 10;
+        var fn = function() {
+            alert(this.length);
+        };
+        var obj = {
+            length: 5,
+            method: function(fn) {
+                alert(this.length); // 5
+                fn(); // 10
+                (function() {
+                    alert(this.length);
+                })(); // 10, 本质上和 fn() 一样
+                arguments[0](); // 1， 返回的是method方法形参数，也是arguments的长度
+            }
+        };
+        var arr = [];
+        arr[0] = fn;
+        
+        obj.method(fn); // 依次返回5, 10, 10, 1
+        arr[0](); // 返回1
+147. Function类型的length值：
+        看函数定义时的形参个数，无形参则返回undefined
+148. parseInt('1e2'); // 1
+     parseFloat('1e2'); // 100
+     parseFloat('1.2e2'); // 120
+     因此在用parseFloat()解析字符串时要注意科学计数法，可以提前转换;
+     parseFloat()只可以解析十进制，且没有第二个参数
+     
+     parseInt('18',8); // 1, '8'被当成不能解析的字符
+149. getElementsByClassName不属于DOM核心，是因为XML文档中并没有规定class属性，
+    而DOM HTML中规定了className属性
+150. Node-->Element-->HTMLElement-->HTMLAnchorElement
+    Node-->Attr
+    元素节点的集合是一个NodeList对象
+    属性节点的集合是一个NamedNodeMap对象
+    属性节点可以通过nodeValue获取属性值，属性节点包含一个文本节点，内容就是属性值
+151. IE6/7不包含本地Node对象，Safari不允许修改Node对象的原型，而且直接把扩展的
+    方法加载基本对象上容易发生冲突
+152. 通过innerHTML将HTML代码转换成DOM树，从而可以利用DOM提供的操作方法和属性
+153. 总结常用功能，原生实现/jQuery实现：
+    下拉菜单
+    多级菜单
+    子菜单（子菜单也是横着的）
+    Tab面板
+    Back to top
+    任一元素固定位置（滚动时）
+    图片轮播：多种
+    一页式（滚动效果）
+    放大镜
+    tips提示框
+    弹出层
+    表单验证
+    日期控件
+    动画效果：多种
+    搜索提示（ajax）
+    ajax加载
+    编辑器（文章或评论）
+    任意字段可编辑
+    CSS3相关
+    共用组件或API：分享插件、评论插件、登录平台、地图、视频、天气、股票等
+154. 获取元素尺寸：
+        elem.offsetWidth, elem.offsetHeight: 兼容所有浏览器，但返回值无单位
+        对于IE：elem.currentStyle('width')只有在样式表或内嵌样式中显式设置了
+            width时才会返回值，否则返回auto
+        对于Opera 12.16：注意elem.currentStyle('width')对其同样适用，与IE中一样
+            因此应该先检测标准其他浏览器再检测IE
+155. 获取元素float:
+        IE: elem.currentStyle('styleFloat');
+        Opera: elem.currentStyle('styleFloat'), getComputedStyle(elem)['cssFloat']
+        FF,Ch,SF: getComputedStyle(elem)['float']
+156. document.onscroll 与 $(document).scroll(function(){ });在IE中无效
+        应该用window，window在其他浏览器中也有效
+157. event.preventDefault：
+        可被取消的事件：click, mousedown, mouseup, mouseover, mouseout,
+            submit, DOMActivate.
+        也即像mousemove, select, load, focus等事件无法阻止
+158. 提交表单之后，提交按钮应该禁用，防止重复提交，设置disabled属性即可
+    同时后台也应该防止，php可以使用cookie/session/重定向方法防止
+159. 验证邮箱正则(email regular expression)：
+        mail-part@domain: mail-part 几乎没有区分大小写的服务商，domain不区分
+        1. 简单版：验证前转换成小写，效率？
+            ^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z0-9.-]+$
+        2. RFC 822:由于太长，且没有必要，暂时不用
+    总结：使用简单版，同时注册时，安全操作时应该验证邮箱，通过发邮件，从而验证
+        了该邮箱的控制人
+160. addClass：通过返回函数的index参数，可以添加item-$类型的class，
+        也可以交替添加odd/event，从而样式化成斑马条纹
+161. prop()：改变input的type属性，在IE6-8中会报错
+        prop(propertyName, function(index, value))：若函数无返回值或undefined，
+            则元特性值不变
+162. Attributes vs Properties：
+        考虑复选框：<input type="checkbox" checked="checked" />
+        elem.checked = true; // 改变复选框的状态
+        elem.getAttribute("check"); // 返回checked，无论checked赋值空字符串、false还是什么均不变
+        $(elem).prop("checked"); // 返回复选框的状态
+        $(elem).attr("checked"); // 总是返回checked，除非check属性节点被移除
+        $(elem).attr("checked", false); // 移出checked属性
+        $(elem).prop("checked", false); //设置checked=false
+        $(elem).prop("defaultChecked"); // 返回初始值，即html代码中的值
+        另外，selectedIndex, tagName, nodeName, nodeType, ownerDocument,
+        defaultChecked, defaultSelected应该用prop()检索和设置
+        安全的设置属性的值可以使用data()，防止IE6-8内存泄漏
+163. removeProp()：主要用于移除自定义特性，如果移除了原生的，无法重新设置
+    Note: attr()设置的属性无法用prop()来获取，反之一样。attr()设置的属性用
+        removeAttr()移除，而prop()设置的用removeProp()来移除。
+        还有一点，attr()设置即是添加属性节点，因此会改变html代码，而prop()
+        只是给每个元素对象添加一个属性，不会改变html代码
+        那用哪个好呢？
+164. prop()与attr()均可以接受对象，从而设置多个属性，但是class是保留字，所以应该
+        始终用引号
+165. removeAttr()：移除onclick属性，也即内嵌事件句柄时，在IE6-8不会移除，
+        使用prop('onclick', null)可以避免此问题
+166. Firefox：如果没有设置select的name属性，则option的selected不起作用
+167. ^ 按位异或操作符：
+        number ^ 0 ：相当于Math.floor()对正数，Math.ceil()对负数
+        应该涉及到小数的内存表示了
+168. 将一个对象的属性转换成数组（本地变量）元素，那么性能能提升多少
+169. jQuery的性能限制在哪里？
+170. link或script标签的url地址加上参数是用来保证css或js文件更新后，客户端能立即更新
+    css或js的文件缓存可以设置为永久，从而减少http请求。无论是追加v=2.3.5还是追加
+    h=3djie84j随机字符串效果都一样
+171. Safari/win播放HTML5视频需要quicktime播放器
+172. jQuery:outerWidth():作用在table上时，不会计算border和border-spacing的维度值
+        因为border与border-spacing的维度值包含在table的宽度中，
+    innerWidth()：作用在table上时，值等于table的宽度减去左右border宽度
+173. resize()：在Chrome里会触发两次，在FF,SF,Op触发一次,在IE6中触发三次
+        note：以上数据待测量，且不同OS上的浏览器触发次数也不一样
+        var resizeTimer;
+        window.onresize = function(){
+            if (resizeTimer) {
+                clearTimeout(resizeTimer);
+            }
+            resizeTimer = setTimeout(function(){
+                    // code here
+                }, 100);
+        };
+174. jQuery: each() vs map()：
+        map()会产生新的数组，占用内存
+175. jQuery: :animated选择器性能低，使用时应该先用W3C的选择器选择，之后用
+        filter(':animated')筛选
+176. jQuery: $(window).scrollTop()兼容性好于$(document).scrollTop()，要注意含有frame时
+177. jQuery: stop([clearQueue][,jumpToEnd])：
+        第二个参数为false时，不管第一个参数为true或false，将会立即中止当前动画，
+            并开始新队列的动画
+        第二个参数为true，第一个参数为true时，会立即完成当前动画，并开始
+            新队列的动画，而第一个参数为false时会立即完成当前动画，并等当前队列
+            的剩下的所有动画完成后才执行新队列的动画，不常用
+178. 轮播图：图片延迟加载
+    网页的图片列表，图片大小不确定情况下，先知道图片大小，先布局好，以免
+    图片加载之后，重新计算布局，弄一个解决方案
+179. 使用经过验证的代码片段、函数等可以提升工作效率，而且避免常见错误、增加代码
+    可靠性
+180. UCenter发布文章的编辑器，将包含flash的文章复制到里面时，手机端显示会有空白
+    区域，且flash的宽度似乎不是响应式的
+181. 检测一个变量是否已声明，可以使用 in 操作符，如
+        var foo;
+        foo in window; // true;
+        bar in window; // 抛出ReferenceError
+182. readyState属性状态可能有5种值，但是有些浏览器会跳过1、2，有些会重复3，因此
+    只是用4比较可靠
+183. send()方法参数不能省略，要不是null，要不是字符串
+184. ajax包含多种通信技术，指后端与前端如何传递信息、如何交互
+185. audio标签
+    UC 9.3：显示混乱
+    Chrome31/Andriod：显示样式与桌面端一致，但是不显示音量调整控件，可能是考虑
+        到手机端有便捷的音量调节键，但是如果volume属性设置为0静音时，无论怎么调节
+        音量键，始终静音。所以手机端应该显示音量控件或者避免volume属性为0
+    Android 4.0.3自带浏览器：显示播放、暂停（无效？）两个按钮，并且volume设置
+        为0时，仍然能播放出声音
+    Opera Mini: 不能够访问本地服务器，因为内容必须先发往Opera Mini对应的服务器，
+        然后传送到Opera Mini，可以上传文件到远程服务器或者采用Opera Mobile模拟器
+186. Image类型：IE6支持，在给其添加src属性后图像开始下载，可以等到图像加载完成后，
+    添加到文档中
+187. ajax image：重定向或生成图像将会在其他处理完成之后才会重定向或输出图像？
+188. ajax image通信：可兼容IE6，可以跨域，在线广告和链接跟踪系统常用，但只能GET请求
+189. script动态脚本载入：需要一个回调函数指示已成功载入，兼容IE6，可跨域请求，
+        但是只能发送GET请求
+190. Cache-Control：浏览器缓存控制
+        阻止浏览器缓存页面：
+        Cache-Control: no-cache; // 只是确保浏览器使用最新版本，可能是本地缓存
+        Expires: Fri, 20 Oct 1998 14:19:41 GMT
+        设置 Cache-Control: nostore; 可以避免浏览器缓存页面
+191. querySelectorAll返回的elementList不是即时更新(non-live)的NodeList
+    querySelector与querySelectorAll兼容性：
+        IE8+(IE8只支持CSS2.1选择器)
+        其他主流浏览器
+        移动端：Android 2.1, Safari Mobile 3.2, IE Mobile 9, Opera Mobile 10.0
+            Opera Mini 5-7
+192. DOMTokenList是一个即时刷新对象
+193. localStorage:
+        Supported: IE8+及其他现代浏览器，Android 2.1, iOS
+        所有数据类型均存储为String，因此取出时必须转换成合适的类型
+        容量：5M
+        事件：storage event
+        访问或设置属性值用getItem/setItem与js的方括号与点符号对比
+194. draggable为true的element包含的文本将不可以通过正常的拖动方式选取
+195. 谨慎使用autofocus属性，可用在没有滚动条，
+    使用js fallback时，应尽早执行，不要使用window.onload事件
+196. input[type=email]：验证 ++++#@d.c通过
+197. input[type=url]：验证 [A-Za-z]+://www.com 通过
+198. 注意闭包里：内部函数只会访问外部函数作用域内变量的最终值
+        function foo() {
+            var len;
+            len = 5;
+            function bar() {
+                console.log(len); // 10
+            }
+            len = 10;
+        }
+199. offline web app: manifest文件中不必列出包含manifest属性的html文件，除非整个程序需要
+    多个html文件，则应列出所有文件
+200. manifest文件包含三个部分：
+        CACHE、NETWORK、FALLBACK
+201. 链接与图片之外的元素只有设置draggable="true"时才能拖动
+202. canvas.width = canvas.height = 50; // 这种写法怎么解释？
+203. Array.prototype.slice(start[, end]): 
+        参数负值代表从末尾的偏移量，-1代表最后一项；
+        arr.slice(1, 3) 不包括3所代表的项，也即第4项；
+        返回值为数组类型，浅复制，即元素值为对象引用时，只会复制一个引用，指向同一个对象
+204. Array.prototype.splice(index, howMany[, element1, ..., elementN]);
+        index: 负值则从后算偏移量
+        howMany: 省略则从index到数组末尾
+        返回值为空数组或包含被删除元素的数组
+205. Array.prototype.reduce(callback(prev, cur, idx, array){}, initialValue): 
+        支持：IE9+及其他现代浏览器，所有移动浏览器
+        对于数组的每一项都调用一次（有initialValue时，无时调用少一次）
+    Array.prototype.reduceRight()：与reduce的迭代顺序相反，right-to-left
+206. Array.length <= 2^32，为什么是这个值呢
+207. Array的五个迭代函数：map, filter, forEach, every, some
+        支持：IE9+和现代浏览器及移动端浏览器
+        共同点：参数相同，都为一个callback(value, index, array)函数和一个函数执行对象
+                不影响原先的数组
+        不同点：返回值不同，map与filter都返回一个新的array，而every与some返回boolean
+    reduce与reduceRight也是迭代函数，单数参数与上面几个不同
+208. String.prototype.toString与String.prototype.valueOf都返回字符串值，
+        toString()与valueOf()作用于String对象上时返回相同的字符串值
+209. String.prototype.charCodeAt(index)：
+        index不为数值时，设置为0
+        index小于0或大于等于str.length时，返回NaN
+        返回值为Unicode代码，且总是小于65536，如果要返回更大的Unicode值，参考mdn文档
+210. String.fromCharCode(num1, num2, ..., numN):
+        注意此方法为String对象的静态方法
+        根据一组Unicode数值(小于65536)返回字符，如果要返回更大值的字符，可以使用
+        fromCharPoint方法(ES 6)，参考mdn文档
+211. String.prototype.concat：效率低，大概为 '+' '+='的五分之一，join方法效率大概为
+        '+' '+='的三分之一 in Chrome
+212. String.prototype.search: 类似于RegExp.prototype.test，性能要高于match或exec
+        如果传入的参数不为正则，则通过new RegExp(obj)转换
+213. String.prototype.match: 类似于RegExp.prototype.exec，如果传入的参数不为正则时，
+        则通过new RegExp(obj)转换，但是g/i/m等不可以传入了
+        如果没有 g 标记，则返回的数组包含一个input属性，代表源字符串，还有一个index
+        代表匹配字符的偏移量
+        返回值：包含匹配项的数组或null
+214. Object.getPrototypeOf(obj): 传入非对象时，抛出一个TypeError类型错误，用来替代
+        Object.prototype.__proto__，后者已被废弃，因为性能太低
+215. delete可以删除对象或数组的属性，删除数组的某一项时，其他项的索引号不变，length值不变
+216. Object.defineProperty(obj, prop, descriptor):
+        configurable: false; // delete 不可以删除对象的属性
+        enumerable: false; // 不可以通过for...in或Object.keys遍历
+        writable: false; // 不可以赋值
+
+        get: function(){}; 定义返回值，默认为undefined
+        set: function(value){}; 定义赋值器，默认为undefined
+217. Array.indexOf():
+        Supported: IE9+ & Others
+218. Function.length: 返回形参的个数
+        typeof Function.prototype; // 'function'
+        Function.prototype.length; // 0
+        Function.constructor.length; // 1
+
+        var alert = function(obj) { alert(obj); };
+        typeof alert.prototype; // 'object'
+        alert.prototype.lenth; // undefined
+219. Math对象三角函数的精度问题：(Chrome中测试)
+        Math.sin(Math.PI/6); // 0.49999999999999994
+        Math.cos(Math.PI/3); // 0.5000000000000001
+        Math.tan(Math.PI/4); // 0.9999999999999999
+        Math.PI/6; // 0.5235987755982988
+        Math.PI/3; // 1.0471975511965976
+        Math.asin(0.5); // 0.5235987755982989
+        Math.acos(0.5); // 1.0471975511965979
+        另外浮点数的位数是多少呢？涉及到浮点数的存储了
+220. Cookie的缺点：大小4KB，每次向服务器发送请求时会附带Cookie，从而占用带宽
+221. instanceof and multiple context(e.g. frames or windows):
+    不同的frames或者windows是不同的运行环境，具有各自独立的global object,
+    built-in objects
+222. 为什么String即是Function的实例，又是Object的实例，继承机制是什么？
+223. cloneNode(deep):
+        在深复制时注意ID的唯一性与name修改
+224. getComputedStyle存在于window对象上，既可以window.getComputedStyle访问
+225. mouseenter/mouseleave与mouseover/mouseout的区别
+    mouseover/mouseout对事件对象的子节点也有效
+226. unicode转换：
+        宋体 >>> \u5b8b\u4f53
+        微软雅黑 >>> \u5fae\u8f6f\u96c5\u9ed1
+227. 字体同一种颜色，粗细给人的亮度感觉也不同
+228. 手机优先与PC优先的media query写法：
+    Mobile First:
+    @media screen and (min-width: 321px) {
+    }
+    @media screen and (min-width: 641px) {
+    }
+    @media screen and (min-width: 961px) {
+    }
+
+    PC First:
+    @media screen and (max-width: 961px) {
+    }
+    @media screen and (max-width: 641px) {
+    }
+    @media screen and (max-width: 321px) {
+    }
+229. 为什么有时load事件比DOMContentLoaded先触发?
+230. JS的变量有函数作用域，是指函数定义时，而不是执行时，如下
+    function f1() { var a = 1; f2(); }
+    function f2() { return a; }
+    f1(); // undefined
+231. 接受正则变量的字符串方法：match(), search(), replace(), split()
+232. function F() {
+        function C() {
+            return this;
+        }
+        return C();
+    }
+    new F(); // Window
+    Why????
+233. 自己实现String, Array, Math等原型
+234. for..in对字符串也有效
+235. 实现原型式继承时，重置constructor属性很有必要
+    TwoDShape.prototype = Shape.prototype;
+    TwoDShape.prototype.constructor = TwoDShape;
+236. TwoDShape.prototype = new Shape();
+    将会继承Shape实例的所有属性，查找原型链时会先查找Shape实例上是否有，
+    然后再查找Shape.prototype。显然共用且可被继承的属性/方法应该移到
+    Shape.prototype上，并且使用TwoDShape.prototype = Shape.prototype;
+    来实现继承，从而缩短原型链，使查找更有效率
+    但是这样会使所有的共用属性/方法放到一个对象上，TwoDShape共用的属性
+    或方法暴露给了Shape，应该使用一个临时构造函数：
+    var F = function() {};
+    F.prototype = Shape.prototype;
+    TwoDShape.prototype = new F();
+    TwoDShape.prototype.constructor = TwoDShape
+237. 访问超类/父类中的属性/方法，当前类与超类都有某个方法或属性时：
+    var F = function() {};
+    F.prototype = Shape.prototype;
+    TwoDShape.prototype = new F();
+    TwoDShape.prototype.constructor = TwoDShape
+    TwoDShape.uber = Shape.prototype
+238. 重定向到另一个页面：
+    window.location.href = 'http://www.another.com';
+    location.href = 'http://www.another.com';
+    location = 'http://www.another.com';
+    location.assign('http://www.another.com');
+    location.replace('http://www.another.com');
+239. 刷新页面
+    window.location.href = window.location.href;
+    location.reload();
+    locaiton = location;
+    history.go(0);
+240. Init-Time Branching与Lazy Definition的区别时：
+    前者初次加载时根据If条件定义函数，而后者在函数第一次执行时重新定义
+    函数，如果用不到就不用重新定义
+241. 在插件自执行函数前加';'，可以避免合并压缩式出现错误，不过必要吗？
+    ;(function($, window, document) {
+        // code ...
+    })(jQuery, window, document);
+242. 内存生命周期：分配内存，使用内存，释放内存（垃圾回收)
+    垃圾回收器无法完全决定某片段内存是否不再使用，因此也不能避免内存泄漏
+243. 若要像提交表单那样用ajax发送post数据，必须设置：
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    并且数据格式如下字符串：
+        'username=admin&password=password';
+244. 本质上来说，域名/IP/URL PATH也只是命名空间
+245. 使用FlashCanvas或者Flash回退方案的音频/视频播放器时，要在本地服务器测试
+    files协议下不起作用，包括其他使用JS来引入其他类型的文件时，比如json
+246. overloaded getters and setters:
+    即取值与设置值用同一个方法，一个参数是取值，两个参数是设置值，比如：
+    css('font-size'); // getter
+    css('font-size', '24px'); // setter
+247. equality(==)和identity(===)作用于引用类型时：
+    var arr1 = [1, 2, 3], arr2 = [1, 2, 3],
+        o1 = {a:1, b:2}, o2 = {a:1, b:2},
+        s1 = 'aaa', s2 = new String('aaa');
+
+    arr1 == arr2; // false
+    arr1 === arr2; // false
+    o1 == o2; // false
+    o1 === o2; // false
+    s1 == s2; // true
+    s1 === s2; // false
+
+    var arr3 = arr1;
+    arr1 == arr3; // true
+    arr1 === arr3; // true
+248. 相等(==/!=)操作符在比较时均遵循下面规则：
+    null和undefined是相等的；即null == undefined
+    两个操作数都是引用类型，即typeof返回object，则比较他们是不是同一个对象，若
+    指向同一个对象，则==返回true
+249. 替换字符串中所有目标子字符串：
+    可以用replace加正则解决，不用正则的方法
+    str.split(search).join(replacement);
+    这个方法在Chrome中会比replace加正则更快一点
+    http://jsperf.com/replace-all-vs-split-join
+250. FF28：audio快进时，似乎没有跳到正确的播放位置，到结束时间也不结束，
+    结果总时长会变长，即currentTime与duration都延长了。
+    是因为服务器设置问题，还是什么？
+251. 在audio进度条上改变播放进度时，FF28会触发pause然后play事件，
+    而在Chrome34中不会触发
+253. IE10、Mobile Safari 6在播放结束时，paused状态仍未false，而FF/Chrome则
+    会将其设置为true，可以通过绑定ended事件来修正IE与Safari中的问题
+254. change/submit/paste/reset事件在IE8-中不会冒泡，而jquery使得它们冒泡
+    load, scroll, error在所有浏览器中都不冒泡
+255. delegate performance: 应该将事件处理器绑定在靠近event.target的祖先元素上
+    尽量不要绑定在document或这document.body这类元素上
+256. jquery/zepto的one()在触发ajax请求时很有用，比如加载更多数据时，通过
+    触发的方式可能是点击按钮或滑动到底部，绑定触发一次就可以了，等服务器
+    返回数据后再用one绑定
+257. 数值的toString()方法
+    01.toString(); // "1"
+    01..toString(); // Unexpected token .
+    1.toString(); // Unexpected token ILLEGAL
+    1..toString(); // "1"
+    08.toString(); // Unexpected token ILLEGAL
+    0xf.toString(); // "15"
+    07.2; // Unexpected number
+258. 以var定义的全局变量无法通过delete删除，但在window对象上添加属性时却
+    可以通过delete删除
+259. 直接访问未定义的变量会抛出错误，但是通过访问window属性方式却不会，
+    var foo = window.bar; // 不抛出错误
+260. js的加法不满足交换律，如 1 + {}与{} + 1不一样结果
+261. name不能作为Node变量名，即不能写如下代码
+    var name = document.getElementById('h1');
+    这样name是个字符串，其值为[object HTMLHeadingElement]
+    避免使用BOM和DOM的属性或方法名作为变量名
+262. 避免重定向，路径最后要加 /，如http://www.xiaocaoge.com/
+263. geolocation会利用WiFi、IP、GSM/CDMA cells、GPS来获取经纬度，
+    精确度：WiFi 20m 应该是公共WiFi吧，而不是家用无线路由
+            IP 精确到城市级别
+            GSM/CDMA cells 精确到1000m
+            GPS 10m
+264. 立即执行的函数，若无闭包，执行完成之后会从内存中销毁
+265. 每当函数调用时，就会创建一个执行环境及相应的作用域链，然后初始化活动对象
+    其包含this、arguments、本地变量，以及参数变量，注意内部函数里永远不可以
+    访问外部函数的this和arguments对象，这两个变量在函数调用时自动获取，所以
+    只会搜索到本地函数的活动对象为止
+266. 命名函数表达式，即创建一个函数表达式，再赋值给一个变量，
+    var factorial = (function f(num) {
+        if (num <= 1) {
+            return 1;
+        } else {
+            return num * f(num-1);
+        }
+    });
+    注意函数表达式与函数声明不同，外面包了一层括号
+    function (){
+    }(); // 这种写法错误，以function关键字开头必须包含函数的名字
+    应该用括号包住函数声明，变成函数表达式
+    (function() {
+    })();
+267. 构造函数始终返回一个新实例，但是遇到return语句时，会立即返回此新实例
+268. console.log is there in IE8, but the console object isn't created
+    until you open DevTools. Therefore a call to console.log may result
+    in an error
+269. 函数声明创建了一个名字为函数名的函数，同时创建了一个与函数名相同的
+    变量，并将此函数复制给此变量，函数名称可以在函数内部访问，相当于局部
+    变量
+    function fnName() {}
+    console.log(fnName); // "function fnName() {}"
+    而，命名函数表达式只是创建了一个名字为函数名的函数，并返回这个函数，
+    没有赋值给任何变量
+    (function fnName(){});
+    console.log(fnName); // ReferenceError: fnName is not defined;
+270. 利用opacity属性控制渐隐渐显，不兼容IE8，需要利用filter, msFilter
+271. Math.max与Math.min作用于数组：
+    Math.max.apply(Math, array); // 正确
+    Math.max.apply({}, array); // 也能返回正确结果
+    Math.max(array); // 错误用法，返回NaN
+272. 插件或库模式：
+    ;(function() {
+        var myLib = window.myLib = function() {
+            // Initialize
+        };
+
+        // ...
+    })();
+
+    或
+
+    var myLib = (function() {
+        function myLib() {
+            // Initialize
+        }
+
+        // ...
+
+        return myLib;
+    })();
+273. 同源策略(same-origin policy)：可参考维基
+    必须协议、域名、子域名、端口全部一样才算同源
+    http://example.com/dir/other.html
+    与http://www.example.com/dir/other.html不一样
+    来自about:blank, javascript:, data: URLs的内容继承了所在文档的源
+    IE有例外：
+        IE同源不包括端口
+        IE会认为两个高度信任的域名不受同源限制
+274. window.name cross origin是一种跨域请求技术
+    利用隐藏帧技术，iframe里面把数据转换为字符串，然后赋值给iframe文档
+    所属的window对象的name属性，然后设置location.href = "about:blank"，
+    这样才能从iframe外部访问其contentWindow.name属性，可以利用iframe的
+    onload事件来绑定一个回调
+275. document.domain = "company.com"将会覆盖端口值为null，也无法设置
+    端口值
+276. instanceof的定义反而能理解准确深入：
+    就是检查一个对象的原型链上是否存在一个构造函数的prototype属性
+277. method overloading - 函数重载
+    function addMethod(object, name, fn){
+      // Save a reference to the old method
+      var old = object[ name ];
+
+      // Overwrite the method with our new one
+      object[ name ] = function(){
+        // Check the number of incoming arguments,
+        // compared to our overloaded function
+        if ( fn.length == arguments.length )
+          // If there was a match, run the function
+          return fn.apply( this, arguments );
+
+        // Otherwise, fallback to the old method
+        else if ( typeof old === "function" )
+          return old.apply( this, arguments );
+      };
+    }
+
+    function Ninjas(){
+      var ninjas = [ "Dean Edwards", "Sam Stephenson", "Alex Russell" ];
+      addMethod(this, "find", function(){
+        return ninjas;
+      });
+      addMethod(this, "find", function(name){
+        var ret = [];
+        for ( var i = 0; i < ninjas.length; i++ )
+          if ( ninjas[i].indexOf(name) == 0 )
+            ret.push( ninjas[i] );
+        return ret;
+      });
+      addMethod(this, "find", function(first, last){
+        var ret = [];
+        for ( var i = 0; i < ninjas.length; i++ )
+          if ( ninjas[i] == (first + " " + last) )
+            ret.push( ninjas[i] );
+        return ret;
+      });
+    }
+278. 真正的空对象：Object.create(null) 创建的对象
+    var nullObj = Object.create(null);
+    typeof nullObj; // 'object';
+    nullObj.toString(); // TypeError;
+    nullObj == null; // false
+    nullObj instanceof Object; // false
+279. null不等于'', 0, false, {}, []。而等于undefined
+280. oninput事件：支持IE9+其他现代浏览器
+        绑定对象：input:text, input:password, textarea，不支持input:file
+        input:submit, input:radio,select等
+    onpropertychange事件：支持IE6-8，IE6、7支持JS对象，IE8只支持DOM对象
+        绑定对象：支持所有input, select, textarea
+281. IE6-8：click,dblclick, mousedown, mouseup事件不可以绑定到window上面
+    会报错，参看：http://www.quirksmode.org/dom/events/click.html
+282. Selection.rangeCount：用户只能选择1个选区，而通过JS可以选择多个
+283. 介绍设计模式的书往往举一个不切实际的例子，很难理解
+284. new Image()或document.createElement('img')创建的对象，给src赋值后开始
+    下载，所以一些需要图片下载完才能进行的处理，比如ctx.drawImage，需要在
+    img.onload回调中
+285. bitmask在其他语言常见，但是对于JSer不常见，NodeIterator.whatToShow
+    就是用bitmask来表示的
+286. 用JS初始化隐藏元素非常不好，尤其是在复杂的应用中，JS执行得html、css等
+    加载完成后才能执行，会有闪烁，即使是CSS隐藏也会出现闪烁，但是要比JS快
+    很多，是否可以考虑style属性呢？
+287. Node.ownerDocuement返回根节点，但是根节点的ownerDocument返回null
+288. 避免一个函数太长，可以将某些功能代码封装成函数，代码结构更清晰易读
+289. toString()/toDateString()/toTimeString()方法不能跨浏览器获得一致的
+    结果，在IE6里时区是UTC，而在Ch和FF里是GMT，而且Ch在设置显示语言为
+    美式英语，但是系统环境为中文8时区情况下，会有“中国标准时间”
+290. parseInt(value, radix):
+    若radix为假值（"", 0, false, null, undefined, NaN），则为默认的十进制
+    若value为字符串时，字符串中大于radix这个基数的数字将无法被解析，
+    如：
+        parseInt('19', 2); // 1
+        parseInt('2', 1); // NaN
+291. JavaScript在大数（比如2^53、2^60等）表示方面有些问题：
+    var n = Math.pow(2, 53);
+    n++ == n; // true
+    n + 2 == n; // false
+    n + 3 == n + 4; // true
+    来自：http://javascript-puzzlers.herokuapp.com/
+293. (function(){
+  var x = y = 1;
+})();
+console.log(y); // 1
+console.log(x); // error
+294. [1, 2, 3] < [1, 2, 4]; // true 那转换规则是啥呢？高程上似乎不对
+295. 函数变量有个name属性，该name属性只读，但是赋值时却不抛出错误
+296. Date.parse()/Date.UTC()/+new Date()等返回以毫秒数，但是Date.parse()
+    仍然会把日期字符串当成本地时间来解析（如果没有指定时区的话），
+    而不是UTC时间。无论本地时间还是UTC返回的毫秒数肯定是一样的
+297. Object.prototype.toString.call(arguments);
+    // '[object Arguments];
+298. 在写原生方法或对象的 polyfill 时，应当参考原生的标准，兼容标准
+    如map, forEach, Array.prototype.lastIndexOf() 等
+299.空行/换行符结尾 与 分号开头：
+    （自己推测）js文件最后应当以换行符结尾，因为js引擎能够以换行符作为
+    语句结束标志。同样，写插件时有些人习惯以一个分号开头，这是为了防止
+    在文件合并压缩时，其他文件未以换行符结束导致没有在合适的位置断句。
+300. /\s/ 在IE8中表示：[ \f\n\r\t\v]
+    现代浏览器：
+    [ \f\n\r\t\v\u00a0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u2028\u2029\u202f\u205f\u3000]
+    其中中文全角空格为 \u3000
+301. 按照中英文编辑规范格式化中英文混合文本：
+    标点符号、英文大小写、中英文间距等
+    如果文本是带有格式的呢？包含代码、公式呢？当然 markdown 格式最好
+302. document.documentDefault 指向该 document 所属的 window
+303. window 实现了 Window 接口
+304. window.frameElement 返回该 window 对象所属的 frame，若不是内嵌则返回 null
+305. window.scrollMaxX 与 window.scrollMaxY：滚动条能够滚动的最大距离
+306. 能够指向 window 的：
+    window, window.self, window.window, document.defaultView
+    window.top, window.parent
+307. 获取不包括滚动条的视口宽度？获取滚动条的宽度？
+    document.documentElement.clientWidth    
+    document.documentElement.scrollWidth    
+    document.body.clientWidth (body的宽度必须为100%）
+    document.body.scrollWidth
+    设置 document.documentElement.style.width = "90%" 后
+    document.document.clientWidth = document.body.scrollWidth 保持不变
+    其他两个变小了
+    使用 jQuery 的 $(window).width() 也可以，返回值不包括滚动条
+308. 测试DOM和BOM的脚本
+    统计操作系统与浏览器
+309. element.outerWidth/element.clientWidth：
+    如果元素隐藏，则返回 0
+    如果元素不在 DOM 中，则返回 undefined
+    与 jQuery 不同，jQuery 可正常返回
+310. 赋值表达式的返回值是赋值运算符右边表达式的值。
+    http://jsfiddle.net/ctRcB/
+311. https://gist.github.com/Alex1990/ecb7502090413dc3d143
+312. 开发手机页面或Chrome插件时，Chrome DevTools 放在右边会更有效率，
+    因为这些应用通常占用的宽度窄，高度可能与视口高度一样
+    https://developer.chrome.com/devtools/docs/authoring-development-workflow
+313. window.location.href vs location.href vs window.location
+    window.location 可以是因为从 Javascript 1.0 就可以用了，而且 window.location 不受同源策略限制
+    但是又有人说 window.location 在IE的某个早起版本有问题，而且使用
+    location.href 没有任何问题    
+    http://stackoverflow.com/questions/2383401/javascript-setting-window-location-href-versus-window-location
+314. chrome devtool remote debuging
+    手机启动 USB调试模式
+    电脑Chrome32+ chrome://inspect，启动 Discovering USB Devices
+    USB连接手机与电脑，可以打开页面
+    记住 inspect 打开一个空白页，是因为要访问 https://chrome-devtools-frontend.appspot.com
+    可参考https://github.com/GoogleChrome/ADBPlugin/issues/14
+315. 使用 new Function([arg1,[arg2[...[argN]]]], functionBody) 声明的函数对象为全局对象，
+    在函数内部只能访问函数内部和全局的变量，而没有闭包，不同于 eval
+316. title 属性是继承的，子元素会继承父元素的 title 属性及值，
+    子元素的 title="" 仍然显示父元素的 title 属性值，除非设为非空字符串
+317. data-* attributes 不应该包括大写字母，因为：
+    data-foo-bar ==> fooBar ==> data-foo-bar
+    如果包括大写:
+    data-foo-barBar ==> fooBarBar ==> data-foo-bar-bar
+318. JavaScript是单进程的（single-thread），注册的事件在一个先进先出的队列中，
+    一旦触发某个事件，则在队列中找该事件，有则执行回调，同一时刻只能执行一个事件回调
+319.

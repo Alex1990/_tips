@@ -1,0 +1,654 @@
+﻿/*
+ * Book Name: PHP6 and MySQL 5 for Dynamic Web Sites
+ * Start Time: 2013-3-27 13:47
+ * Purpose: notes
+ */
+ 
+ 1. 基本的安装与配置：xampp
+ 2. PHP的4种标签：<?php ?>、<? ?>、<script language="php"></script>、<% %>
+ 3. 单引号与双引号区别
+ 4. 函数名不区分大小写
+ 5. 注释：单行#(shell风格，头部信息常用）或//，多行/* */
+ 6. 变量命名：
+        必须以$开头紧接字母或下划线
+        只能包含字母、数字或下划线
+        区分大小写
+        无需声明
+        打印变量值要不能包含在单引号中
+7. String:
+        连接字符串用句点"."
+        其他相关函数strlen(),strtolower(),strtoupper(),ucfirst(),ucwords()
+8. Number:
+        复杂运算考虑运算符优先级问题，圆括号调整
+        处理小数精度不高，可换成整数
+        赋值运算符：+=, -=, *=, /=, %=等
+        number_format(num, decimal_digits)
+9. Constant:
+        不加美元符号，通常全部大写，不能放在引号中
+10. quotes：
+        single quotation marks: 除了\'与\\，其他字符直接打印，比双引号快些
+        double quotation marks: 用变量值替换变量名称，转义字符均有效，
+11. $_REQUEST['name']超全局变量来接受表单传递的值，存储着表单元素的value值
+12. Magic Quotes：被启用时会对提交的表单数据中引号自动转义
+        可以通过stripslashes()撤销，eg：$var = stripslashes($var);
+13. 表单验证：
+        empty()若传入的值为空字符串、0、false、NULL就会返回true
+        is_numeric()检测值是否为数字
+14. 虽然只安排了两个单选按钮，但恶意者仍能传入其他的值
+15. 数组：索引数组和关联数组
+        关联数组：echo 'IL is $states['IL']"; // 返回错误，应该用花括号包住
+16. $_POST()接受表单以post方式传递的值
+17. foreach($array as $value){
+        // do something
+    }
+    foreach($array as $key => $value){
+        // do something
+    }
+18. range(num1,num2)生成一个序列数组，如range(1,10)生成1到10
+19. is_array()确认变量是否为数组类型
+20. 数组与字符串的转换：
+        $array = explode(separator, $string);
+        $string = implode(glue, $array);
+21. 数组排序函数：
+        sort():按值排序，丢弃原来的键
+        asort():按值排序
+        ksort():按键值排序
+        rsort():反向按值排序，丢弃原来的键
+        arsort():反向按值排序
+        krsort():反向按键排序
+        shuffle():随机排序
+        natsort():
+        usort():用于多维数组排序
+        在键值为小数时，若按键值排序，应该用引号包含数字
+22. for,while,do...while三种循环，语法同js一样
+23. 包含敏感信息的包含文件如数据库访问，应该放在web目录之外的文件夹中
+24. require()：关键的包含文件，如数据库访问
+    include():一般包含文件
+    *_once():复杂程序执行良好的冗余性检查<?>
+25. 站点结构考虑：易于维护、安全性、便于用户导航
+26. 同一个文件中显示和处理提交表单：检测是否提交来执行不同的代码
+27. 检查提交按钮的变量（如$_POST['submit]）可以检查表单是否提交，但Enter键提交的
+    表单无效
+28. 可以使用隐藏的输入框来测试表单是否提交：
+    <input type="hidden" name="submited" value="1" />
+29. 登入SQL:
+        mysql>mysql -u username -p password;
+        eg: mysql -u root -p 123456;
+    退出: quit
+30. 创建数据库：CREATE DATEBASE databasename;
+31. 选中数据库：USE databasename;
+32. 展示数据库中的表或表中的列：
+        SHOW TABLES;
+        SHOW COLUMNS FROM tablename;
+33. 创建表：
+        CREATE TABLE tablename (
+            column1name description,
+            column2name description,
+            ...
+        )
+34. 插入数据：
+        特定多列：INSERT INTO tablename
+                    (col1name, col3name,...)
+                    VALUES (val1, val3,...);
+        一行：INSERT INTO tablename
+                VALUES (val1, val2, val3,...);
+        多行：每行的列值用圆括号括住，并用逗号分隔
+35. NOW():返回当前系统时间
+36. SHA1(password): 对密码执行加密
+37. 选择（显示）数据：
+        SELECT * FROM tablename;
+        SELECT column1name, column4name FROM tablename;
+38. 筛选数据：WHERE condition1
+39. 排序数据：ORDER BY column1name[,column3name] [ASC]/[DESC]
+40. 限制数据：LIMIT num;/LIMIT x,y;返回前num行数据或从x+1行到y+1行数据
+        不被标准SQL支持
+41. 模糊匹配：LIKE/NOT LIKE string; 可用通配符'_'一个字符，‘%’0或多个字符
+42. 更新数据：UPDATE tablename SET column1 = valueA[, column3 = valueC]
+        通常结合WHERE使用
+43. 删除数据：DELETE FROM tablename WHERE condition;
+44. 清空表：TRUNCATE TABLE tablename;
+    删除表及表本身：DROP TABLE tablename;
+    删除数据库：DROP DATABASE databasena;
+45. MySQL函数：文本、数字、时间和日期等
+        CONCAT()
+        TRIM()
+        SUBSTRING()
+        ROUND()
+        RAND()
+        DATE_FORMAT(datetime, formating)
+        NOW()
+        ...
+46. 在Web应用程序中，几乎总是使用MySQL函数来格式化来自数据库中的任何日期
+        访问客户端时间的方式是用JavaScript
+48. 别名： columnName as name;
+49. 主键：应确保永远不在改变
+50. 数据库基础：
+        键：主键，外键
+        联系：one-to-one, one-to-many, many-to-many
+        范式：Normal Form
+51. 执行联结：
+        内联结：columnA INNER JOIN tablename ON columnB
+        外联结：左联结、右联结、完全联结
+                LEFT/RIGHT JOIN ... ON
+        可以执行跨数据库联结，同服务器上
+52. GROUP BY 分组
+53. 索引(index)<?>：INDEX, UNIQUE, FULLTEXT, PRIMARY
+        列上面永远应该只有一个索引
+        频繁引用的数据要使用索引
+54. ALTER TABLE tablename CLAUSE 改变表的结构
+        如添加、删除或更改列，添加索引，重命名表
+        CLAUSE:
+                ADD COLUMN
+                CHANGE COLUMN
+                DROP COLUMN
+                ADD INDEX
+                DROP INDEX
+                RENAME AS
+55. 表的类型：也称存储引擎，常见有MyISAM、InnoDB
+        ALTER TABLE tablename ENGINE = MyISAM/InnoDB
+            Linux/Mac默认 MyISAM，Windows默认 InnoDB
+56. SHOW TABLE STATUS [\G]可查询关于数据库表的信息，\G  表示纵向显示
+57. FULLTEXT 查找：基本字符串匹配
+        使用： SELECT * FROM tablename WHERE MATCH (columns) AGAINST (terms)
+    布尔型FULLTEXT: 关键词后加 IN BOOLEAN MODE，则可使用特殊运算符
+58. 数据库优化：
+        选择最佳的存储引擎
+        为每一列选择尽可能最小的数据类型
+        只要有可能，就把列定义为NOT NULL
+        把整数用作主键
+        明智地定义索引
+        若适用，则把索引限制为一定数量的字符<?>
+59. 执行事务：数据库事务(database transaction)
+        可以设置起点和终点，从而可以回滚，即取消会话期间的一系列操作
+        START TRANSACTION;
+        ROLLBACK;
+        COMMIT; 一旦提交事务，则事务会话期间的所有操作永久生效，不能回滚了
+60. 错误处理与调试：首先应确定属于哪个领域
+        可能有：HTML, PHP, SQL, MYSQL, CSS, JAVASCRIPT
+61. PHP三种错误：（打开display_errors)
+        语法错误：分号、括号不对称、标识符拼写错误等
+        运行时错误：
+        逻辑错误：
+62. MySQL错误常见是语法错误，还有一个是没有连接到数据库
+63. 基本的调试步骤：
+        确保正在运行正确的页面；（也即调试页面是正在编辑的）
+        确保保存了最近的更改；
+        确保通过URL运行了所有PHP页面；
+        知道运行的PHP和MySQL版本
+        知道运行的Web服务器
+        尝试在不同浏览器中执行
+        尝试在不同服务器执行
+64. HTML/CSS 错误：
+        检查源代码
+        使用W3C验证工具
+        添加轮廓、背景等辅助
+        多浏览器测试
+        notes:若html是由php动态生成的，需要处理PHP代码
+65. ini_set(): 
+        ini_set('display_errors', 1); 打开display_errors，第二个参数为0，则关闭
+66. error_reporting():设置错误报告级别
+67. @符号抑制错误：
+        $num = @(1/0);
+        还常用在连接数据库时
+68. set_error_handler()：用于指定出现错误时调用的函数，从而可以自定义错误处理程序
+69. define('LIVE', FALSE)：LIVE关键字指示站点是否在运行，以区别调试和上线运行<?>
+70. 记录PHP错误：
+        error_log(message, type, destination, extra headers);
+71. 常见的PHP错误
+        空白页面：html问题或PHP错误，并关闭了display_errors
+        解析错误：括号、引号不对称，字符串使用未转义的引号
+        空变量值：忘记开头$，变量名拼写错误，作用域不合适
+        未定义的变量：
+        调用未定义的函数：函数名拼写错误，PHP未配置正确
+        不能重新声明函数：包含文件中已定义函数
+72. 模版文件也即包含文件扩展名可以为.inc或.php，有时命名为*.inc.php
+73. 从PHP5和MySQL4.1起，使用Improve MySQL函数，也即mysqli开头
+74. 连接数据库部分为一个包含文件，且放在Web目录之外
+75. DEFINE ('DB_USER','username'); 可将MySQL主机、用户名、密码和数据库名设置为常量
+76. 连接MySQL: 
+    $dbc = @mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME) OR die ('Could
+        not to MySQL:' . mysqli_connect_error());
+77. 查询：mysqli_query()函数
+        $q = "SQL Commands";
+        $r = @mysqli_query($dbc, $q);
+            变量 $r 的值可能为TRUE/FALSE/查询结果
+78. 查询未成功运行，即发生错误时可调用 mysqli_error($dbc)函数
+79. 表单验证发生的错误可保存在$errors数组中
+80. 最后应关闭数据库链接：mysqli_close($dbc);
+81. 检索查询结果，主要是SELECT
+        mysqli_fetch_array()
+        可选参数MYSQLI_ASSOC/MYSQLI_NUM/MYSQLI_BOTH(default)
+        通常用法：
+        while($row = mysqli_fetch_array($r)){
+            // Do something with $row.
+        }
+82. mysqli_free_result($r)：可释放$r占用的内存，通常在$r被检索完之后
+83. 应对表单的所有文本输入执行转义：
+        mysqli_real_escape_string($dbc, data);
+84. 返回查询结果行数：
+        $num = mysqli_num_rows($r);
+        应用：防止同一邮件注册多个账户
+        SELECT user_id FROM users WHERE email='$e'
+        查询结果应为0行或1行，为1行则不允许注册
+85. mysqli_affected_rows()：返回最近INSERT, UPDATE, DELETE查询影响的函数
+    若使用TRUNCATE tablename 删除了表中所有记录，则返回0
+    若运行UPDATE，但实质上任意列的值均未改变，则返回0
+86. 给PHP脚本发送值的四种方式：
+        追加到URL上：?name=value&name=value，类似于表单的GET方法
+        利用隐藏输入框：
+        Cookie:
+        Session:即会话
+        <note>前两种方法很容易在客户端查看到，前三种不能保存重要的数据
+87. 标页码(pagination)：常见技术，主要利用了LIMIT x,y语句以及追加数据到页码链接URL后面
+        LIMIT x,y 从x+1行开始的y行记录
+88. 可以实现表格数据排序功能，要设置好默认排序方式
+89. mail($to, $subject, $body, $headers);
+        $body = wordwrap($body, 70);
+        $headers = "From: john@example.com\r\n";
+        $headers = "Cc: jane@example.com\r\n";
+    需要架设邮件服务器，有很多免费的xmail/hmailserver...
+90. 在调用任何日期和时间函数前设置默认的时区：
+        date_default_timezone_set(tz);
+        或在配置文件设置
+91. checkdate():获取月份、天和年份，返回日期是否存在
+92. date(format,[timestamp])：以格式化的字符串返回日期或时间
+93. mktime(hh,mm,ss,m,d,y)：返回特定日期的时间戳
+94. getdate()：返回日期的关联数组
+95. 文件上传配置：
+        file_uploads, upload_max_filesize, upload_tmp_dir等
+96. 上传目录通常在Web目录之外
+97. $_FILES超全局变量
+    索引有：name, type, size, tmp_name, error
+98. move_uploaded_file(temporary_filename, /path/to/destination/filename);
+    把文件从临时目录转到永久位置，若重名则会重写且不发出警告
+99. $_FILE['upload']['error']:存储错误编号，可能为1-4和6-8，每个编号对应不同情形
+100. file_exists():确定是否存在某个文件
+    is_file():检测某个文件是否正常<?>
+101. 特别注意上传文件时的表单应当包括enctype属性，enctype="multipart/form-data"
+102. MAX_FILE_SIZE是浏览器对文件大小的一种限制，可绕过<?>
+103. getimagesize():返回图像的信息，数组形式
+        0 ----------- 宽度(pixel)
+        1 ----------- 高度(pixel)
+        2 ----------- 类型
+        3 ----------- 合适的HTML img标签数据
+        mime --------- MIME类型，如 image/png, image/jpeg
+104. scandir(): 返回数组，列出了给定目录下的文件
+105. filesize(): 返回文件的大小，单位字节
+106. 可通过在链接中假如JavaScript调用代码来执行JavaScript
+        eg: <a href="javascript:someFunction();"></a>
+107. 对于URL可以使用urlencode()编码
+108. HTTP头部：PHP主要通过header()函数类定义
+        header("Content-Type: {$info['mime']}\n");
+        header("Content-Disposition: inline; filename=\"$name\"\n");
+        header("Content-Length: $fz\n");
+    注意header()函数传递头部信息之前，不能想浏览器传递任何内容，不能有html代码、空格等
+109. 错误调试：
+        unexpected end file: 少花括号
+        upexpected 'echo', 'if': 少分号";"
+        超全局变量若包含在双引号内，得用花括号包起来，如{$_SERVER[SERVER_PORT]} 
+        网页头部空白：是因为以utf-8 BOM编码的php文件，应改为utf-8无BOM编码
+        找不到mysqli 说明数据库无法连接
+        同一个页面先连接然后关闭，再连接（两次用require_once(MYSQL))似乎有问题
+        mysqli_num_rows()和mysqli_affected_array()等expects parameter 1 to be 
+            mysqli_result，可能就是查询未成功，语法可能有错误
+        对于代码中用到的查询语句应该在控制台或其他界面中执行查询，看是否能成功
+        <to be continued>
+110. 部署全球化网站：
+        主要就是网站中关键位置的语言的各语言版本存储在数据库中，通过
+            自动检测来选择或通过用户来选择使用何种语言。
+        字符集、时区、编码、日期显示、排序等皆为基础
+111. 如何得到各语言版本：参考其他全球化网站或软件，建立一个论坛让各语言使用者志愿翻译
+        参考各语言词典、教程等自行翻译
+112. Web安全：
+        用户上传的文件命名问题
+        不要把用户ID存储在cookie中
+        不要显示详细的出错消息
+        使用加密技术
+        不要存储信用卡号、银行业务、身份证号等信息？
+        若需要，可使用SSL
+        保护所有目录和文件
+        知道自己的限制
+113. 阻止垃圾邮件：验证电子邮件地址，监视特殊字符
+114. 阻止XSS攻击：对所有来自用户的数据均要验证，可以进行编码
+115. 阻止SQL注入攻击：使用预处理语句
+116. 处理HTML和其他代码字符串的三个函数：
+        htmlspecialchar():把& ' " < > 转换成html实体格式
+        htmlentities():所有适用的字符转成html实体格式
+        strip_tags():删除所有HTML和PHP标签
+117. 类型验证函数：
+        is_array()
+        is_bool()
+        is_float()
+        is_int()
+        is_null()
+        is_numeric()
+        is_resource()：资源，如数据库链接
+        is_scalar():标量（单值）变量
+        is_string()
+118. 类型强制转换：变量名前放圆括号包起的类型关键字
+119. array_map():为数组中的每一个元素调用执行的函数
+        eg: array_map( 'trim', $_POST )
+120. 组织蛮力攻击：也即暴力破解
+121. 阻止DDoS攻击
+122. 论坛的数据库设计
+123. 博客、CMS的数据库设计
+124. 输出缓冲：把输出放在缓冲区，当冲洗(flush)缓冲区时把它发送到Web浏览器，
+        可以改进性能
+125. ob_start()开始输出缓冲
+    ob_end_flush():发送缓冲区数据给浏览器
+    ob_end_clean():删除缓冲的数据，而不是发送它
+126. 电子商务数据库设计
+127. 电子商务站点的安全性：
+        如何保护数据库本身和存储会话信息的目录：设置访问权限
+            使用非共享的托管
+        敏感信息访问：订单、顾客记录，身份验证
+        转移期间数据保护：结款时SSL
+        付款：通过第三方处理付款信息
+128. 代码重用：登录函数，退出函数，列表显示
+129. 选择性加载函数：通过"删除"超链接以URL方式传递一个del=yes值，来加载
+        处理删除的查询
+130. 自己做的brief博客系统，后台侧栏及后台登录好像会被Adblock拦截
+131. config.php 在index.php中首先被包含的文件，编码不能是utf8含BOM，那样在
+    文件开头会有签名信息，从而有输出，然后session_start()函数会失效，
+    因此应该改成utf8无BOM
+132. 从本地向网络空间转移系统时，mysqli_connect.php和config.php应该重新定义
+    常量：URL、用户名、密码、数据库名、文件路径等
+// www.php.net 2013-7-13
+133. 文件内容纯PHP代码，文件末尾删除结束标记，避免输出空白
+134. 使用条件的高级分离术
+135. 代码段结束标记可以不要
+136. gettype():返回表达式的类型
+     settype():设置变量的类型
+137. 整数溢出：给定数或运算结果超出integer范围，会被解释为float
+138. 永远不要相信浮点数结果精确到了最后一位，也永远不要比较两个浮点数是否
+    相等。如果确实需要更高的精度，应该使用任意精度数学函数或者 gmp 函数。
+139. 指定精度的情况下可以比较浮点数
+140. 字符串：string最大可以达到2GB
+    heredoc结构：结束标识符必须位于改行第一列，也就是最前面
+                开头标识符可以使用双引号，类似于双引号字符串
+    Nowdoc结构：类似于单引号字符串，不进行解析操作，开头标识符要用单引号
+141. 字符串中的数组单元或对象要被解析，可以用花括号括起来
+142. string可以 $str[32] 或 $str{32} 访问，不能负下标，超出字符长度时，将会用
+    空格填充
+143. 转换成字符串：加(string) 或 strval()
+144. 通常字符串会被按照该脚本文件相同的编码方式来编码，激活Zend multitype例外
+145. string 的实现方式是有一个由字节组成的数组再加上一个整数指明缓冲区长度
+    某些函数假定字符串以单字节编码，如substr(), strpos(), strlen(), strcmp()
+    这些函数处理多字节编码时会出现问题
+146. 数组：用逗号隔开的键值对，单行时最后一个逗号常省略，多行时不省略
+        可以用array()或[]定义
+        键名只能是string或integer，存在强制转换
+147. 数组中key 为可选项。如果未指定，PHP 将自动使用之前用过的最大 integer 键名加上 1 
+        作为新的键名。
+148. 转换为数组：(array) $scalarValue 与 array($scalarValue)完全一样
+        对象转换为数组时，私有变量加类名作前缀，保护变量加'*'作前缀
+149. NULL：三种情况被赋值为NULL，尚未被赋值，被unset()
+        (unset) $var 不会删除改变量，仅是该变量返回NULL
+150. mixed：说明参数可接受多种不同类型
+    number：说明参数可以是integer或float
+    callback：与PHP 5.4引入的callable类型完全一样
+    void：作为参数列表时意味着函数不接受任何参数
+    $...：表等等的意思。当函数可接受任意个参数时可使用此变量名
+151. $this是一个特殊的变量，它不能被赋值
+152. 变量默认传值赋值，源变量前加 & 为引用赋值
+153. 变量初始化是一个好习惯，isset()可以检测变量是否被初始化
+154. PHP指令register_globals默认值为off，影响到预定义变量在全局范围内的有效性
+155. 自动全局变量(autoglobals)或者称为超全局变量(superglobals)
+156. 变量范围：也即作用域，变量可以作用于引用文件内部
+        函数内部使用全局变量时必须用global关键字声明或使用$GLOBALS数组
+157. 静态变量：仅在函数内部存在，但函数结束时变量不会丢失
+        静态变量声明中用表达式的结果对其赋值会引发解析错误
+        静态声明是在编译时解析的
+156.<?>变量的 static 和 global 定义是以引用方式实现的
+157. 可变变量：$$a，变量名可以改变，改变变量 $a 的值就会改变 $$a 的变量名
+158. ${$a[1]}:则$a[1]作为一个变量
+    ${$a}[1]:则${$a}作为一个变量，并取出其索引为1的值
+159. 表单变量名中的点和空格被转换成下划线
+160. magic_quotes_gpc配置指令影响到Get, Post和Cookie 的值
+161. IMAGE SUBMIT：图像表单提交时传递点击图像的坐标，sub.x和sub.y，在服务端
+        点号被转换成下划线
+162. 常量：传统上用全部大写的字符表示，前面无 $，避免以下划线开头命名自定义常量
+        使用defined()或const(5.3以后)关键字定义常量，定义后不可改变，作用域为全局
+        且使用const关键字必须在顶级作用域，不能在函数或控制语句内
+163. get_defined_constants()获取所有定义的常量列表
+164. 魔术常量：不区分大小写
+        __LINE__：文件中的当前行号
+        __FILE__：文件完整路径名，总是一个绝对路径
+        __DIR__：文件所在目录，除非根目录，否则不包括末尾的斜杠
+        __FUNCTION__：返回函数被定义时的名字
+        __CLASS__：返回类被定义时的名字
+        __TRAIT__：返回Trait被定义时的名字
+        __METHOD__：返回方法被定义时的名字
+        __NAMESPACE__：在编译时定义，当前命名空间的名称
+165. 赋值语句本身的值为被赋的值，赋值操作从右向左，比如$b = $a = 5;
+166. 除法运算符：除非两个操作数都是整数且无余数，否则总是返回浮点数
+167. 取模运算符：运算之前操作数会除去小数部分，结果与被除数的符号相同
+168. 自PHP 5起，传统赋值碰到object时，使用引用赋值，new 运算符自动返回一个引用
+169. 执行运算符：反引号(``)，不是单引号，可作为外壳命令来执行，效果与shell_exec()
+        相同，在激活了安全模式或关闭了shell_exec()时无效，不能在双引号中使用
+170. 递增/递减运算符：不影响布尔值，递减NULL也无效，递增NULL时结果时1
+            字符变量只能递增，且只支持纯字母，'Z'++; // 返回'AA'，而非'['
+171. 逻辑运算符：$$, || 比 And, Or 运算优先级高
+172. 数组运算符：$a + $b 联合，把右边数组的元素附加到左边的数组后面，相同的键名，
+        取左边数组的
+173. instanceof：确定变量是否属于某个class的实例，可对接口使用，可对字符串使用，
+            不可对常量使用
+174. 如果用冒号来定义if/elseif则必须使用elseif而不能用else if
+175. 流程控制替代语法：左花括号换成冒号，右花括号换成endif/endwhile/endfor/endforeach等
+176. break：结束循环或switch语句，接受一个可选的数字（非变量）指明跳出几重循环
+177. continue：跳过本次循环中剩余的代码，其他同break
+178. switch/case：比较为松散比较，表达式的值只求一次，可用分号代替冒号
+179. <*>declare结构：ticks为指令时，似乎 ?>也算一条命令
+        当和命名空间结合起来时的唯一合法语法是declare(encoding='...');后面不可以
+        跟花括号
+180. return：全局范围调用当前脚本文件中止，若当前脚本被include或require的，则
+        控制权交给调用文件。当前文件被include的，则return的值为include调用返回值
+181. require：运行错误导致编译错误，脚本会中止运行
+    include：运行错误将导致一个警告，脚本继续运行
+        两者的作用方式：先按参数给出路径找，无则include_path指定的目录，再则在
+        调用脚本文件所在的目录和当前工作目录下找
+182. 函数中的包含：被包含文件的函数和类作用域为该函数内部
+183. 包含的参数可以为一个远程url，从而包含远程脚本文件，若只需要远程服务器的结果，
+    那么用readfile()函数更好
+184. 自动包含文件参见auto_prepend_file和auto_append_file配置
+185. goto：无法跳出一个函数或方法，不能跳入任何循环或switch结构中，通常替代多层
+        的break
+186. 函数和类的作用域为全局作用域，但是包含在控制语句或函数中的函数只能在函数存在
+    时才能调用，PHP不支持函数重载，不能重定义函数
+187. PHP支持按值传递参数（默认），引用传递和默认参数。
+        在形参前加&指明按引用传递，
+        具有默认参数的形参必须在不具有默认参数的形参右面。默认值必须是常量表达式
+189. 从函数返回一个引用，必须在函数声明和指派返回值给一个变量时都使用引用运算符 &
+190. 可变函数：变量后加圆括号，将会调用与变量名同名的函数，而echo, print, unset(),
+        isset(), empty(), include, require以及类似的语言结构可以通过使用自己的
+        包装函数来用作可变函数
+191. 可以利用可变函数语法调用对象的方法，调用静态方法时，函数调用比静态属性优先
+192. 匿名函数目前通过Closure类来实现的
+193. 属性中的变量初始化时必须为标量，编译时就可得到其值
+194. 跟 heredocs 不同，nowdocs 可在任何静态数据上下文中使用，包括属性声明。
+195. 类常量：必须是一个标量，不能是变量、类属性、数学运算的结果或函数调用
+        接口中也可以定义常量
+196. 自动加载对象：定义__autoload()函数，或使用spl_autoload_register()
+197. 构造函数：__construct()，创建新对象前会调用，适合做初始化工作
+    析构函数：__destruct()，某个对象的所有引用被删除或显示销毁时执行
+        两者在子类中应用时，显示调用parent:__construct(); 或parent:__destruct();
+        子类的定义会覆盖父类，无定义则继承自父类
+198. 同一个类的对象即使不是同一个实例也可以互相访问对方的私有与受保护成员
+199. 范围解析操作符(::)，就是双冒号，用于访问静态成员，类常量等
+200. static：定义静态方法或属性，也可用于定义静态变量或后期静态绑定
+        静态属性不能通过对象访问，静态方法可以
+        伪变量$this在静态方法中不可用
+        静态属性不可由对象通过->来访问
+        静态属性只能初始化为文字或常量
+201. 抽象类与抽象方法：只要有一个抽象方法，该类必须定义为抽象类
+        抽象类不能实例化
+        通常在定义抽象方法名及参数列表即可
+        子类必须定义父抽象类中定义的抽象方法，访问控制只能更宽松，参数只能更多
+202. 接口(interface)：可以指定某个类必须实现哪些方法，类可以实现多个接口，用
+        逗号分隔接口名称即可
+        接口可以继承，通过extends
+        接口中定义的常量不能被子类或子接口覆盖，导致致命错误
+203. Trait：代码复用的一种机制
+        优先级：当前类>trait>继承其他类
+        多个trait：逗号隔开
+        组合多个trait：
+        trait的抽象成员：
+        trait的静态成员：可在trait的方法中使用引用静态变量，不能在trait定义静态变量
+            但是能定义静态方法
+        trait可定义属性：类中不能定义与trait中同名的属性
+204. 多个trait同名方法冲突解决：insteadof，as
+205. 重载：利用魔术方法来实现
+        __set(), __get(), __isset(), __unset()
+        __call(), __callStatic()
+206. 遍历对象：foreach可以遍历所有可见成员，私有和受保护成员不可遍历
+207. 魔术方法：以双下划线开头的函数被称为或保留为魔术方法
+        __sleep()
+        __wakeup()
+        __toString()：用于一个类被当成字符串时应该怎样处理，如 echo $obj;
+            自 PHP 5.2.0 起，如果将一个未定义 __toString() 方法的对象转换为字符串，
+            会产生 E_RECOVERABLE_ERROR 级别的错误。
+        __invoke()：尝试调用对象时
+        __set_state()：
+208. final：只有类和方法才能被定义为final，若被定义，则方法不能被覆盖，类不能继承
+209. 对象复制：通过clone关键字来完成，执行浅复制，引用属性还是指向原来变量
+        $copy_of_object = clone $object
+210. 对象比较：PHP扩展中可以定义比较的规则
+        ==：两个对象的属性和值一样，且属于同一个类的实例
+        ===：对象变量必须指向同一个类的实例，即同一个对象
+211. 类型约束：函数的参数可以指定为对象，接口，数组或者callable，NULL
+        不能用于标量类型int或string，traits 也不可以
+212. <?>后期静态绑定
+213. 对象和引用：多个对象变量保存着同一个标识符（指向对象）的拷贝
+214. 对象序列化：会保存所有变量，不会保存方法
+        serialize():
+        unserialize():
+215. 定义命名空间：通过namespace声明，namespace前只可有定义源文件编码方式的
+        declare语句，也必须是脚本文件的开头
+216. 子命名空间：类似于目录的路径，可声明分层次的命名空间
+        namespace MyProject\Sub\Level;
+217. 同一文件多命名空间：花括号包裹，非命名空间代码用不带名称的namespace+花括号
+        包裹
+218. 命名空间借用了文件系统路径的原理，有相对命名空间和绝对命名空间之分
+219. 访问当前命名空间内部元素：
+        __NAMESPACE__：保存了当前命名空间名称的字符串
+        namespace关键字：类似于类的self关键字
+220. <?>命名空间的别名或导入
+221. 后备全局函数/常量：命名空间内的类名称会默认全局，而函数和常量在当前命名空间
+        找不到的情况下会到全局空间找
+222. 异常处理：try...catch语句，可以扩展默认的异常处理类Exception
+223. <?>生成器：PHP 5.5+
+224. 引用：$a =& $b; 这里两个变量指向同一个变量内容，而不是$a指向了$b
+        如果在一个函数内部给一个声明为 global 的变量赋于一个引用，
+        该引用只在函数内部可见。把 global $var; 当成是 $var =& $GLOBALS['var']; 的简写。
+        从而将其它引用赋给 $var 只改变了本地变量的引用。
+225. <?>引用不是指针
+226. 引用传递：foo($a)，foo(new foobar())。任何其他表达式都不能通过引用传递
+227. 引用返回：return不能返回表达式或new运算符的结果，只能是变量
+228. 一个对象的方法中，$this永远是调用它的对象的引用
+229. $php_errormsg：前一个错误消息，只在错误发生的作用域内可用，并且要求
+        php.ini中的track_errors是开启的
+230. $http_response_header：当使用HTTP 包装器时，$http_response_header 将会被 HTTP 
+        响应头信息填充。$http_response_header 将被创建于局部作用域中。
+231. Traversable接口：检测一个类是否可以使用foreach进行遍历的接口
+232. <?>Iterator：可在内部迭代自己的外部迭代器或类的接口
+233. arrayaccess：提供像访问数组一样访问对象的能力的接口
+234. Serializable：
+        Serializable::serialize：对象的字符串表示，此方法之后__destruct()不被调用
+        Serializable::unserialize：构造对象，此方法之后__construct()不被调用
+235. 文件相关函数：
+        file_exists()
+        filesize()
+        unlink()
+        fopen()
+        fwrite()
+        fclose()
+        fgets()
+        read_file()
+        flock()
+        rewind()
+        ftell()
+        fseek()
+        ...
+236. MySQL: char类型指定长度，varchar类型变长，占用空间小，但是char类型速度更快
+237. NOT NULL的意思是 if NOT then NULL
+238. 查看mysql存储引擎
+        show engines; // 可供使用的存储引擎
+        show variables like '%storage_engine%'; // 默认
+        show create table tablename; // 某个表的
+239. readdir()读取一个文件名为0的文件时也将返回 false
+240. 所有的文件状态函数的运行很费时间
+241. PHP脚本默认最长执行时间为30s， 可调用set_time_limit()函数重新定义脚本
+    允许执行时间
+242. Windows无法管理1970年以前的时间戳？那怎么解决的？
+243. cookie标题头必须在发送其他标题头之前发送
+244. unset($_SESSION)将禁用会话功能
+    $_SESSION = array(); 可以删除所有会话变量
+    session_destroy(); 清除会话ID
+245. 多单词变量不要超过3个单词，驼峰命名比用下划线连接击键次数少，个人倾向驼峰
+    命名。不过CSS中的类倾向于连接符连接，JS也用驼峰命名吧
+246. PHP中函数名称是不区分大小写的，应保持一致，经常看到模块化命名，就是带一些
+    模块名前缀，如mysqli_，我们命名购物车模块时也可以带上cart_前缀
+    过程式接口常使用下划线
+    面向对象式常使用驼峰命名
+247. 代码注释：
+        文件：名称，功能，作者，更新日期
+        函数：功能，参数，返回值
+        类：用途
+        大段代码：代码的目的
+        复杂的代码：为什么这样写，代码的目的
+248. 字母o, l容易与数字0, 1混淆
+249. ThinkPHP二级配置参数区分大小写
+250. 多语言网站方案：
+        文本空间：同样的意思，不同语言所占空间不一样，中文相对少
+        字体大小：多样式
+            :lang(en) {
+                font-size: 85%;
+                font-family: arial, verdana, sans-serif;
+            }
+            :lang(zh) {
+                font-size: 125%;
+                font-family: helvetica, verdana, sans-serif;
+            }
+            note: 也可以body的class
+        布局：鉴于空间与文字大小等原因，采用多样式表是个不错的选择
+        语言切换：本地语言-目标语言条目
+        本地化：不仅仅语言，还包括货币、度量衡、公共节日、风俗习惯、性别、
+            地理位置等
+        颜色：尽量所有网站统一，除非本地化需要
+        维护：信息发布，回复留言（机器翻译、专业翻译团队）
+        三个级别：数据库、表、字段，其中为每种语言建立独立的表既可以节省空间，
+            还易扩展，但是要注意各个语言表共享的字段应该单独用一个表储存
+        注意字符集的正确设置
+        域名选择：子域名或目录方式或多域名，多域名也利于SEO，
+            也可以像Google通过设置cookie，
+        翻译：可以寻求专业的多语言翻译公司
+251. phpMyAdmin导入大文件时，注意php.ini配置的upload_max_size, post_size等等会
+    限制上传的大小导致导入失败
+252. 修改http.conf来切换根目录，有些程序必须运行在根目录下
+253. 修改模板文件时（比如thinkPHP,UCenter），注意关闭模板缓存或者删除缓存文件
+254. MySQL或者其他数据库文件的备份、保存、导入，以及涉及到的工具，要试验N次
+255. .htaccess 好像不能重复出现相同的 <IfModule ..> </IfModule>语句
+256. 使用$_SESSION之前必须执行 session_start(); 命令
+257. PHP的session即使没有cookie也可以起作用：
+    在每一个表单插入隐藏字段，其name为PHPSESSID(可以在php.ini里配置)，
+        value为sessione id
+    在每一个链接插入查询字串，即get请求，名字为PHPSESSID，值为session id
+    缺点就是复制此页面给别人时，别人就会得到你的session id
+258. Chrome存放的Cookie需要SQLite Database Browser来查看
+    IE6里面显示文本文档，但是无法打开，复制到另外一个地方，文本文档的名字
+    会改变，然后就是可以打开的txt文档了，但是以qq.com结尾的一个cookie竟然
+    无法复制到别处
+259. 确定浏览页面的是否为同一个用户，不依赖session或cookie也有办法，
+    可以根据IP，浏览器等单独或结合，这个可查资料
+260. Cookie是HTTP的一部分，和HTTPS没有关系
+    Cookie设置没有端口限制
+    news.google.com可以为google.com设置cookie
+    服务端是通过Set-Cookie字段发送Cookie到客户端
+    如果不知道Set-Cookie的domain，则默认为同一hostname
+261. 若Cookie的path为www.domain.com/foo/表示根目录下的foo目录及其子目录下的请求带有设置
+    的Cookie，而/bar/以及www.domain.com/根目录下的文件请求不带有Cookie
+262. secure标记，说明只有协议为SSL或HTTPS时才发送
+263. 设置所有子域名共享的Cookie，应该将domain的值设为.domain.com
+    为domain=www.domain.com设置的Cookie，domain.com下的请求不会带这个
+    浏览器执行的是从后往前的匹配
+264. httponly表示只能通过http设置，无法通过JS访问

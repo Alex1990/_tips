@@ -1,0 +1,71 @@
+/**
+ * Title: Blog Theme Update
+ * Author: Alex Chao
+ * Date: 2014-2-12
+ */
+
+Theme Name: Flatlog
+Cross-Browser: 
+    IE8+及其他现代浏览器，iOS，Android
+    添加统计浏览器的代码，添加Google Analytics代码就可以了
+
+目录分类：
+    四个大类：前端、后端、设计、杂谈
+    加上一个“其他”类，包含可扩展的类别：如计算机科学、数学、翻译、资源等
+
+子类：
+    前端：HTML、CSS、JavaScript、jQuery
+    后端：PHP、MySQL、NodeJS、Linux
+    设计：Web Design、Photoshop
+    杂谈：没有子类，就是读书、所感所想之类的事情
+
+分类导航放到头部，而侧边栏只显示社交链接、个人简介、相关子分类、TAG等
+
+评论系统：
+    只需昵称、邮箱即可，或者利用QQ、微博、豆瓣社交登录
+    头像、昵称、发表时间、内容、回复按钮
+    内容：只显示链接与文字、粗体，不显示图片、不能发表情
+
+顶部header利用headroom的效果
+导航下拉菜单：
+    PC：利用类似于切入效果
+    Mobile：类似于alistapart效果
+搜索框：位于header条右侧，在Mobile上点击搜索按钮弹出一个层，类似于微信
+
+代码片段：利用highlight.js + github style
+
+
+配色：橙红色、蓝绿色、黑白灰
+字体：
+    标题、导航、tag等微软雅黑 Helvetica Arial
+    正文：宋体、Georgia、Times New Roman
+
+内容：
+    文章标题：
+    Meta：时间、目录、作者
+    正文：前言、引文、一二三级标题、超链接、加粗、段落、代码、图片、脚注、音频、视频
+    标签：tag
+
+
+利用normalize.css, responsivenav, respond, html5shiv, highlight, 
+
+coding style:
+    idiomatic.js idiomatic.css
+    airbnb coding style
+    ...
+
+语义化标签的使用：semantic tags
+
+可访问性：accessibility
+    跨设备，IE6、7也可访问，低网速，盲人
+
+clear hightlight css
+
+小图标利用font-face，且只选择用的图标，而不是使用fontawesome
+
+网站名就叫：小曹哥，利用font-face
+
+音频或视频采用：mediaelment或优酷解决方案
+
+
+性能的优化：yslow，雅虎军规，bookmark文章，高性能网站指南，高性能js

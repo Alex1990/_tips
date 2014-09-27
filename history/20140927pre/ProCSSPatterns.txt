@@ -1,0 +1,98 @@
+/*
+ * Name: Pro HTML And CSS Design Patterns
+ * Date: 2013-4-22
+ * Author: Alex
+ */
+
+IE6绿色版，IE7(IE8里的)，IE8，Chrome 25，FireFox 19，Opera 12，Safari 5 for Windows
+1. 没有<meta http-equiv="content-Type" content="text/html; charset=utf-8" />
+    且没有 !DOCTYPE 时，在IE6,8，FF，OP中出现乱码，Ch中OK
+    只有!DOCTYPE时，会在FF出现乱码
+2. Quirk模式，Standard模式和Almost Standard模式
+3. Quirk模式中，h1作为body中第一个元素时，上外边距为0
+    在IE6中，默认，body有外边距，h1作为body中第一个元素时，有下外边距
+    其实是父子元素边界默认无外边距，同胞元素间有外边距且外边距合并
+4. 流动布局：
+    百分比作为宽度
+    max-width,min-width：单位用px还是em
+    由外向内盒模型
+    外边距、边框、内边距：单位用%还是px，还是什么
+5. <IE6> 默认显示垂直滚动条，通过设置html的overflow: auto/hidden/visible取消
+    当设置为auto时，若页面宽度为100%，则当高度大于一竖屏时（即会出现垂直
+    滚动条时），横向滚动条也会出现
+6. <IE6> 多个浮动元素，若一行排不下，则换行，此时紧跟浮动元素的文本段落会从
+        最后一行浮动元素后面环绕文本段落的外边距从上一行浮动元素的下边界开始
+7. <IE6,7>清理浮动时不像其他浏览器用外边距填充，而是直接凭空清理，
+        浮动元素之前有同胞元素时，浮动元素与清理元素之间会复制浮动元素之前的
+        同胞元素的下外边距
+8. <IE6>当子元素的尺寸大于容器的尺寸时，即使设置了容器的高或宽，
+        容器尺寸仍会自动扩展
+9. 包含浮动元素(Containing Floats):
+        如何添加或重置layout
+            参看http://onhavinglayout.fwpf-webdesign.de/hack_management/
+        若容器具有Layout，则容器会包含子元素，也就是自动扩展以适应内容
+        (extend-to-fit)
+            设置容器高度百分比时，IE7才会自动扩展
+            overflow:hidden|scroll|auto; 添加layout，仅对IE7有效，且在IE7中
+                的表现和在其他现在浏览器中一样，会包含子元素
+            position: fixed; 同上
+        容器为内联元素时，不管子元素是否具有内容，边框效果
+            IE6/7,Chrome,Safari 不会显示边框,IE6/7容器不具有layout情况下
+            IE8,FireFox,Opera   显示边框，宽度为内容宽度，高度为默认一行段落
+                                    高度，和容器的font-size有关
+        若单独一个元素为内联元素，则所有浏览器都显示边框
+        拥有layout的内联元素在IE6/7中非常类似于一个内联-块元素
+10. 紧跟浮动元素的元素(Elements next to floats)：
+        若为块级元素，其包含的内容会被浮动元素挤占(标准情况下)
+        如果块级元素具有layout，则块级元素也会被浮动元素挤开，并且其包含的
+            的内容也不会跑到浮动元素的下面形成环绕。
+        另外在给块级元素使用相对定位时，相对原点也会从浮动元素的右上角计算
+        还有注意IE6下的3像素偏移bug
+11. IE6/7中的列表的项目符号是通过列表的外边距空出空间的，而在其他现在浏览器
+        中是通过列表的内边距空出空间的
+        若使列表具有layout，则会使项目符号凭空消失，也可能发生其他定位问题
+12. IE6/7中有序列表项具有layout时，会从新计数，即从1开始；通常情况下应该
+        给列表外面的容器设置宽度，设置列表项里面的内容的高度，从而避免使
+        列表或列表项具有layout
+13. IE6 中，若列表项的内容是一个块级元素（比如anchor）时，多行列表项之间会
+        形成空白，就好像插入了一个看不见的列表项，避免的方法有：
+        a. 使列表项的块级内容具有layout（标签a的单击区域扩展，同其他浏览器）
+        b. 设置列表项 display为 inline（标签a的单击区域并不扩展）
+14. 容器包含一个浮动元素时，若浮动之后的清理元素与浮动元素接触(外观接触），
+        则在IE6/7中发生多种问题：
+        容器的margin可能不起作用
+        清理元素之前的正常流内容，不具有haslayout会消失
+15. 若容器相对定位，比如向左偏移，则在IE6中，浮动的子元素不会跟着发生偏移，
+            除非容器具有layout
+16. 绝对定位元素的百分比宽度或高度会根据最近已定位(relative,absolute,fixed)计算，
+        但是在IE6中，会根据最近的父元素计算
+17. 1像素误差(1 pixel rounding error):
+        绝对定位的元素以相对单位(%/em)为长度单位时，在IE6/7中可能会有1像素的
+        计算误差，这取决于相对单位值和窗口的大小(也是祖先定位元素的大小)
+18. <IE6>中，对<a>使用:first-letter或:first-line似乎会激活activate状态或者
+        下面对a:link or a:visited应用样式时可能无效，因此如果要兼容IE6，最好
+        别用first-letter或first-line伪元素
+19. 边框样式(border-style):
+        dotted: 在IE6-8,FF 中为圆点，IE中边缘锯齿明显，在SF/Ch/Op中表现为方点
+                因此，不要使用很宽的此类边框
+        dashed: 均是长条，但长度、密度、以及角交界处处理均不同，主要表现在
+                IE与其他浏览器的不同，SF/Ch最相似，可能是同一核心的缘故吧
+        double: IE两条线间距小，也就是两条线较粗
+20. IE6/7 background-position的参考原点与是否具有layout有关，
+        hasLayout: 则原点为包含内边距的左上角，连背景颜色也是，因此边框下面
+                    也就没有背景颜色了
+        no hasLayout: 则原点为包含边框的左上角，背景颜色也是
+21. IE6/7 表单元素的父元素若具有layout，则表单元素(除checkbox,radio,image和
+        textarea)和select elements会继承所有祖先元素的左外边距之和
+        Workaround: 通常可以在表单元素外加一个不具有layout的内联元素，如
+                    label,span，当然也可以是p块级元素
+22. IE6 常规垂直导航列表，列表浮动时，
+        若<a>没有layout则列表项之间有空白间隔，且<a>不具有扩展的点击或悬浮
+            感应区域，但列表会收缩包裹；
+        若<a>有layout，则列表项之间无空白间隔，<a>具有扩展的点击或悬浮感应区域
+            但列表项会扩展直到整个宽度
+        若列表项浮动（即想制作水平列表），<a>具有haslayout，且不浮动时，
+            列表项扩展直到整个宽度，且有垂直空白间隔，解决方法时，让<a>不具有
+            layout，或具有浮动
+23. 这是IE6一个已知的BUG：当某position:relative元素 被带有overflow:auto/scroll
+    属性的块级元素包含时，会表现出postion:absolute的行为。

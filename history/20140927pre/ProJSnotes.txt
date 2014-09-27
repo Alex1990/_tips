@@ -1,0 +1,1102 @@
+﻿/*
+* Goal: Professional JavaScript for Web Developers 3rd Edition
+* Time: 2013-03-16
+* Author: Alex Chao
+*/
+
+// 2013-3-16
+1. JavaScript: ECMAScript, DOM, BOM.
+2. 浏览器对ECMAScript的兼容：IE6/7 3nd，IE8 5nd*, IE9 5nd;
+    Chrome,Firefox,Safari,Opera 5nd;(最新版本应该达到了).
+    reference: http://kangax.github.com/es5-compat-table/
+3. DOM Levels:
+    1)DOM Level 1: DOM Core, DOM HTML;
+    2)DOM Level 2: DOM Views, DOM Events, DOM Style, DOM Traversal and Range;
+    3)DOM Level 3: XML 1.0;
+    notes: DOM0级标准不存在，特指IE4、NN4最初支持的DHTML
+    
+//chapter02
+4. <script>
+    type属性默认值text/javascript
+    async:表示应该立即下载脚本，xhtml中设置async="async"
+    defer:脚本延迟到文件解析完后执行 //不是很清楚, xhml中设置defer="defer"
+    如果<script>标签通过src引用了外部脚本文件，则标签之间的代码将不会执行
+    script标签一般放在页尾、</body>之前
+5. xhtml文档中<script></script>标签之间的小于号会解析错误，处理方法：
+    1) HTML实体：&lt; 表示
+    2) 引入CData片段，并注释掉其标签
+6. MIME定义文档的类型*
+
+//chapter03
+7. 区分大小写
+8. 标识符(变量、函数、属性的名称)：第一个字符字符、下划线或美元符号；其他字符再加数字；
+    最佳实践：驼峰写法
+9. 注释：// 单行， /* */多行
+10. 严格模式？？？ "user strict";
+11. 分号结束语句，可省，但不推荐；语句块，多条语句放入花括号中
+12. * 表示第五版新增
+    关键字：break,case,catch,continue,debugger*,default,delete,do,else,finally,for,
+            function,if,in,instanceof,new,return,switch,this,throw,try,typeof,var,
+            void,while,with
+    保留字：abstract,boolean,byte,char,class,const,debugger,double,enum,export,
+            extends,final,float,goto,implements,import,int,interface,long,native,
+            package,private,protected,public,short,static,super,synchronized,
+            throws,transient,volatile
+    5nd nostrict: 缩减为
+            class,const,enum,export,extends,import,super
+    5nd strict:限制级
+            implements,interface,let,package,private,protected,public,static,yield
+            eval,arguments
+13. 松散型变量，未赋值时保存undefined,省略var可定义全局变量，不推荐，
+    严格模式下抛出ReferenceError错误
+14. 数据类型：5种基本数据类型：Undefined, Null, Boolean, Number, String.
+            1种复杂数据类型：Object————有名值对构成
+15. typeof操作符：可能返回值有Undefined/Boolean/Number/String/Object/Function
+16. null:空对象指针，一般定义将要保存对象的变量;
+        alert( null == undefined);  //true
+        undefined派生于null
+17. Boolean:转型函数Boolean(),转换为false的情况有false,0,"",NaN,null,undefined
+18. Number:八进制第一位必须是0，但严格模式下js引擎抛出错误，十六进制以0x开头
+19. JavaScript保存正零和负零<?>
+20. 浮点数值：内存空间为整数值两倍，ECMAScript会不失时机地转换为整数值，
+        极大或极小值可用e/E表示法：var a = 3.23e5  // a=323000
+    精确度17位小数，但0.1+0.2时会等于0.30000000000000004，0.15*0.15等反而没问题，
+        这是使用IEEE754表示的通病，因此不要以浮点数的结果作为判定条件
+21. 数值范围：Number.MIN_VALUE(最小值)、Number.MAX_VALUE(最大值)，另
+        Number.NEGATIVE_INFINITY(-infinity)、Number.POSITIVE_INFINITY(infinity)
+        isFinite()：最小与最大值之间的数值返回true
+22. NaN:Not a Number,检测函数isNaN(),特别对对象类型使用时，先调用对象的valueOf()方法，
+        若不能转换为数值，则基于返回值再调用toString()方法
+23. 数值转换：三个函数Number()/parseInt()/parseFloat(),
+        Number()转换规则：null返回0，undefined返回NaN，
+            字符串：只包含数字，包含浮点格式，包含十六进制“0x“，空字符串，其他(NaN)
+            对象：调用valueOf(),结果为NaN再调用toString()，结果不为NaN的对象有哪些<?>
+        parseInt():忽略前置空格，然后解析一个连续的数字，并能识别出整数格式（进制），
+                但是解析八进制时ECMAScript 3与5不同，5解析不出，需要第二个参数
+                指定第二个参数（基数）是十分必要的，第二个参数可以为2,3,8,10,16,17等
+        parseFloat():只能转换十进制，只能识别出第一个小数点
+24. String类型：有零个或多个16为Unicode字符组成的字符序列，可用单引号或双引号表示
+            特殊字符字面量，即转义字符：\n \t \b \r \f \\ \' \" \xnn \unnnn
+            可用length属性确定字符长度，但含有双字节字符时会不准
+            一个特点：var lang = "Java";lang = lang + "Script";会用新的组合字符串填充
+                重新定义的lang，然后销毁原来的字符串，从而拼接字符串操作低效（IE6）<?>
+25. toString()：null和undefined没有此方法，在调用数值的此方法时可传递作为转换基数的参数
+26. String():转型函数可转换一切值，null转换为"null",undefined转为"undefined",
+            若有toString()方法，则调用此方法
+            ps：还可以使用加号操作符与""连接
+27. Object：基础属性，也是所有对象实例具有的属性：constructor,hasOwnProperty(propertyName),
+            isPrototypeOf(object),propertyIsEnumerable(propertyName),toLocaleString(),
+            toString(),valueOf();
+            ps: 在宿主环境中对象不一定具有上面的基础属性
+-------操作符----------
+28. 一元操作符：++，--，前置型与后置型：最大区别前置型会先执行递增或递减操作，而后执行
+            语句中的其他运算，后置型先执行语句中的其他运算，而后执行递增或递减操作
+            +/-加减操作符：数值型容易理解，对非数值型要执行Number()转换
+29. <?>数值、字符的二进制表示，反码、补码等概念。
+30. 位操作符：即直接操作内存中表示数值的二进数位，速度更快；
+            7种操作：非(NOT)~,与(AND)&,或(OR)|，异或(XOR)^，
+                    左移<<，有符号右移>>，无符号右移>>>；
+            异或操作符与乘方的符号相同，代数式中的乘方符号在js中无效；
+            左移：以0填充空位；
+            有符号右移：以符号位值填充空位；
+            无符号右移：以0填充空位，且把负数也当成正数；
+    ps：1左移操作移动31位时得到一个负数，这个负数的绝对值是移动30位时的两倍<?>
+31. 布尔操作符：逻辑非!，逻辑与&&，逻辑或||;
+            逻辑非：对转换到的布尔值结果求反，两个!!与Boolean()结果相同；
+            逻辑与：对非布尔值操作时，短路操作<?>书中表述不清楚<?>，若第一个操作数布尔求值结果为
+                    false则返回该值，否则返回第二个值;
+            逻辑或：若第一个操作数布尔求值为true，则返回该值，否则返回第二个值；
+            ps：避免为变量赋值null或undefined，var myVar = preferredVar || backupVar;
+32. 乘性操作符：乘法*，除法/，求模%
+            乘法：0与infinity相乘结果为NaN，非数值将调用Number()函数转换
+            除法：0除0，infinity除infinity结果为NaN
+            求模：余数为无穷大时将返回NaN，infinity除infinity结果为NaN，
+                    被除数0结果为0，被除数有限大、除数无穷大值结果为被除数
+33. 加性操作符：指常用的加法、减法
+            加法：若有一个操作数为字符串则将另一个转换为字符串
+                    infinity与-infinity结果为NaN
+                    两个+0得+0，两个-0得-0，一个+0一个-0得+0
+                    常见错误是：忽略加法中的操作数数据类型
+            减法：Infinity减infinity，-infinity减-infinity结果为NaN
+34. 关系操作符：大于、小于、大于等于、小于等于
+        规则：两个操作数均为数值时，比较数值大小
+            若有一个数值，则将另一个转换为数值
+            布尔值会先转换为数值
+            若两个均为字符串，则比较字符串的字符编码值
+            （"B"<"a","b">"a","23"<"3")
+35. 相等操作符：相等(==)和不相等(!=)，全等(===)和不全等(!==)
+            相等和不相等比较时会转换数据类型
+            NaN与任何操作数比较都会返回NaN
+            两个对象：若两个操作数指向同一个对象则返回true，否则返回false
+36. 条件操作符：variable = boolean_expression ? true_value : false_value;
+            var max = (num1 > num2 ) ? num1 : num2;
+37. 赋值操作符：=
+            复合赋值操作符，不会带来任何性能上的提升，只是简化书写
+            +=,-=,*=,/=,%=,>>=,<<=,>>>=
+38. 逗号操作符：多用于声明多个变量
+-----------语句----------------
+39. if语句：尽量使用代码块，若判定条件不为布尔值，则会使用Boolean()函数转换
+40. switch语句：比较时使用全等操作，case后面可以是数值、字符串、表达式、对象等
+            注意一般每个case后面跟break，若特殊情况请注明
+            switch一般以default结尾
+            表达式例子：
+                var num = 25;
+                switch (true) { // 注意true为传递的表达式
+                    case num < 0;
+                        alert("Less than 0.");
+                        break;
+                    case num >= 0 && num <= 10;
+                        alert("Between 0 and 10");
+                        break;
+                    default:
+                        alert("More than 10.");
+                }
+41. do-while语句：应用于循环体代码至少被执行一次的情形
+42. while语句：循环体代码可能一次都不执行，一般用于有明确结束条件的循环
+43. for语句：初始化表达式、控制表达式、循环后表达式都是可选的，
+        循环内部定义的变量（通常是i）在外部也可以访问
+44. for-in语句：遍历对象的属性，对象为null或undefined时抛出错误，ECMAScript 5只是不执行
+            最好使用前检测是否为null或undefined
+            遍历对象时，不同浏览器的返回顺序可能不同
+45. break和continue语句：break会立即跳出循环，执行循环下面的语句；
+            continue也会跳出当次循环，执行下一次循环；
+46. label语句：label:statement
+        eg: 
+            start: for (var i=0; i < count; i++) {
+                if( i === num ) break start;
+                alert(i);
+            }
+        label可与break或continue联合使用，但不要使用过度，不要嵌套太多循环
+-----------函数----------
+47. function关键字声明函数，return返回值，但return后面的语句将不会执行
+        return;将返回undefined
+        要么函数总是返回一个值，要么永远都不要返回值
+48. 函数参数：命名的参数只提供便利，但不是必须的
+            参数保存在一个类似数组的arguments对象中
+            可以通过arguments[0],arguments[1]等代替第一个、第二个参数
+            arguments.length返回参数的个数
+            可以根据arguments的函数来实现不同的功能
+            没有传递值的参数将会赋予undefined
+49. 没有重载<?>：通过检查传入函数参数的类型和数量作出不同反映，可以模仿重载
+
+// chapter04
+50. 变量的两种数据类型的值：基本类型值和引用类型值
+        基本类型：null,undefined,boolean,number,string
+        引用类型：由多个值构成的对象，数组也是对象
+51. 动态属性：基本类型无动态属性，引用类型可以动态添加或删除属性
+52. 复制变量值：基本类型的复制值与原值互相独立，而引用类型复制值实际上是复制的一个指针
+53. 传递参数：通常有按值传递和按址传递两种方式，不过ECMAScript中参数均按值传递，
+            就如同变量的复制样，基本类型复制值，引用类型复制指针
+54. 检测引用类型的实例：即是否为对象或数组或正则表达式，实质是根据原型链判定的
+            variable instanceof Object/Array/RegExp
+55. 执行环境(execution context)：定义了变量和函数有权访问的数据，有一对应的变量对象
+            Web浏览器中，全局执行环境为window对象
+56. 作用域链(scope chain)：保存为当前执行代码所在环境的变量对象，下一个变量对象来自包含
+            （外部）环境，一直到全局执行环境。
+57. 没有块级作用域：即花括号不为作用域，因此if、for等语句中定义的变量在结束后仍能访问，
+            而在函数内部用var关键字声明 的变量为局部变量，未加关键字var则为全局变量
+58. 查询标识符：在遇到陌生标识符时会从最近的执行环境开始查找，直到定义该标识符的位置或
+            全局执行环境为止，则返回未定义
+59. 垃圾收集：两种方式：标记清除与引用计数
+            标记清除：标记那些将要清除的变量，IE、FF、Chrome、Opera、Safari都是采用
+                    这种机制，只不过垃圾收集周期不同
+            引用计数：IE8及之前的版本的BOM和DOM对象采用这种方式，因此最好手动解除引用
+                    即将变量赋值null
+60. 性能问题：触发垃圾收集的变量分配、字面量或数组元素的临界值克动态调整（IE7）
+            IE6由于不可以导致js代码变量过多时，频繁执行垃圾收集
+61. 管理内存：对全局变量在不用时应该手动赋值null以解除引用
+
+// chapter05
+62. 引用类型：ECMAScript没有类和接口等基本结构，引用类型的实例为对象，通过构造函数创建
+63. Object：通过对象字面量语法定义时不会调用构造函数（FF在3之后不会调用）
+64. 向函数传递多个参数时，必须值使用命名参数，可选值用对象字面量封装多个参数<?>
+65. 访问对象属性的两种方法：点表示法和方括号法，通常用点表示法、在属性名包含特殊字符时
+        才用方括号法
+66. Array类型：元素可以是各种数据类型，定义方法：Array构造函数和数组字面量语法（不会
+        调用Array构造函数），数组字面量定义数组时避免定义空的元素（无任何值，undefined)
+67. 数组的length属性是可写的，即可以通过改变length的值改变数组大小
+68. 检测数组<?>：Array.isArray(value)，IE9+/FF4+/Sf5+/Op10.5+/Chrome
+69. 对于数组：toString()返回一个字符串，valueOf()返回一个数组，toLocaleString()返回
+        一个字符串，通常与toString()返回一样，但实际调用的是每一项的toLocaleString()
+70. join(): 使用指定的分隔符或默认的逗号分割数组的每一项，返回值分割后的字符串
+71. 数组项为null或undefined在join()/toLocaleString()/toString()/valueOf()中返回空字符
+72. 栈方法和队列方法：
+        push([value1,value2,...])在数组末尾逐个添加项；
+        pop():取得数组最后一项；
+        shift():取得的数组第一项；
+        unshift()：在数组前端添加任意项，返回数组的长度
+        ECMAScript中：
+            采用push()和pop()模拟栈，push()和shift()模拟队列，
+            unshift()和pop()模拟逆队列（ie6/7、ie8兼容模式不返回unshift()正确值）
+73. 排序方法：
+        reverse():将数组项倒序排列；
+        sort():默认按ASCII码从小到达排列，可接受一个比较函数作为参数，如
+                function compare(value1, value2){
+                    return value2-value1;
+                }
+                arr.sort(compare);
+                将从大到小排列arr中的元素
+74. 操作数组项的方法：
+        concat()：在原数组基础上构建一个新数组，若传递参数为数组，则每一项都添加都复制
+                    的原数组副本后面
+        slice()：返回指定的数组片段，如slice(1,4)
+        splice()：最强大数组方法，返回包含删除项的数组
+                删除：两个参数，起始项位置和删除的项数，如splice(0,2)
+                插入：三个参数，起始位置、0、要插入的项，如splice(1,0,"red","blue")
+                替换：三个参数，起始位置、删除的项数、要插入的项，如splice(1,1,"red","blue")
+75. 位置方法：indexOf()、lastIndexOf()均返回特定项在数组中的位置，只不过前者从前查找，
+            后者从后开始查找，若查询不到则返回-1，一旦查询到一个符合项即结束查询
+            支持：IE9+/FF2+/Sf3+/Op9.5+/Chrome
+76. 迭代方法（即重复执行）：ECMAScript 5定义了5个迭代方法，每个均接受两个参数，一个要对
+        每一项执行的函数和一个可选的运行该函数的作用域对象（影响this的值<?>）
+        every():每一项返回true，则返回true；
+        some():任一项返回true，则返回true；
+        filter():返回由返回值为true组成的数组；
+        forEach():无返回值，和用for迭代数组一样；
+        map():返回执行函数后组成的数组；
+        支持：IE9+/FF2+/SF3+/OP9.5+/CH
+77. 归并方法<?>：reduce()和reduceRight()，均接受一个函数参数和一个可选的归并基础初始值
+        传递的函数有四个参数：前一个值、当前值、项的索引和数组对象
+        如：
+            var values = [1, 2, 3, 4, 5];
+            var sum = values.reduce(function(prev, cur, index, array){
+                return prev + cur;
+            });
+            alert(sum); //15
+        两个方法的返回值均作为第一个参数传给下一项
+        支持：IE9+/FF3+/SF4+/OP10.5+/Ch
+--------------Date类型--------------
+78. 使用自UTC（国际协调时间）1970年1月1日零时起保存的毫秒数
+79. var now = new Date();Date()默认返回当前系统时间，可接受参数，包括毫秒数
+80. 两个创建日期的方法：Date.parse()和Date.UTC()，均返回毫秒数
+        Date.parse()：接受多种时间字符串格式“MM/DD/YYYY”,“英文月名 日，年”，UTC格式，ISO 8601格式
+                    在传入的值超出范围时（如月份的天数），不同浏览器有不同处理方式
+        Date.UTC()：接受参数年份、基于0的月份、月中的哪一天、小时数、分钟、秒、毫秒。
+                    其中年份与月份是必须的，其他可选天数会默认1，其他默认0
+                    返回基于UTC时间的毫秒数
+        Date.now():ECMAScript 5中添加，获取系统本地当前时间，可以利用此方法测量某一段
+                    代码执行所用时间
+                支持：IE9+/FF3+/SF3+/OP10.5+/CH
+81. 继承的方法：
+        toLocaleString()、toString()返回的日期时间格式因不同浏览器而不同，但通常
+            toLocaleString()含有AM或PM信息，toString()含有时区信息
+        valueOf()返回毫秒数
+        其他日期格式化方法：
+            toLocaleDateString()
+            toLocaleTimeString()
+            toDateString()
+            toTimeString()
+            toUTCString()
+            toGMTString()
+82. 日期的其他方法：均是对日期的某一部分返回或设置的方法
+    getTime()
+    setTime()
+    getFullYear()
+    setFullYear()
+    getMonth()
+    setMonth()
+    getDate()
+    setDate()
+    getDay()
+    setDay()
+    getHours()
+    setHours()
+    getMinutes()
+    setMinutes()
+    getSeconds()
+    setSeconds()
+    getMilliseconds()
+    setMilliseconds()
+    getTimezoneOffset()
+    getUTCFullYear()
+    setUTCFullYear()
+    getUTCMonth()
+    setUTCMonth()
+    getUTCDate()
+    setUTCDate()
+    getUTCDay()
+    setUTCDay()
+    getUTCHours()
+    setUTCHours()
+    getUTCMinutes()
+    setUTCMinutes()
+    getUTCSeconds()
+    setUTCSeconds()
+    getUTCMilliseconds()
+    setUTCMilliseconds()
+    // 应该能够写一个日历控件，LED表（日期翻页效果，时间滚轮转动效果），圆盘手表
+------------RegExp------------
+83. 创建正则表达式两种方法：正则字面量语法与RegExp构造函数
+        使用字面量语法时在ECMAScript 5中才会像直接调用构造函数那样每次创建一个新实例
+84. 字面量语法中的特殊符号要转义，而传递给构造函数的字符串中的特殊符号有时要转移两次，
+    如："\\\\n"代表换行符\n
+85. 三种标志：
+        g:表示全局模式，即应用于所有字符串
+        i:case-insensitive模式，不区分大小写
+        m:multiline，多行模式
+86. RegExp实例属性：
+        global:布尔值，是否设置了g标志
+        ignoreCase:布尔值，是否设置了i标志
+        lastIndex:整数，开始搜索下一个匹配项的字符位置，从0开始
+        multiline:布尔值，是否设置了m标志
+        source:字面量形式的字符串
+87. RegExp实例方法：捕获组概念<?>
+        exec()：返回由匹配项组成的数组，没有匹配项返回null
+                带g标志时，一次只会返回一个匹配项，下一次才会返回下一个匹配项
+                不带g标志时，始终返回第一个匹配项
+        test()：有匹配项返回true，无则返回false
+88. RegExp构造函数的属性：长属性名与短属性名(短属性名必须以包含在方括号的字符串形式访问）
+        input: $_ 
+        lastMatch: $&
+        lastParen: $+
+        leftContext: $`
+        rightContext: $'
+        multiline: $*
+        此外还有9个存储捕获组的属性：$1、$2、...
+89. ECMAScript中的正则表达式还有局限性：如向后查找，原子组，条件匹配等
+90. 正则表达式的应用：表单验证、文本查找/替换等
+        表单验证：只能大小写字母加数字
+                大小写字母加数字加下划线
+                邮箱地址格式：字符串加@加字符串加.加com/cn等字符串
+                大小写字母、数字、”_-,.$“
+------------Function--------------
+91. 函数是Function类型的实例，是对象，具有属性和方法
+92. 函数名实际上是指向函数的一个指针，因此无关紧要，换个名字也可以
+93. 函数创建方式：函数声明和函数表达式
+        通常使用函数声明，函数声明会被解析器预先读取，因此可以在函数声明前调用函数，
+        而函数表达式创建的函数只能在之后调用
+94. 函数既可以作为参数，也可以作为另一个函数的返回值
+95. 函数内部属性：arguments和this对象
+        arguments对象有个属性callee，保存着指向拥有arguments对象的函数
+        应用阶乘函数：
+            function factorial(num){
+                if (num <= 1) {
+                    return 1;
+                } else {
+                    return num * arguments.callee(num-1);
+                }
+            }
+        this引用的是函数所执行的环境对象
+        caller属性：保存着调用当前函数的函数的引用，全局函数为null
+96. 函数的属性和方法：
+        length:接受命名参数的个数
+        prototype:保存着函数的实例方法<?>
+        call()与apply()均接受两个参数，第一个是某个作用域对象（如window,obj,this)，
+            第二个是arguments或数组,但call()接收的参数必须列举出来，实际上这两个函数
+            主要用来改变函数的执行环境
+        bind():创建一个函数的实例，并将其this值绑定到bind()的参数值上，这样即使在
+            全局作用域调用函数，this值还指向绑定的对象
+        toLocaleString/toString/valueOf均返回函数的代码
+97. <?>在严格模式下，未指定环境对象而调用函数，则this值不会转型为window。除非明确把
+        函数添加到某个对象或调用apply()或call()，否则this值将是undefined
+98. 基本包装类型：创建基本类型时后台自动创建对应的基本包装类型，以便使用一些方法
+        包括Boolean/Number/String，是一种对象，布尔表达式中转换为true
+99. Number类型：
+        toFixed()：指定小数的位数
+        toExponential()：指定e表示法中的小数位数
+        toPrecision()：决定采用合适的显示数字方法：小数或科学记数法，1到21位小数
+100. String类型：
+        length属性：返回字符串的长度，双字节符算一个字符
+        字符方法：参数均为基于0的位置数值
+            charAt():
+            charCodeAt():
+            另，可以通过方括号加数字索引访问，支持：IE8,FF,SF,OP,CH
+        连接字符串：concat()可接受多个参数，和+号效果相同，实际中常用+号
+        子字符串：
+            slice():
+            substr():
+            substring():
+            均接受两个参数，第一个参数均为基于0的起始字符位置，slice()与substring()
+                的第二个参数表示结束位置的下一位，substr()第二个参数表示子字符串长度
+            只传递一个参数：若为非负数,则三个均返回指定起始位置到字符串结束的子字符串
+                若为负数，则slice()/substr()返回从"负数+字符串长度“（若和小于零则赋值0）
+                开始到字符串尾的子字符串，substring()会返回整个字符串，即视为传进0
+            传递的第二个参数为负数时，slice()会将负数加上字符串长度，substr()会转成0，
+                substring()会转成0，但substring()返回两个参数小到大的字符串
+            notes:IE8及之前版本的substr()传递负值时会返回整个字符串，IE9修复了
+        字符串位置：
+            indexOf()：从前向后查找，可接受第二个位置参数，从其向后查找
+            lastIndexOf():从后向前查找，可接受第二个位置参数，从其向前查找
+        trim()方法：
+            trim()返回删除前后所有空格的字符串副本
+                支持：IE9+/FF3.5+/SF5+/OP10.5+/Ch
+            trimLeft()、trimRight()为非标准方法
+                支持：FF3.5+/SF5+/Ch
+        大小写转换：
+            toLowerCase():
+            toUpperCase():
+            toLocaleLowerCase():
+            toLocaleUpperCase():
+            前两种经典方法，后两种针对地区可以进行特殊转换，如土耳其语，面向国际时使用
+        模式匹配：
+            match():相当于exec()，接受一个字符串或正则表达式或RegExp对象，返回匹配项数组
+            search():接受一个字符串或RegExp对象或正则表达式，返回第一个匹配项索引，
+                    若无匹配项返回-1
+            replace():两个参数，第一个可为字符串或正则表达式，第二个可为字符串或函数
+                    若替换多个匹配项则第一个参数必须为带全局标志g的正则表达式
+                    第二个参数为字符串时可以使用特殊字符序列如$$/$&/$`/$'/$n/$nn
+                    只有一个匹配项时，第二个参数为函数时接受三个参数：匹配项、匹配项的
+                    位置、原始字符串，返回值应该是字符串，若有多个匹配项，则第一个参数与
+                    最后两个参数仍不变，如替换html特殊字符为html实体时的应用
+            split():以指定的字符或正则表达式分割字符串，返回数组，可以加上限定数组大小
+                    的第二个参数。
+                    在含有捕获组的正则表达式时，<=IE8会忽略捕获组，IE9修正;捕获组无匹配
+                    时，ECMA-262规定应返回undefined
+                    more:JavaScript split bugs: fixed
+            localeCompare():比较两个字符串的顺序，若字符串排在参数之前则返回负值（通常-1)，
+                    等于返回0，之后返回正值（通常1）
+            fromCodeChar():将字符编码转换为字符，只有String有此方法
+            HTML方法：一些格式化html的方法，避免使用
+                big():<big>string</big>
+                bold():<b>string</b>
+                small():<small>string</small>
+                italics():<i>string</i>
+                strike():<strike>string</strike>
+                等等
+--------------单体内置对象----------------
+101. Global对象：不属于其他任何对象的方法或属性，属于Global对象；
+102. URI编码/解码方法：
+            encodeURI():对非URI有效字符编码，如空格=>%20
+            encodeURIComponent():对所有非字母数字小数点字符编码，如正斜杠、井号、问号
+            decodeURI():对非URI有效字符解码，如20%=>空格
+            decodeURIComponent():对所有非字母数字小数点字符编码
+103. eval()：相当于一个解析器，会执行所有传递的ECMA-262字符串
+            eval()内部可访问外部定义的函数，变量；外部可以访问内部定义的函数、声明的变量
+            但在严格模式下会抛出错误
+104. Global对象的属性：特殊值(undefined,NaN,null)和构造函数(Object,Array,Function,...)
+105. window对象：Global对象在浏览器中常作为window对象的一部分，在全局作用域下声明的
+            函数或变量会作为window对象的方法或属性
+            另，以下代码可取得Global对象
+            var global = function(){
+                return this;
+            }();
+106. Math对象：保存着常用的数学常量和方法
+        属性：
+            Math.E: e的值
+            Math.LN10: 10的自然对数
+            Math.LN2: 2的自然对数
+            Math.LOG2E: 
+            Math.LOG10E: 
+            Math.PI:
+            Math.SQRT1_2: 1/2的平方根
+            Math.SQRT2: 2的平方根
+107. min()和max()方法
+        接受一组数值，返回最小值或最大值；
+        数组最大值或最小值：
+            var values = [2, 4, 29, 34];
+            var max = Math.max.apply(Math, values);
+108. 舍入方法：
+        Math.ceil()：向上舍入
+        Math.floor()：向下舍入
+        Math.round(): 四舍五入
+109. Random():返回[0,1)范围内随机数
+        某个整数范围内随机值：Math.floor(Math.random()*可能的总数+第一个可能的值)
+        可以定义成函数：
+        function selectFrom(lowerValue, upperValue){
+            var choices = upperValue - lowerValue + 1;
+            return Math.floor(Math.randow()*choices + lowerValue);
+        }
+        随机选择数组中的一项：
+            var color = colors[selectFrom(0, colors.length-1)];
+110. 其他方法：
+        abs():绝对值
+        exp():e的次幂
+        log():自然对数
+        pow(num,power):num的power次幂
+        sqrt():平方根
+        acos():反余弦值
+        asin():反正弦值
+        atan():反正切值
+        atan2(y,x):y/x的反正切值
+        cos():余弦值
+        sin():正弦值
+        tan():正切值
+//chapter06
+111. 属性类型：数据属性和访问器属性
+112. 数据属性：4个描述符特性
+        [[Configurable]]:是否可以delete,能否修改为访问器属性，默认true
+        [[Enumerable]]:能否for-in遍历出，默认true
+        [[Writable]]:能否写入,默认true
+        [[Value]]:保存属性的数据值，默认undefined
+        notes: 一旦把Configurable设置为false,则不能再改回，只能修改Writable的属性
+113. 访问器属性：
+        [[Configurable]]:
+        [[Enumerable]]:
+        [[Get]]:读取属性时调用的函数，默认undefined
+        [[Set]]:写入属性时调用的函数，默认undefined
+114. 通过Object.defineProperty(object, property, decriptor)方法
+        设置数据属性或访问器属性
+        (定义多个属性：Object.defineProperties())
+        支持：IE9+,FF4+,SF5+,Op12+,Ch
+115. 读取属性的特性：Object.getOwnPropertyDescriptor()
+116. 创建对象的模式：
+        工厂模式：用函数封装对象
+        构造函数模式：方法和属性赋给this对象，利用new操作符创建实例
+        原型模式：利用prototype属性指向原型对象
+        构造函数与原型混合模式：构造函数定义属性，原型定义方法和共享的属性
+        寄生构造函数模式：类似于工厂模式的构造函数，尽量别用
+        稳妥构造函数模式：定义私用变量和函数，从而能通过提供的方法返回特定值，用于安全环境
+        notes:后两种模式的实例无法用instanceof 确定构造函数
+117. 构造函数模式：方法不可以共享
+    原型模式：引用类型保存在原型中，从而每个实例的引用类型属性不独立
+    构造函数与原型混合模式：使用最广泛的模式
+118.  原型链：原型作为另一个构造函数的实例时，指向其原型，最终都默认指向Object
+            位于原型链上的对象的属性和方法可以继承
+119. 继承的方式：
+        原型链：
+        借用构造函数：要用到call()或apply()方法
+        组合继承：构造函数实现实例属性继承和原型链实现方法的继承
+        原型式继承：Object.create()方法
+            function object(0){
+                function F(){}
+                F.prototype = 0;
+                return new F();
+            }
+        寄生式继承：无法函数复用<?>而降低效率，类似于构造函数
+            function createAnother(original){
+                var clone = object(original);
+                clone.sayHi = function(){
+                    alert("Hi");
+                }
+                return clone;
+            }
+        寄生组合式继承：由于组合继承调用两次超类型构造函数导致低效率，而寄生组合式
+                是目前最理想的继承范式
+            function inheritPrototype(subType, superType){
+                var prototype = object(superType.prototype);
+                prototype.constructor = subType;
+                subType.prototype = prototype;
+            }
+// chapter07
+120. 创建函数两种方式：函数声明和函数表达式，区别是函数声明可以被提前解析，即可在
+        声明前调用。
+121. 递归实现：由于严格模式下，访问arguments.callee会导致错误，可采用下面方式
+        var factorial = (function f(num){
+            if (num <= 1){
+                return 1;
+            } else {
+                return num * f(num-1);
+            }
+        });
+122. 闭包：有权访问另一个函数作用域中的变量的函数，最常见的就是一个函数内部创建一个
+        函数。闭包函数携带外部包含函数的作用域，作用域链是理解闭包的关键。
+        闭包会占用更多的内存，应谨慎使用，使用过后应及时解除引用，通过赋值null
+123. 闭包函数只能访问外部包含函数变量的最后一个值。
+124. 对象方法中的闭包所使用的this对象通常指向window，可通过call()或apply()改变
+125. 在闭包作用域链中包含HTML元素时，在IE中会导致改元素无法被销毁<?>
+        function assignHandler(){
+            var element = document.getElementById("someElement");
+            element.onclick = function(){
+                alert(element.id);
+            };
+        }
+126. 模仿块级作用域：即变量属于花括号内，实际应用中应该避免创建过多的全局变量，可以
+        采用此方法
+        (function(){
+            // 这里是块级作用域
+        })();
+        eg: (function(){
+            for (var i=0; i<count; i++){
+                alert(i);
+            }
+        })();
+127. 私有变量：通过在函数内部定义方法可访问其私有变量，而且只能通过此方法
+128. 静态私有变量：在私有作用域中封装了一个构造函数和相应的原型方法<?>
+129. 多查找作用域链中的一个层次，就会影响查找速度，这是闭包与私有变量的不足之处
+130. 模块模式：<?>
+131. 增强的模块模式：<?>
+
+// chapter08
+------------window------------
+132. 全局作用域中声明的变量或函数会成为window对象的属性或方法
+133. 访问未声明变量会抛出错误，但可以通过查询window对象，判断某个变量是否存在
+    var newValue = window.oldValue; // oldValue未声明，newValue值为undefined
+134. top对象指向浏览器窗口
+135. 访问某个框架：
+        window.frames[0];
+        window.frames["topFrame"];
+        top.frames[0];
+        top.frames["topFrame"];
+        frames[0];
+        frames["topFrame"];
+136. 浏览器窗口位置：
+        screenLeft/screenTop: IE/SF/Op/Ch
+        screenX/screenY: FF/SF/Ch
+        moveTo()/moveBy(): 接受数字，单位为像素
+137. 窗口大小：
+        innerWidth/innerHeight/outerWidth/outerHeight:
+            IE9+/FF/SF/Op/Ch
+            Op:outerWidth/outerHeight单个标签页对应的浏览器窗口大小
+        IE8: 利用DOM方法 document.documentElement.clientWidth
+            document.documentElement.clientHeight
+        IE6: 混杂模式：document.body.clientWidth、document.body.clientHeight
+        resizeTo()/resizeBy():调整窗口大小，接受数字，单位像素
+        moveTo()/moveBy()/resizeTo()/resizeBy():有些浏览器禁用
+138. 跨浏览器页面视口(viewport)大小：
+        var pageWidth = window.innerWidth,
+            pageHeight = window.innerHeight;
+        
+        if (typeof pageWidth != "number"){
+            if (document.compatMode == "CSS1Compat"){
+                pageWidth = document.documentElement.clientWidth;
+                pageHeight = document.documentElement.clientHeight;
+            } else {
+                pageWidth = document.body.clientWidth;
+                pageHeight = document.body.clientHeight;
+            }
+        }
+139. 移动浏览器：不同浏览器不一样
+140. window.open(): 打开一个新窗口，返回指向新窗口的引用
+        第一个参数：URL
+        第二个参数：新窗口名称或_self/_parent/_top/_blank
+        第三个参数：窗口特性字符串以逗号分割的以=表示的名值对，里面不能有空格
+            fullscreen(only IE): yes/no
+            width/height/left/top: 数值，像素单位，高宽不能小于100，位置不能为负值
+            location/menubar/resizable/scrollbars/status/toolbar:
+                yes/no 除了location其他默认为no,不同浏览器有自己的处理方式
+    newWin.close():关闭open()打开的窗口
+    newWin.closed:返回是否被关闭
+141. 弹出窗口屏蔽程序
+    var blocked = false;
+    
+    try {
+        var wroxWin = window.open("http://www.wrox.com", "_blank");
+        if (wroxWin == null){
+            blocked = true;
+        }
+    } catech (ex){
+        blocked = true;
+    }
+    
+    if (blocked){
+        return "The popup was blocked!";
+    }
+142. setTimeout(): 第一个参数可为字符串，但性能降低，常用函数，函数中的this值非严格
+                模式下指向window，严格模式下undefined<?>
+    setInterval():
+    以上两个方法均返回一个调用ID，以备将来清除之用
+    clearTimeout()/clearInterval()
+    通常使用超时调用模拟间歇调用，因为最后一个间歇调用可能会在前一个间歇调用结束之前
+    启动<?><?>
+143. 三种系统对话框：alert()/confirm()/prompt()
+    window.print(); // 打印对话框
+    window.find(); // 查找对话框
+-----------location----------------
+144. location:
+        hash: "#content"
+        host: "www.wrox.com:80"
+        hostname: "www.wrox.com"
+        href: "http://www.wrox.com"
+        pathname: "/wiley/cda/"
+        port: "80"
+        protocol: "http:"
+        search: "?q=javascript"
+145. 查询字符串参数：
+        function getQueryStringArgs(){
+            var qs = (location.search.length > 0 ? location.search.substring(1) : ""),
+            args = {},
+            items = qs.length ? qs.split("&") : [],
+            item = null,
+            name = null,
+            value = null,
+            
+            i = 0,
+            len = items.length;
+            
+            for (i=0; i < len; i++){
+                item = items[i].split("=");
+                name = decodeURIComponent(item[0]);
+                value = decodeURIComponent(item[1]);
+                
+                if (name.length) {
+                    args[name] = value;
+                }
+            }
+            return args;
+        }
+146. URL操作
+    location.assign(url); 打开新url
+        为window.location或location.href赋值也是调用assign()方法
+    另外修改location的其他属性也会改变URL,而修改hash在现代浏览器中会生成历史记录，
+        在<=IE7中不会
+    location.replace(url);重定向
+    location.reload():从浏览器缓存重新加载，传递参数true时从服务器重新加载
+----------navigator------------
+147. 各浏览器对属性或方法的支持请查阅网上相关资料
+    appCodeName
+    appMinorVersion
+    appName
+    appVersion
+    buildID
+    cookieEnabled
+    cpuClass
+    javaEnabled()
+    language
+    mimeTypes
+    onLine
+    opsProfile
+    oscpu
+    platform
+    plugins
+    preference()
+    product
+    productSub
+    registerContentHandler()
+    registerProtocolHandler()
+    securityPolicy：已废弃
+    systemLanguage
+    taintEnabled()：已废弃
+    userAgent
+    userLanguage
+    userProfile
+    vendor
+    vendorSub
+148. 检测插件的方法
+    插件信息保存在plugins数组中：
+        name: 插件名字
+        description: 插件描述
+        filename: 插件的文件名
+        length: 插件处理的MIME类型数量
+    // 检测非IE中插件
+    function hasPlugin(name){
+        name = name.toLowerCase();
+        for (var i=0; i<navigator.plugins.length; i++){
+            if (navigator.plugins[i].name.toLowerCase().indexOf(name) > -1){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    // 检测IE中插件
+    function hasIEPlugin(name){
+        try {
+            new ActiveXObject(name);
+            return true;
+        } catch(ex){
+            return false;
+        }
+    }
+    
+    典型检测方法是为每一个插件创建一个检测函数：
+    // 检测所有浏览器中的Flash
+    function hasFlash(){
+        var result = hasPlugin("Flash");
+        if (!result){
+            result = hasIEPlugin("ShockwaveFlash.ShockwaveFlash");
+        }
+        return result;
+    }
+----------screen------------
+149. screen编程中作用不大，包含的属性也因浏览器而不同，五种浏览器共有的属性有
+    width:屏幕像素宽度
+    height: 屏幕像素高度
+    availWidth: 减去系统部件（任务栏）之后的宽度
+    availHeight: 减去系统部件（任务栏）之后的高度
+    colorDepth: 颜色深度/位数，通常为32
+    
+    其他特有的属性：
+    availTop, availLeft, bufferDepth, deviceXDPI, deviceYDPI, fontSmoothingEnabled,
+    left, top, logicalXDPI, logicalYDPI, pixelDepth, updateInterval
+150. 移动设备屏幕大小：iOS与Android不同
+------------history-------------
+151. length: 某个标签页内的历史记录数
+152. history.back():后退
+     history.forward():前进
+     history.go(-1):后退一页
+// chapter09
+153. 客户端检测：能力检测、怪癖检测和用户代理检测
+154. 应先设计最通用的方案，然后在使用特定与浏览器的技术增强方案
+155. 能力检测：也称特性检测，直接检测浏览器是否支持某个特性(方法或属性）的技术
+156. 能力检测明确两点：先检测最常用的特性；检测实际会用到的具体特性
+157. 更可靠的能力检测：
+        直接用if(object.sort)这样检测对象是否含有sort()方法不严谨，因为含有sort属性
+        的对象也会返回true， 应该判断object.sort是否是一个函数，可以用typeof, 但是
+        由于IE8及之前的版本中typeof 会返回object，因此可以采用以下方法：
+        // Author: Peter Michaux
+        function isHostMethod(object, property){
+            var t = typeof object[property];
+            return t=='function' || (!!(t=='object' && object[property])) ||
+                    t=='unknown';
+        }
+    Ref:Google Search"Feature Detection: State of the Art Browser Scripting"
+158. 不要利用能力检测来判断浏览器，能力检测只是下一步的依据前提，应该一次性检测完
+        所有特性，eg:
+        var hasDOM1 = !!(document.getElementById && document.createElement &&
+                        document.getElementsByTagName);
+        双逻辑非操作符能保证返回值是布尔值
+159. 怪癖检测(quirks detection):
+        检测浏览器是否存在某个缺陷，也即bug
+        如IE8及之前版本若实例属性与[[Enumerable]]为false的属性重名，则无法for-in遍历
+            var hasDontEnumQuirk = function(){
+                var o = {toString: function(){}};
+                for( prop in o){
+                    if(prop == "toString"){
+                        return false;
+                    }
+                }
+                return true;
+            }
+160. 用户代理检测：userAgent
+        早期浏览器大战导致了用户代理字符串的混乱与不准确
+161. 利用js的正则表达式对userAgent返回的字符串处理，检测用户代理的引擎类型，
+    浏览器名称和操作系统平台（包括移动和游戏平台）
+// chapter10
+162. 节点层次与节点树：根节点document, 文档元素<html>
+163. Node类型：12种
+    常用有：
+        Node.ELEMENT_NODE(1);
+        Node.ATTRIBUTE_NODE(2);
+        Node.TEXT_NODE(3);
+        Node.COMMENT_NODE(8);
+        Node.DOCUMENT_NODE(9);
+164. Node属性：
+        nodeType:
+        nodeName:元素节点值为标签名，属性节点为属性名，文本节点为#text，注释节点为#comment
+        nodeValue:元素节点为null, 属性节点为属性值，文本节点为包含的文本，注释节点为注释文本
+        parentNode: 元素节点可能为Element或Document，属性节点为null，
+                文本节点为Element，注释节点可能Element或Document
+165. 节点关系：
+        childNodes:保存着NodeList对象，保存着动态查询结果，实时反映DOM结构的变化
+        parentNode:
+        firstChild:
+        lastChild:
+        previousSibling:
+        nextSibling:
+        ownerDocument:指向表示整个文档的文档节点
+    NodeList对象在IE8-中将其转换为数组要手动枚举
+        function convertToArray(nodes){
+            var array = null;
+            try {
+                array = Array.prototype.slice.call(nodes, 0); // not IE browsers
+            } catch (ex){
+                array = new Array();
+                for (var i=0, len=nodes.length; i<len; i++){
+                    array.push(nodes[i]);
+                }
+            }
+            return array;
+        }
+166. hasChildNodes()：节点有子节点时返回true
+167. 操作节点：
+        appendChild():向节点末尾添加一个节点，可移动现有节点
+        indertBefore(newNode, referNode)：在参照节点前插入新节点，若参照节点为null
+                    则与appendChild()执行同样操作
+        replaceChild()：替换一个节点，被替换的节点仍然存在
+        removeChild(): 移出节点的关系，所以节点仍存在
+        cloneNode(): 复制节点，若传递参数true，则连同节点的所有子节点树一同复制
+                复制节点的属性，但不复制事件处理程序，IE有一bug，会复制时间，因此
+                复制之前应该移出事件处理程序
+        normalize(): 合并文本节点
+168. document对象：
+        documentElement: 指向<html>
+        body: 指向body
+            这两个属性被所有浏览器支持
+        doctype: 不同浏览器差异很大，用处有限
+169. 出现在html标签外面的注释，不同浏览器处理差异很大，应避免在html外面有注释
+170. document对象其他属性：
+        title: 文档标题
+        URL:
+        domain: 可以将两个不同子域页面设置成去掉子域的松散型来实现跨域访问
+            但设置成松散之后，无法再改回紧固的
+        referrer: 来源页面的URL
+171. 获取/查找元素：
+        getElementById():
+        getElementsByTagName():HTMLCollection对象
+        getElementsByName():HTMLCollection对象
+        getElementsByClassName():现代浏览器才支持
+        特殊集合：都是HTMLCollection对象
+            document.anchors: 所有具有name属性的<a>元素
+            document.applets
+            document.forms
+            document.images
+            document.links
+172. document.implementation属相的hasFeature()方法检测浏览器支持的DOM功能和版本
+        eg: document.implementation.hasFeature("XML", "2.0")
+        实际应用中应结合能力检测
+173. 文档写入：
+        write():
+        writeln():
+        open():
+        close():
+        向文档写入内容后，原文档内容消失
+        写入<script></script>时，后一个的斜杠要转义
+        notes:严格性的xhtml不支持文档写入
+174. Element类型：
+        标准属性：id, title, lang, dir, className(因class是ECMAScript 5保留字固用此）
+        
+175. 属性方法：
+        getAttribute(attrName):
+        setAttribute(attrName, attrValue):
+        removeAttribute(attrName): 完全删除，IE6不支持
+176. Element.attributes: NamedNodeMap对象保存着元素的所有attr节点
+            方法：
+            getNamedItem(name):返回name节点
+            removeNamedItem(name):
+            setNamedItem(node):
+            item(pos):
+            实际当中不常用这些方法
+177. 迭代元素的属性：
+    function outputAttributes(element){
+        var pairs = new Array(),
+            attrName,
+            attrValue,
+            i,
+            len;
+        for (i=0, len=elment.attributes.length; i<len; i++){
+            attrName = element.attributes[i].nodeName;
+            attrValue = element.attributes[i].nodeValue;
+            if (element.attributes[i].specified){ // 因IE7-会返回所有属性，包括未设置的
+                paris.push(attrName + "=\"" + attrValue + "\"");
+            }
+        }
+        return pairs.join(" ");
+    }
+178. 创建元素：createElement()
+        可使用以下传入完成html代码方法避免IE7-中的一些问题
+        document.createElement("<div id=\"myDiv\"></div>"); // 仅限IE7-中使用
+179. 元素子节点：IE之外浏览器会把<li>之间的空白当成文本节点，因此遍历子节点时，应
+        筛选nodeType == 1的节点
+180 . Text类型：
+        nodeValue与data属性保存同样的值
+        操作节点文本的方法
+        appendData(text):
+        deleteData(offset, count):指定位置删除count个字符
+        insertData(offset, text):
+        replaceData(offset, count, text);
+        splitText(offset): 指定位置分割文本，常用的提取数据解析技术
+        substringData(offset, count):
+        length属性：字符数
+        
+        修改文本节点的值时，字符串会经过HTML/XML编码
+181. document.createTextNode()：创建文本节点
+182. Comment类型：拥有处splitText()之外所有的Text类型操作方法
+183. CDATASection: 针对XML文档的类型，表示CDATA区域，IE9-不支持
+184. DocumentFragment类型：
+        文档片段，可用来作为将要添加到文档树中的节点仓库，继承了Node的所有方法
+        创建方法： document.createDocumentFragment();
+        如在为一个ul添加几个列表项是，可暂时加到一个fragment类型中，
+        然后再添加到文档树中，从而避免浏览器的反复渲染
+185. Attr类型：
+        specified:布尔值，指示属性是代码中指定没有
+        访问属性的三种方法：
+            attributes["class"]：返回节点
+            getAttrbuteNode("class")：返回节点
+            getAttrbute("class"):返回属性值
+186. 动态脚本：页面加载之后的某一刻执行的脚本，通过操作DOM来实现
+187. 动态样式：页面加载之后动态添加到页面中的
+188. 操作表格：
+    table元素的属性或方法
+        caption:指向<caption>元素
+        tBodies:
+        tFoot:
+        tHead:
+        rows: 所有行
+        createTHead():
+        createTFoot():
+        createCaption():
+        deleteTHead():
+        deleteTFoot():
+        deleteCaption():
+        deleteRow(pos):
+        insertRow(pos):
+    tbody元素的属性或方法：
+        rows:
+        deleteRow(pos):
+        insertRow(pos):
+    tr元素的属性或方法：
+        cells: 单元格
+        deleteCell(pos):
+        insertCell(pos):
+189: NodeList/NamedNodeMap/HTMLCollection 三者都是动态的，实时反映DOM结构的变化
+        应尽量减少访问NodeList的次数，因每次访问都查询一次文档的全部，可以
+        把值存起来
+190. <?>理解DOM的关键，就是理解DOM对性能的影响。DOM操作往往是JavaScript程序中开销
+        最大的，而且因访问NodeList导致问题最多
+// Chapter17
+1. IE: Internet选项菜单--高级--可以设置有关js调试的信息，还有其他相关设置
+2. FireFox, Safari, Opera, Chrome等调试工具，都很相似
+3. try...catch(error)：用在代码可能出错（参数不可预知等）情况下，也常用于使用
+    某些库发生不可预知的不明就里的错误时
+    error事件对象有一个message属性是所有浏览器都支持的
+4. finally子句：只要代码中包含必定会执行，即使之前已经有return语句
+5. 错误类型：基类型Error
+    EvalError: 错误使用eval()方法时
+    RangeError: 数值超出相应范围时
+    ReferenceError: 找不到对象，访问不存在的变量
+    SyntaxError: 传入eval()代码有错误等
+    TypeError: 变量类型不符合要求
+    URIError: 使用encodeURI()或decodeURI()时，若URI格式不正确
+6. 抛出错误：可用于自定义错误类型，用于提供一致的详细的错误信息，提升可维护性，
+        多用于在写库或者常用辅助函数时
+   捕获错误：用于防止浏览器默认处理，自己有更好的处理
+7. error事件：IE、Chrome、Opera支持，作为window的属性，只支持DOM0级技术绑定
+    window.onerror = function(message, url, line) {
+        alert(message);
+        return false;
+    }
+    充当整个文档的try...catch语句
+8. 图像也支持error事件，且遵循DOM格式，从而可以通过EventUtil.addHandler()绑定
+        在url不能返回可被识别的图像格式时触发
+9. 常见的错误类型：类型转换错误、数据类型错误和通信错误
+10. 类型转换错误：使用相等或不相等，以及if/for/while等流控制语句中使用非布尔值
+        避免：尽量使用全等或不全等符号，不要直接在流控制语句中使用非布尔值作为
+            逻辑控制条件
+11. 数据类型错误：常见于没有检测函数的参数类型
+        避免：在使用某些方法或属性时要考虑检测变量是否是具有这些方法或属性的类型
+            基本类型使用typeof检测，对象用instanceof检测
+12. 通信错误：数据传递给服务器时没有使用encodeURIComponent()编码
+        避免：使用一个添加查询函数 addQueryStringArg(url, name, value)
+13. 区别致命错误和非致命错误：
+        for (var i=0, len=mods; i < len; i++) {
+            mods[i].init(); // 这样写会因为某个模块的初始化失败导致后续初始化无法执行
+        }
+        
+        改为：
+        for (var i=0, len=mods; i < len; i++) {
+            try {
+                mods[i].init(); // 一旦某个模块失败，不影响其他模块的初始化
+            } catch(ex) {
+                // 错误处理
+            }
+        }
+14. 记录错误到服务端：将前后端错误日志集中处理
+        function logError(sev, msg) {
+            var img = new Image();
+            img.src = "log.php?sev=" + encodeURIComponent(sev) + "&msg=" +
+                    encodeURIComponent(msg);
+        }
+        使用Image对象发送请求好处：
+        所有浏览器都支持
+        避免跨域请求
+        不依赖库的Ajax包装函数
+        
+        只要使用try-catch语句，就应该在错误处理部分调用logError函数
+15. 调试技术：
+    到处插入alert：麻烦，调试后还得删除，易出错
+    将消息记录到控制台：console.log
+    将消息记录到当前页面：专门用一个元素来显示错误，可支持IE6、7等早期浏览器
+    抛出错误：
+        function assert(condition, message) {
+            if (!condition) {
+                throw new Error(message);
+            }
+        }
+16. 常见的IE错误
+        操作终止(operation aborted)：修改尚未加载完成的页面时
+        无效字符(invalid character): \u2013 表示的字符与减号很像，但不是
+        未找到成员(Member not found): 垃圾收集例程配合错误？
+            eg：
+                document.onclick = function(){
+                    var event = window.event;
+                    setTimeout(function(){
+                        event.returnValue = false; // 未找到成员错误
+                    }, 1000);
+                }
+        未知运行时错误(Unknown runtime error):使用innerHTML或outerHTML时，
+            一是把块元素插入行内元素
+            二是访问表格任意部分(<talbe>/<tbody>等）的任意属性时
+        语法错误(syntax error): 少分号或括号不匹配，引用外部js文件，而该文件
+            实际上不返回js代码时
+        系统无法找到指定资源(The system cannot locate the resource specified):
+            使用js请求某个资源URL，该URL长度超过IE对URL不能超过2043个字符限制时

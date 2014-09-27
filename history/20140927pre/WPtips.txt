@@ -1,0 +1,595 @@
+/*
+ * Description: WordPress tricks, tips or summary
+ * Start Date: 2013-9-8
+ * Author: Alex Chao
+ */
+
+1. 安装：创建相应的数据库，配置wp-config.php，然后进入五分钟安装环节，OK
+2. 英文版转中文版：配置wp-config.php中 define('WPLANG', 'zh_CN'),将中文版中
+        wp-content目录下的languages文件夹拷贝到英文版的相应目录下
+3. 主题、插件下载：官网或WP主题网站
+4. 备份：备份插件，或者FTP拷贝下来，或者CPanel备份功能
+5. 主题包含文件：
+    index.php(required): 通常展示最近更新文章，首页也可指定显示其他模板或静态文件
+    style.css(required)：样式表
+    header.php：网站标题、logo、导航栏等
+    sidebar.php：侧边栏通常显示搜索、分类目录、时间归档、最近文章、评论、作者介绍等
+    footer.php：版权、底部链接、社交按钮等
+    content.php：主体内容
+    functions.php：
+    single.php：显示单篇文章，通常显示评论
+    page.php：显示其他页面的模板
+    comments.php：评论
+    archive.php：归档
+    category.php：分类链接的模板
+    search.php：搜索结果页
+    searchform.php：搜索框
+    404.php：404页面
+    sreenshot.png：主题缩略图
+    license.txt：相关协议
+    images/：主题相关图片
+    css/：主题相关样式，比如说ie6.css，或可换皮肤的相关css文件
+    js/：相关的js文件
+    functions/：
+    languages/：各语言文件
+6. 引入文件函数：
+    get_header()
+    get_sidebar()
+    get_footer()
+    get_search_form()
+    comments_template()
+    get_template_part( $slug, $name )
+7. 生成某个功能html代码
+    wp_login_form()：生成一个通用的登录表单，
+    get_calendar()：生成一个日历
+8. 网站配置/元信息：bloginfo()
+    网站标题：bloginfo('name')
+    网站描述：bloginfo('description')
+    WordPressURL：bloginfo('wpurl')--wp_options.siteurl，multiSite时不会显示子路径
+        site_url()可替代
+    网站URL：bloginfo('url')--wp_options.home，home_url可替代
+    管理员邮箱：bloginfo('admin_email')
+    编码：bloginfo('charset')
+    WP版本：bloginfo('version')
+    文本方向：bloginfo('text_direction'),相关is_rtl()
+    语言：bloginfo('language')
+    style.css路径：bloginfo('stylesheet_url')
+    样式表目录：bloginfo('stylesheet_directory')
+    模板/主题目录：bloginfo('template_url')/bloginfo('template_directory')
+    RSS2.0 URL：bloginfo('rss2_url')
+    ATOM URL: bloginfo('atom_url')
+    Pingback XML-RPC：bloginfo('pingback_url')
+    评论feed：bloginfo('comments_rss2_url')，bloginfo('comments_atom_url')
+9. 日期归档：wp_get_archives($args), show_post_count=true可显示文章数
+10. 网页标题：
+    默认：<title><?php bloginfo('name'); ?><?php wp_title('|'); ?></title>
+    自定义主页时：
+        <title><?php bloginfo('name'); ?> | <?php is_home() ? bloginfo('description') : wp_title(); ?></title>
+    静态页做主页：
+        <title><?php bloginfo('name'); ?> | <?php is_front_page() ? bloginfo('description') : wp_title(); ?></title>
+11. 显示分类目录：
+        wp_list_categories( $args )
+        $args = array(
+            'show_option_all' => '', // display a link to all categories
+            'orderby' => 'name', // ID, slug, count, term_group
+            'order' => 'ASC', // DESC
+            'style' => 'list', // none
+            'show_count' => 0, // show the number of posts per cate
+            'hide_empty' => 0, // hide the cate where no posts
+            'use_desc_for_title' => 1, // 0. 是否显示<a>的title属性
+            'child_of' => 0, // 显示此ID分类下的子分类
+            'feed' => '',
+            'feed_type' => '',
+            'feed_image' => '',
+            'exclude' => '', // exclude some categories by 'ID,ID,ID'
+            'exclude_tree' => '',
+            'include' => '', // Only include some categories by 'ID,ID,ID'
+            'hierarchical' => 1, // Display sub-categories as inner list items
+            'title_li' => __( 'Categories' ), // categories' title, generally empty
+            'show_option_none' => __('No categories'), // 没有分类时显示字符
+            'number' => null, // 限制显示的分类数量
+            'echo' => 1, // 显示分类列表还是存入一个变量
+            'depth' => 0, // -1,0,1,n 显示分类层级深度
+            'current_category' => 0,
+            'pad_counts' => 0,
+            'taxonomy' => 'category', // 自定义分类法
+            'walker' => null
+        );
+12. 显示导航栏
+        1) wp_nav_menu( $args ):
+        
+        $args = array(
+            'theme_location' => '', // ?
+            'menu' => '', // 要显示的菜单
+            'container' => 'div', // nav, false
+            'container_class' => '', //容器元素class
+            'container_id' => '',
+            'menu_class' => 'menu',
+            'menu_id' => '',
+            'echo' => true,
+            'fallback_cb' => 'wp_page_menu', // 若无菜单则调用wp_page_menu()
+            'before' => '',
+            'after' => '',
+            'link_before' => '',
+            'link_after' => '',
+            'items_wrap' => '<ul id="%1$s" class="%2$s">%3$s</ul>', // %1$s: menu_id, $2$s: menu_class, %3$s: nav list items
+            'depth' => 0, // 0, -1, 1, n
+            'walker' => ''
+        );
+        
+        2) wp_page_menu( $args ):
+        
+        $args = array(
+            'depth' => 0, // 0, -1, 1, n
+            'sort_column' => 'menu_order, post_title', // post_title, menu_order, post_date, post_modified, ID, post_author, post_name
+            'menu_class' => 'menu',
+            'include' => '',
+            'exclude' => '',
+            'echo' => true,
+            'show_home' => false, // 0, 1, <any text>:替代"Home"的字符串
+            'link_before' => '',
+            'link_after' => ''
+        );
+        
+        3) wp_list_pages()
+13. Bookmarks 友情链接
+        WP 3.5版本后，后台管理没有“链接”管理功能，可以下载插件或在functions.php中
+        加入代码add_filter( 'pre_option_link_manager_enabled', '__return_true' );
+        
+        wp_list_bookmarks( $args ):
+        
+        $args = array(
+            'orderby' => 'name',
+            'order' => 'ASC',
+            'limit' => -1,
+            'category' => ' ',
+            'exclude_category' => ' ',
+            'category_name' => ' ',
+            'hide_invisible' => 1,
+            'show_updated' => 0,
+            'echo' => 1,
+            'categorize' => 1,
+            'title_li' => __('Bookmarks'),
+            'title_before' => '<h2>',
+            'title_after' => '</h2>',
+            'category_orderby' => 'name',
+            'category_order' => 'ASC',
+            'class' => 'linkcat',
+            'category_before' => '<li id=%id class=%class>',
+            'category_after' => '</li>'
+        );
+14. 最近文章列表：
+        wp_get_recent_posts( $args, $output )
+        
+        $args = array(
+            'numberposts' => 10, // 文章数量
+            'offset' => 0, // ?
+            'category' => 0,
+            'orderby' => 'post_date',
+            'order' => 'DESC',
+            'include' => ,
+            'exclude' => ,
+            'meta_key' => ,
+            'meta_value' => ,
+            'post_type' => 'post',
+            'post_status' => 'draft, publish, future, pending, private',
+            'suppress_filters' => true // ?
+        );
+        
+        $output: Constant OBJECT, ARRAY_A(default)
+            控制函数返回类型
+15. 评论列表：
+        wp_list_comments( $args, $comments ):
+        
+        $args = array(
+            'walker' => null, // ?
+            'max_depth' => '', // 评论嵌套层数
+            'style' => 'ul', // div, ol
+            'callback' => null, // 自己定义的评论展示函数
+            'end-callback' => null,
+            'type' => 'all', // all, comment, pinkback, trackback, pings
+            'reply_text' => 'Replay',
+            'page' => '',
+            'per_page' => '',
+            'avatar_size' => 32, // gravatar 1 to 512. 0 hide avatars
+            'reverse_top_level' => null, // 1 倒序显示列表
+            'reverse_children' => '',
+            'format' => 'xhtml', // or html5 @since 3.6
+            'short_ping' => false // $since 3.6
+        );
+        
+        $comments: array obtained by get_comments
+
+16. 主题特色（Theme Features）：
+        Features：sidebar, menus, post_formats, post_thumbnails, custom-backgorund,
+            custom-header, automatic-feed-links, content-width, editor-style, html5
+        Related Functions:
+            add_theme_support( $feature, $arguments )
+17. 类接口：
+        body_class()
+        post_class()
+        comment_class()
+18. 博文：
+        the_ID()
+        the_title()
+        the_permalink()
+        the_date()
+        the_time()
+        the_category()
+        the_tags()
+        the_author()
+        the_author_link()
+        the_content()
+        the_excerpt()
+        edit_post_link()
+19. 评论：
+        comments_link()
+        comment_type()
+        comments_number()
+        comment_ID()
+        get_avatar()
+        comment_author()
+        comment_date()
+        comment_time()
+        comment_text()
+        edit_comment_link()
+        comment_reply_link()
+        cancel_comment_reply_link()
+        comment_form_title()
+        comment_form()
+        comments_popup_link()
+        comment_author_email()
+        comment_author_email_link()
+        comment_author_link()
+        comment_author_url()
+        comment_author_url_link()
+    
+20. 分页:
+        paginate_links( $args ):
+        
+        $args = array(
+            'base' => '%_%', // to be replaced by the 'format' argument
+            'format' => '?page=%#%', // url structure
+            'total' => 1, // display total amount of pages
+            'current' => 0, // the current page number
+            'show_all' => false, // if it is set to 'true', show all pages
+            'end_size' => 1, // 开始和结尾页数
+            'mid_size' => 2, // 当前页前后页数
+            'prev_next' => true, // display previous and next links
+            'prev_text' => __('&laquo; Previous'),
+            'next_text' => __('Next &raquo;'),
+            'type' => 'plain', // 'array', 'list': the format of the returned value
+            'add_args' => false, // an array of query args to add
+            'add_fragment' => '' // a string to append to each link
+        );
+    搜索结果或归档分页：
+        <?php
+        global $wp_query;
+        
+        $big = 99999999; // need an unlikely integer
+        
+        echo paginate_links( array(
+            'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+            'format' => '?paged=%#%',
+            'current' => max( 1, get_query_var('paged') ),
+            'total' => $wp_query->max_num_pages
+        ) );
+        ?>
+    博文分页显示：
+        wp_link_pages( $args ):
+        
+        $args = array(
+            'before' => '<p>' . __('Pages:'),
+            'after' => '</p>',
+            'link_before' => '',
+            'link_after' => '',
+            'next_or_number' => 'number',
+            'nextpagelink' => __('Next page'),
+            'previouspagelink' => __('Previous page'),
+            'pagelink' => '%',
+            'echo' => 1
+        );
+    博文列表分页与导航：
+        posts_nav_link()
+        previous_post_link() // 单篇文章用，即必须用在循环中
+        next_post_link() // 单篇文章用
+        prevous_posts_link() // 文章列表用
+        next_posts_link() // 文章列表用
+    评论分页与导航：
+        paginate_comments_links()
+        previous_comments_link()
+        next_comments_link()
+21. 博文缩略图(Post Thumbnail / Featured Image)：
+        has_post_thumbnail()
+        get_post_thumbnail_id()
+        the_post_thumbnail( $size, $attr ):
+            $size:
+                thumbnail, medium, large, full
+                keyword defined by add_image_size()
+                array($width, $height)
+            $attr = array(
+                'src' => $src,
+                'class' => "attachment-$size",
+                'alt' => trim(strip_tags( $wp_postmeta->_wp_attachment_image_alt ))
+            );
+        get_the_post_thumbnail()
+22. 目录：
+        category_description()
+        
+23. 标签云：
+        wp_tag_cloud( $args ):
+        
+        $args = array(
+            'smallest' => 8,
+            'largest' => 22,
+            'unit' => 'pt', // font-size unit, also px, em, %
+            'number' => 45, // at most 45 tags
+            'format' => 'flat', // separated by whitespace, also 'list', 'array'
+            'separator' => \\"\n\\",
+            'orderby' => 'name',
+            'order' => 'ASC',
+            'exclude' => null,
+            'include' => null,
+            'topic_count_text_callback' => default_topic_count_text,
+            'link' => 'view', // 'edit'
+            'taxonomy' => 'post_tag', // use post tags for basis of cloud, also 'category', 'link_category' or other
+            'echo' => true,
+            'child_of' => null
+        );
+24. 注册Sidebar：
+        register_sidebar( $args ):
+        
+        $args = array(
+            'name' => __('Sidebar name', 'theme_text_domain'),
+            'id' => 'unique-sidebar-id',
+            'description' => '',
+            'class' => '',
+            'before_widget' => '<li id="%1$s" class="widget %2$s">',
+            'after_widget' => '</li>',
+            'before_title' => '<h2 class="widgettitle">',
+            'after_title' => '</h2>'
+        );
+25. 展示Sidebar：
+        dynamic_sidebar( $index ): returns true on success and false on failure.
+26. 判断Sidebar是否被激活：
+        is_active_sidebar( $index ):
+        $index: name, id or number
+        
+        is_dynamic_sidebar():
+27. _e()和__()：参数功能完全一样，前者输出字符串，后者返回字符串
+28. 404页不必包含header和footer，语句与设计个性化很强
+29. 必须包含wp_footer()才会显示admin bar，通常在footer.php中的</body>之前
+30. Custom Menus：
+        register_nav_menu('primary-menu', __('Primary Menu', 'alpha'));
+        register_nav_menu('secondary-menu', __('Secondary Menu', 'alpha'));
+        
+        多个自定义菜单还可以使用register_nav_menus()函数
+31. 设置编辑器样式：
+        add_editor_style('/css/editor-style.css');
+        rtl样式可以以官方主题的样式为基础
+32. 自定义头像：
+        add_filter( 'avatar_defaults', 'fb_addgravatar' );
+        function fb_addgravatar( $avatar_defaults ) {
+        $myavatar = get_bloginfo('template_directory') . '/images/gravatar.png';
+            $avatar_defaults[$myavatar] = 'avatar';
+            return $avatar_defaults;
+        }
+33. Load text domain：也即多语言支持
+        add_action('after_setup_theme', 'my_theme_setup');
+        function my_theme_setup() {
+            load_theme_textdomain('domain-name', get_template_directory() . '/languages');
+        }
+34. Content width：内容最大宽度，包括图像、视频等
+        if (!isset($content_width)) {
+            $content_width = 600;
+        }
+        
+        .size-auto,
+        .size-full,
+        .size-large,
+        .size-medium,
+        .size-thumbnail {
+            max-width: 100%;
+            height: auto;
+        }
+35. Register sidebar:
+        if(function_exists('register_sidebar')){
+            register_sidebar(array(
+                'name' => 'Main Sidebar',
+                'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+                'after_widget' => '</aside>',
+                'before_title' => '<h3>',
+                'after_title' => '</h3>',
+            ));
+        }
+36. Hide admin bar (during development)：
+        show_admin_bar(false);
+38. Redirect after theme activation：
+        if (is_admin() && isset($_GET['activated']) && $pagenow == "themes.php")
+            wp_redirect('themes.php?page=themeoptions');
+39. Post meta：
+        结构：p>span, p>span>a
+        接口：所有都可以自定义
+            日期：post-date
+            分类：post-category
+            标签：post-tags
+            作者：post-author
+            编辑：post-edit
+            评论：post-comment
+40. Sidebar：
+        结构：div.sidebar>div.widget>h3+ul>li>a
+            其中.sidebar, .widget, h3均可更换
+        接口：
+            搜索框：search, search-input, search-btn
+            分类目录：cat-item
+            链接：blogroll
+            日历：div#calendar_wrap, table#wp-calendar, #today, .pad, 
+                tfoot td#prev, tfoot td#next（通常隐藏）
+            近期评论：ul#recentcomments, li.recentcomments
+            标签云：div.tagcloud, a.tag-link-$$（可用属性选择器选择）
+41. 网页主体结构id与class命名：
+        css中尽量只用class，尽量只用单class
+        id与class命名相同时（？相同会怎样呢），
+        class命名加一个前缀作为id命名，比如me-，网站名称简写等
+        #me-page -- .page
+        #me-header -- .header
+        #me-main -- .main
+        #me-sidebar -- .sidebar
+        #me-content -- .content
+        #me-footer -- .footer
+        其他如logo, nav, search, paganation等均用class
+42. 评论列表
+        接口：
+            容器：#comment-list（可更改）
+            评论条目：#comment-$ .comment .even .odd .depth-$ .byuser .bypostauthor
+                    .comment-author-admin
+            评论主体：comment-body #div-comment-$
+            回复：ul.children
+            作者：div.comment-author>img.avatar+cite.fn+span.says
+            元数据：div.comment-meta.commentmetadata
+            日期：a
+            编辑：a.comment-edit-link
+            内容：p
+            回复按钮：div.reply>a.comment-reply-link
+    评论表单：
+        结构：div#respond.comment-respond>h3#reply-title.comment-reply-title>form#commentform.comment-form
+        接口：
+            容器：comment-respond
+            标题：comment-reply-title
+            表单：comment-form
+            登录：p.logged-in-as
+            评论内容：#comment
+            HTML标签：p.form-allowed-tags>code
+            发表评论按钮：p.form-submit, input#submit
+            作者，邮箱，网址三者可自定义
+            p.comment-form-author input#author
+            p.comment-form-email input#email
+            p.comment-form-url input#url
+43. the_date()：若同一页几篇文章日期相同时只显示第一个日期，要显示各自的日期
+        可以使用get_the_date()或the_time()
+44. Exclude category：排除/屏蔽某些分类
+        1. 'pre_get_posts' hooking：
+            function exclude_category($query) {
+                if ($query->is_home() && $query->is_main_query()) {
+                    $ids = '';
+                    $category_names = array('portfolio');
+                    foreach ($category_names as $key => $val) {
+                        $ids .= '-';
+                        $ids .= get_cat_ID($val);
+                        $ids .= ',';
+                    }
+                    $query->set('cat', $ids);
+                }
+            }
+            add_action('pre_get_posts', 'exclude_category');
+        2. is_category($args)：
+            $category_name = array('html', 'css');
+            if (!is_category($category_name)) {
+                // Display the post
+            }
+        3. Query对象：
+            $query = new WP_Query('category__not_in' => array(2, 5));
+        4. 插件：
+            simple exclude or ultimate category excluder
+45. Read More:
+        先检测是否有手动插入的<!--more-->，再检测the_excerpt()，
+        另外”Read More“或者”继续阅读“文本为空，单独使用html标签，更好控制结构
+        1. the_content('Read more')
+            在编辑文章时，通过 more 标签插入 <!--more-->
+            好处：可以手动控制位置
+            缺点：需要预览，再编辑才能使位置合适
+        2. the_excerpt()
+            function custom_excerpt_length($length) {
+                return 200;
+            }
+            add_filter( 'excerpt_length', 'custom_excerpt_length', 999);
+            // Replaces the excerpt "more" text by a link
+            function new_excerpt_more($more) {
+                   global $post;
+                return '<a class="moretag" href="'. get_permalink($post->ID) . '"> Read the full article...</a>';
+            }
+            add_filter('excerpt_more', 'new_excerpt_more');
+        3. 不在主页显示摘要时要在 the_post() 后，the_content()前加上
+            global $more;
+            $more = 0;
+46. comment_form():
+            $args = array(
+                'id_form' => 'commentform',
+                'id_submit' => 'comment-submit',
+                'title_reply' => __('Leave a Reply'),
+                'title_reply_to' => __('Leave a Reply to %s'),
+                'cancel_reply_link' => __('Cancel Reply'),
+                'label_submit' => __('Post Comment'),
+                'comment_field' => '<p class="comment-form-comment"><label for="comment">' . _x('Comment', 'noun')
+                    . '</label><textarea name="comment" id="comment" cols="45" rows="8" aria-required="ture"></textarea></p>',
+                'must_log_in' => '<p class="must-log-in">' .
+                    sprintf(
+                        __('You must be <a href="%s">logged in</a> to post a comment.'),
+                        wp_login_url(apply_filters('the_permalink', get_permalink()))
+                    ) . '</p>',
+                'logged_in_as' => '<p class="logged-in-as">' .
+                    sprintf(
+                        __('Logged in as <a href="%1$s">%2%s</a>. <a href="%3$3" title="Log out of this account">Log out?</a>'
+                        ), admin_url('profile.php'), $user_identity,
+                        wp_logout_url(apply_filters('the_permalink', get_permalink()))
+                    ) . '</p>',
+                'comment_notes_before' => '<p class="comment-notes">' .
+                    __('Your email address will not be published.') . ($reg ? $required_text : '') .
+                    '</p>',
+                'comment_notes_after' => '<p class="form-allowed-tags">' .
+                    sprintf(
+                        __('You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes: %s'),
+                        ' <code>' . allowed_tags() . '</code>'
+                    ) . '</p>',
+                'fields' => apply_filters('comment_form_default_fields', array(
+                    'author' =>
+                        '<p class="comment-form-author">' .
+                        '<label for="author">' . '网名' . '</label> ' .
+                        ($reg ? '<span class="requried">*</span>' : '') .
+                        '<input type="text" id="author" name="author" value="' . esc_attr($commenter['comment_author']) .
+                        '" size="30"' . $aria_reg . ' /></p>',
+                    'email' =>
+                        '<p class="comment-form-email">' .
+                        '<label for="email">' . '邮箱' . '</label> ' .
+                        ($reg ? '<span class="requried">*</span>' : '') .
+                        '<input type="text" id="email" name="email" value="' . esc_attr($commenter['comment_author_email']) .
+                        '" size="30"' . $aria_reg . ' /></p>',
+                    'url' =>
+                        '<p class="comment-form-url"><label for="ulr">网址</label>' .
+                        '<input type="text" id="url" name="url" value="' . esc_attr($commenter['comment_author_url']) .
+                        '" size="30" /></p>'
+                    )
+                )
+            );
+47. content width: 怎么作用的？
+        if (!isset($content_width)) {
+            $content_width = 600;
+        }
+        CSS:
+        .size-auto,
+        .size-full,
+        .size-large,
+        .size-medium,
+        .size-thumbnail {
+            max-width: 100%;
+            height: auto;
+        }
+48. custom header: text color, header image etc.
+        $defaults = array(
+            'default-image' => '',
+            'random-default' => false,
+            'width' => 0,
+            'height' => 0,
+            'flex-height' => false,
+            'default-text-color' => '',
+            'header-text' => true,
+            'uploads' => true,
+            'wp-head-callback' => '',
+            'admin-head-callback' => '',
+            'admin-preview-callback' => ''
+        );
+        add_theme_support('custom-header', $defaults);
+        
+        还要注意设置最后三个回调函数，可参考官方主题的设置
+49. 搜索框表单的method必须设为get，否则没反应
+50. 

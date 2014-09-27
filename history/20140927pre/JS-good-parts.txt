@@ -1,0 +1,212 @@
+/*
+ * JS-good-parts
+ * Date: 2013-6-20
+ */
+
+1. 避免使用 /* */ 注释符，减少忘记转义引发的错误
+2. JS数字类型内部为64位的浮点数
+3. JS中所有字符都是16位的，使用UTF-16<?>
+4. 在Web浏览器中，每个<script>标签提供一个被编译且立即执行的编译单元
+5. 文法图
+6. for-in遍历对象成员，不包含从原型链继承来的：
+    for (var prop in obj) {
+        if (obj.hasOwnProperty(prop)) {
+            //
+        }
+    }
+7. return与表达式，break与标签之间不可以换行
+8. 运算符优先级，结合性
+9. 正确的使用原型链能够减少对象初始化时消耗的时间和内存
+10. 从undefined检索属性会引发错误，可使用 && 避免
+    obj && obj.prop
+11. 按属性特定顺序遍历，使用for语句
+12. delete 可删除对象的属性，不触及原型链中的对象
+13. 命名空间避免全局变量污染
+14. 函数调用模式：方法调用模式、函数调用模式、构造器调用模式和apply调用模式
+15. arguments是一个类似数组(array-like)，有length属性，但无任何数组方法
+16. 未指定函数返回值时，返回undefined
+17. 函数调用前加new，且返回值不是一个对象时，返回this
+18. 扩充类型的功能：为基本类型的原型添加方法，但只在必要时加，类库混用时易出错
+    eg:
+        Function.prototype.method = function(name, func) {
+            if (!this.prototype[name]) {
+                this.prototype[name] = func;
+            }
+            return this;
+        };
+    
+        String.method('trim', function() {
+            return this.replace(/^\s+|\s+$/g, '');
+        });
+19. 深度递归的函数可能因堆栈溢出导致失败
+20. 最好在函数顶部声明所有可能用到的变量<?>，其他很多语言推荐延迟声明变量
+21. 误用闭包的一个例子，在循环中创建函数
+    eg:
+        var add_the_handlers = function (nodes) {
+            for (i = 0; i < nodes.length; i++ ) {
+                nodes[i].onclick = function (e) {
+                    alert(i); // i始终是循环结束之后的值
+                };
+            }
+        };
+22. 回调函数：避免阻塞
+23. 模块模式：一个定义了私有变量和函数的函数，利用闭包创建可以访问私有变量和函数
+        的特权函数，最后返回这个特权函数，或者把它们保存到一个可访问到的地方
+24. 级联：让一个设置或修改对象的某个状态的函数返回this就可以启用级联，
+        jQuery的链式操作就是级联
+25. 柯里化(Curry)：<?>
+        Function.method('curry', function () {
+            var slice = Array.prototype.slice,
+                args = slice.apply(arguments),
+                that = this;
+            return function () {
+                return that.apply(null, args.concat(slice.apply(arguments)));
+            };
+        });
+26. 记忆(Memoization)：函数可以将先前操作的结果记录在某个对象里，从而避免无谓的
+        重复运算。
+    eg:
+        var memoizer = function (memo, formula) {
+            var recur = function (n) {
+                var result = memo[n];
+                if (typeof result !== 'number') {
+                    result = formula (recur, n);
+                    memo[n] = result;
+                }
+                return result;
+            };
+            return recur;
+        };
+        
+        var fibonacci = memoizer([0, 1], function (recur, n) {
+            return recur (n - 1) + recur (n - 2);
+        });
+27. 伪类模式(Pseudoclassical)：
+        Function.method('inherits', function (Parent) {
+            this.prototype = new Parent();
+            return this;
+        });
+28. 对象说明符(Object Specifiers)：一系列的参数顺序很难记，可以换成一个对象
+29. 原型(Prototypal)：差异化继承(differential inheritance)
+30. 函数化(Functional)：<?>
+        创建一个对象；有选择地定义私有实例变量和方法；给这个新对象扩充方法；
+        返回那个新对象
+        函数化构造器的伪代码模板：
+        var constructor = function (spec, my) {
+            var that, 其他的私有实例变量;
+            my = my || {};
+            
+            把共享的变量和函数添加到my中
+            
+            that = 一个新对象
+            
+            添加给that的特权方法
+            
+            return that;
+        };
+    函数化模式可以得到更好的封装和信息隐蔽，以及访问父类方法的能力
+31. 部件(Parts)：<?>例如可以构造一个给任何对象添加简单事件处理特性的函数
+32. JavaScript中的数组并不是一段线性分配的内存，而是类数组的对象，把数组的下标
+        变成字符串用作属性，性能比真数组慢
+33. 数组的length属性的值是这个数组的最大整数属性名加上1，不一定等于数组元素的个数
+34. 判断一个对象是否为数组：
+    var is_array = function (value) {
+        return value && 
+                typeof value === 'object' &&
+                value.constructor === Array;
+    }
+    更好的方法：
+    var is_array = function (value) {
+        return Object.prototype.toString.apply(value) === '[object Array]';
+    };
+35. 可以给数组原型或数组实例添加方法，如果该方法名不是整数，则length属性不改变
+36. 数组初始化：
+        Array.dim = function (dimension, initial) {
+            var a = [], i;
+            for (i = 0; i < dimension; i++) {
+                a[i] = initial;
+            }
+            return a;
+        };
+        
+        二维数组初始化：
+        Array.matrix = function (m, n, initial) {
+            var a, i, j, mat = [];
+            for (i = 0; i < m; i++) {
+                a = [];
+                for (j = 0; j < n; j++) {
+                    a[j] = initial;
+                }
+                mat[i] = a;
+            }
+            return mat;
+        }
+37. 在JavaScript中使用正则表达式相较于等效的字符串处理有显著的性能优势<?>
+38. 正则表达式必须写在一行，要注意空白
+39. g：全局匹配，不同方法对g标识的处理不同，比如RegExp对象的exec方法和test方法，
+        作者不建议在test方法中对正则表达式使用g标识。再比如String的match方法
+        和search方法，search方法会忽略g标识。
+30. \1是指向分组1所捕获到的文本的一个引用，如下面匹配文本中重复的单词：
+        var doubled_words = /([A-Za-z\u00C0-\u1FFF\u2800-\uFFFD]+)\s\1/gi;
+31. 正则表达式分组有四种：
+        捕获型
+        非捕获型:前缀为(?:
+        向前正向匹配(Positive lookahead)：前缀(?=
+        向前负向匹配(Negative lookahead)：前缀(?!
+32. [\b]代表退格符
+33. 字符串连接使用 + 效率比array.join()方法更高
+34. shift()方法通常比pop()慢得多
+35. sort()方法不稳定，其稳定性依不同浏览器实现而不同，排序的稳定性是指排序后数组
+        中的相等值的相对位置没有发生改变，而不稳定性排序会改变相等值的相对位置。
+36. number.toExponential(fractionDigits):将number转换成一个指数形式的字符串，
+            fractionDigits控制小数点后的位数，0~20之间
+    number.toFixed(fractionDigits)：将number转换成一个十进制数形式的字符串，
+            fractionDigits控制小数点后的位数，0~20之间
+    number.toPrecision(precision)：将number转换成一个十进制数形式的字符串，
+            precision控制数字的精度，0~21之间
+37. exec方法最强大也最慢，test方法最简单也最快
+38. string.split(separator, limit)：当separator是一个正则表达式时，有一些JS的实现
+        （比如IE8及之前的浏览器）会在输出数组中排除掉空字符串
+39. 一门语言是否具备为其自身编写一个编译器的能力，仍然是对这门语言完整性的测试
+40. 毒瘤(Awful Parts)：
+        全局变量(Global Variables)
+        作用域(Scope)
+        自动插入分号(Semicolon Insertion)
+        保留字(Reserved Words)：用作对象字面量的键值时必须用引号括起来，而且不能
+                用在点表示法中
+        Unicode：Unicode把一对字符视为一个单一的字符，而JavaScript认为一对字符是
+                两个不同的字符
+        typeof：对于null会返回'object'，而对于正则表达式，有的返回'object'，极个别
+                返回'function'
+        parseInt：以0开头的字符串默认当成八进制数解析
+        +：如果用 + 做加法运算，请确保两个运算数都为数字
+        浮点数(Floating Point)：二进制小数无法精确表示十进制小数，要将小数转换成
+                整数，运算之后，再将结果转换成小数
+        NaN：typeof NaN === 'number'; // true
+                NaN === NaN; // false;
+        伪数组(Phony Arrays)：typeof运算符不能辨别数组和对象
+        假值(Falsy Values)：0, '', null, false, undefined, NaN
+                NaN与undefined在ES5中规定为常量，主流浏览器中其值不可改变，
+                在IE8-中可以改变
+        对象(Object)：任何对象都具有constructor属性，即使是空对象
+41. 糟粕(Bad Parts)：
+        == 与 !=：JS中的==并不一定具有传递性
+        with:影响性能，避免使用
+        eval:影响性能，避免使用
+        continue:对性能有影响
+        switch穿越(switch Fall Through)：case语句不要合并
+        缺少块的语句(Block-less Statements)：始终使用块语句
+        ++ --：为什么不用呢？只在for循环中用也不可以吗？
+        位运算符(Bitwise Operators)：& | ^ ~ >> >>> <<
+                JS执行环境接触不到硬件，使用位操作符反而影响性能，而且&和|容易
+                写成&&和||，难于调试
+        function语句对比function表达式
+        (The function Statement Versus the function Expression)：
+                在if语句中不要使用function语句，crockford认为使用function语句
+                容易导致混乱，应该使用函数表达式，这样还能时刻提醒函数就是一个值
+        类型的包装对象(Typed Wrappers)：避免使用new Number, new String,
+                new Boolean
+        new：避免使用new
+        void：是一个运算符，接受一个运算数并返回undefined，避免使用
+
+        
