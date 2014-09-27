@@ -1,0 +1,441 @@
+/* webtips */
+================================================================================
+1. autocomplete可以应用于input或form元素，通过`autocomplete="off"`关闭，input必须有name
+    属性时autocomplete才会起作用
+2. textarea的wrap属性值为hard时，自动在行末插入回车换行符，必须设置了cols属性，
+    但是这样会破坏用户的期望输入
+3. setSelectionRange:只能作用于input/textarea元素，且调用前：firefox需要元素先获取焦点，
+    即调用focus()，而对于IE和Chrome会默认获取焦点
+4. onselect:虽然可以绑定在window或document上面，但是只有选择input或textarea里面的内容时才会
+    触发此事件，如果想要获取任意选择内容，则应该通过mouseup事件,还要注意可以通过Shift+方向键选择
+    文本
+5. insertAdjacentHTML(position, string):只能作用于DOM元素，不包html，因为其没有父元素
+6. scrollIntoView():将元素滚动直到顶部与视口顶部对齐，但是元素在文档底部以至于无法滚动了，则只会
+    滚动到底部，不一定与视口顶部对齐
+7. onclick: 只会返回之前附给它的值，而用addEventListener或attachEvent方法添加的click事件
+    回调不会被返回
+8. 暴露给其他人的API的命名不应该太精简，最好命名就能说明其功能，以方便调用
+9. setTimeout/setInterval/requestAnimationFrame这些方法为原生方法，且为window对象的方法，
+    不能用call或apply改变上下文，其回调函数的this指向window
+10. 开源代码：API文档描述，DEMO演示全，尽量贴近实际应用
+11. html的结构及供js使用的选择器与css和js的代码量/性能有很大关系
+12. 流程：获取任务，从117设计服务器获取文件，写js代码，本地测试，与服务器同步，解决冲突，构建Ant，
+    提交（注释格式），提交到了123服务器上，通知设计和后端人员
+13. 表单输入框的placeholder插件，要考虑浏览器自动填充表单，这可能同时显示造成冲突
+14. jQuery2.0放弃IE6-8的支持，如果网站想用jQuery2.0，而又想兼容IE6+，可以使用注释语句:
+    <!--[if lte 8]>
+        <script src="js/jquery-1.11.0.min.js"></script>
+    <![endif]-->
+    <!--[if gt 8]><!-->
+        <script src="js/jquery-2.0.3.min.js"></script>
+    <!--<![endif]-->
+15. 优化逻辑语句：使求值快的表达式在前面，比如
+    if ((x*x > 100) || flag) {
+        // code
+    }
+    >>>
+    if (flag || (x*x > 100)) {
+        // code
+    }
+16. color: 所有子节点的文本颜色/边框颜色/ol或ul的小圆点/img标签的alt属性文本颜色都会继承此值,
+    hr的边框颜色例外
+17. clip属性只能作用在绝对或固定定位的元素上
+18. overflow-wrap是word-wrap的替代
+19. 移动端Switch开关，设计点：单击或按下那一行时转换；可以响应滑动事件；滑动动画
+20. 应该在form或input元素上加上autocomplete="off"来关闭浏览器默认的下拉提示
+21. 用id标记元素，这样可以通过URL中带有hash来跳转到具体的元素，
+    通过带位置数值加JS可以实现精确定位到某个位置
+22. 前端MVC流程：
+    加载初始化HTML/CSS/JS代码
+    初始化：从后台获取数据，甚至模板，然后将数据更新到视图上
+    视图更新（可以有数据本地存储），其实是发生了某个事件
+    向后端发送请求
+    后端响应
+    若是成功的响应，则更新模型，若失败，则视图给出反馈
+    JS里面视图对应的模型更新
+    URL变化、视图更新
+23. 在写兼容IE的事件处理函数时，addEvent应当返回被绑定的函数，这样在传入匿名时，
+    也可以通过返回值来解绑
+24. addEventListener(type, listener, useCapture)：第三个参数明明default为false，
+    为什么一些人还是会显式传入false呢
+25. window.undefined在现代浏览器（支持ES5.1的）中不可写，在严格模式下为其赋值会抛出错误
+26. 单引号与双引号：功能/性能上没有任何区别，首先应该尊重原有的代码风格，其次尊重通用的风格，
+    比如JSON尽量双引号，但是个人偏好单引号，因为不用按SHIFT键
+27. 写文档要考虑到依赖的稳定性，将来可能会发生什么变化，避免歧义，例子应该选用具有代表性的，
+    也要考虑特殊情况
+    文档最好不要一开始就举一些复杂的例子，应该使用户尽快上手
+28. Ubuntu14.04 Chrome 34.0.1847.132：jQuery的mouseenter与mouseleave事件有问题，
+    因为触发mouseenter事件后，紧接着由于鼠标坐标似乎移到了左上角0，0的位置，导致又触发了
+    mouseleave事件，然后再移动鼠标鼠标位置又正确，触发事件后又回到了左上角
+29. 调试jQuery-menu-aim在Ubuntu 14.04 VirtualBox里面XP IE8下IE7模式存在问题:
+    就是一个页面里面正常，另一个页面没有延迟，或者说只有下面几个分类条目有延迟，经过调试发现是
+    移向子菜单的过程中，即使未移出分类菜单也会触发其mouseleave事件，后来在其他的WIN7机器上
+    IE10的7模式下测试正常，又在其VirtualPC虚拟机里面的IE6测试正常，故怀疑是虚拟机里面操作
+    系统版本或浏览器版本的问题，决定重新装一个纯净版系统
+30. Backbone.View的el设置的话，才能与HTML代码中的元素建立关联，不设置的话会根据
+    tagName/id/className/attributes结合生成，tagName默认为div，但此时生成的el
+    显然与页面中的元素没有关系，只是存在于内存中
+31. 利用BFC，比如流行的micro clearfix方法，清除浮动时，生成的:after伪元素必须在浮动元素
+    的下面才行
+32. API接口设计：增加参数时，增加到最后而不是在参数列表的中间插入一个新参数，当然用可配置的对象来
+    传递参数可扩展性强，也可以应用类型判断来在同一个位置传递不同参数
+    a) init(city, source);
+    b) init(city, source, town);
+    c) 
+        init({
+            city: city,
+            town: town
+        }, source);
+    d)
+        init({
+            city: city,
+            source: source,
+            town: town
+        });
+33. 不要贸然修改默认配置，因为默认值可能不止一个地方用到，应该传递一个参数，$.extand()方法合并
+34. 默认配置参数如果用在多个地方，且不相同时应该提供可配置对象参数，或者应该将配置参数对象放到
+    全局作用域中，用命名空间，这样可以从全局访问修改
+35. JSON.parse(string, reviver)与JSON.stringify(value, replacer, indent)的其他参数
+    用法
+36. JSON.stringify()被转换的对象若有一个toJSON属性且值为函数，则会先执行toJSON方法，
+    然后再将返回值转换
+37. JSON.stringify(value):若value或对象属性的值为undefined/函数/正则，则会忽略，
+    数组的undefined值会转换成null
+38. JSON兼容性：IE8+原生支持，老版本浏览器可用json2或json3或可以写一个简单的polyfill
+39. 获取unix时间戳：
+        (new Date()).getTime();
+        +(new Date());
+        Number(new Date());
+        Date.now(); // IE9+
+40. new关键字：
+        new Func().someMethod(); // 可以正确执行
+        +new Date(); // 也可以
+41. 二元减法运算符：两个日期会取valueOf()值
+    二元加法运算符：两个日期取toString()值
+    比较运算符：日期对象取valueOf()值
+42. Mixin：可以使一个类继承另一个类的方法或属性，和PHP中的接口差不多嘛
+    var ourObject = {};
+    _.extend(ourObject, Backbone.Events);
+    Node里面的util.inherits()是类似方法
+43. RESTful API需要的HTTP PUT与DELETE请求：
+    HTML4与XHTML1.0规范规定HTML form只支持GET和POST两种方法;
+    可以在表单中添加隐藏域来模拟PUT和DELETE请求;
+    而主要浏览器的XMLHttpRequest均支持GET/POST/PUT/DELETE方法
+44. 元素的cursor样式，如果不能点击不用改用“手形”，另外如果标签名为a，
+    则注意href属性值不要为空或设置为#，这样点击页面可能会跳到顶部
+45. 总是面临无数的选择：Backbone vs Angular vs Ember
+46. background-attachment: 属性值有三个，scroll(default)/fixed/local
+    local属性表示背景图片跟随元素的滚动条滚动
+    兼容性：IE9+及其他现代桌面浏览器支持local，手机端fixed与local在iOS上不支持
+    兼容方案：添加一个尺寸为浏览器窗口大小的图片元素，并添加position:fixed;
+    与z-index:-1;，注意position:fixed在一些移动端浏览器不支持
+    相关链接：
+    https://developer.mozilla.org/en-US/docs/Web/CSS/background-attachment
+    http://www.quirksmode.org/css/backgroundattachment.html
+    https://github.com/louisremi/background-size-polyfill/issues/27
+    http://stackoverflow.com/questions/4889601/css-position-fixed-into-ipad-iphone
+    http://caniuse.com/#search=fixed
+47. 跨域消息通信：是指可以向不同域名的iframe或窗口发送消息
+    方法与事件：postMessage(message, domain)和onmessage事件
+    example:
+    Sender: http://jsfiddle.net/tjK66/
+    Receiver: http://jsbin.com/tokotare/6/edit
+48. ejs模板功能：
+    自定义分隔符（delimiter）
+    两个函数：compile和render
+    执行内嵌JS
+    输出变量/数组等任何JS原生代码可做到的
+    包含（include）功能，因此也具有layout功能
+    过滤器（filter），类似于helper，可对数据变量执行操作，且可扩展
+    轻量，简洁，易上手
+    在线练习
+49. npm安装模块
+    npm install 命令安装package.json里面的依赖
+    npm install package 命令从命令执行文件夹向上找，直到全局模块安装目录，
+        会安装在第一个找到的node_modules文件夹
+    npm install package -g 全局安装
+50. 使用mongoosejs可以宣传：
+    http://mongoosejs.tumblr.com/
+51. 文档/文章的代码高亮主题未必用highlight.js默认的，可以自定义，或者使用其他的
+52. 技术文档程序：用ID来标记和跳转，或者将涉及到的相关技术名词做一个表，
+    可生成相关链接，类似于MDN
+53. mongooseDate类型，通过setMonth之类方法更新日期后，可以使用save保存
+54. 注意String.prototype.trim()以及正则里\s所包含的空白字符等价于：
+    [\t\n\v\f\r\u00a0\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u200b\u2028\u2029\u3000]
+55. 在IE7里如果一个元素的子元素浮动，且没有通过触发hasLayout属性清除浮动，
+    则设置margin-left为负值时子元素似乎不会一起向左偏移。
+56. jade里面!!!已经被弃用了，应该使用doctype
+57. Google有些产品不区分前后端，还要求会C++/Java；有些公司把前端细分为HTML和JS，
+    这种不利于写JS，因为结构会影响选择元素，影响性能，也会增加沟通成本，但对于重运营
+    网站会好些？
+58. postfix 条件或迭代功能作为操作符放在语句的后面
+59. semver: Semantic Version
+    http://semver.org/
+    https://www.npmjs.org/doc/misc/semver.html
+60. npm install命令：如果node_modules目录下有package.json里面的依赖包，
+    但是不完整（依赖包的依赖没有）时，不会去安装
+61. 被设置 position:absolute; 的元素，其display属性自动转换为block
+62. jquery的slideDown与slideUp方法：前者使元素出现，后者隐藏元素，但是slideDown
+    变换height与margin的值，其方向不一定是向下，而是向垂直方向的定位方向，比如绝对
+    或固定定位时设置了bottom，slideUp类似。
+63. 优先进入概率大且耗时短的分支，有时应该尽早退出，这样避免执行其他无用的代码
+64. if..else语句里程序块有多条语句时可在程序块顶部适当加个空行，注释不一定非要前面空一行
+65. 一个常见的bug原因是执行DOM操作（包括利用第三方库）时，元素还未加载。
+66. 另外遇见不明原因的bug时，应该通览代码，看下代码从源头的调用顺序，最好利用调试工具设置
+    断点或console.log输出一些参数
+67. 2014-7-18：今天遇到个问题，就是设计那边静态页面少了两个，都是不熟悉网站页面逻辑的缘故，
+    可以看后端路由（action）看清逻辑
+68. 使用void 0来获取undefined，因为undefined值有微小的可能被定义为其他值，当然严格模式下例外?
+69. package.json file:
+    - version 字段怎么自动增加
+        npm version
+    - LICENSE 常见协议文件（MIT，GPL，BSD等），一个命令获取
+    - dependencies 字段，依赖包的版本，获取特定包的发布版本，最新版本
+        npm show package-name fields
+        npm还有其他很多有用的命令
+70. README.md file:
+    - 样板文件
+71. git命令别名，配置文件同步到github
+    sublime, git, vim, .bashrc, jshintrc配置文件同步到github
+    自己的代码风格
+72. 表单按 enter键提交，空格选择单选或多选成为标配，并入util.js/base.js等里
+73. undefined 是一个全局属性，里面保存 undefined 原始值，可以定义成局部变量:
+    var undefined = undefined;
+    var undefined = void 0;
+74. Chrome35/Ubuntu 14.04：在本地localhost设置cookie时使用expires字段不能设置小于1天的时间，
+    使用max-age可以，但是注意max-age在IE6-8中不被支持
+75. 压缩工具会将 3600000 之类数字转为指数表示法 36E5
+76. 当前日期 var now = new Date; 当中的now变量不能延迟太长时间使用
+77. 特定时间段活动弹出层用户体验：
+    使用js或后台判断时间
+    使用cookie记录是否打开过
+    对于已经打开过的再次访问时，不弹出但是应该在某个不太显眼的地方放个小链接
+78. Specification:
+    http headers is case-insensitive
+    http method is case-sensitive
+    Note: The implementations may not accord with the specification
+79. jquery选择器元素是否存在判断：
+    !$(selector)[0]; // 不存在
+80. jquery的hide()和show()不是$.fn.fx的一部分，没有动画效果，即立即出现或消失
+81. 写插件时命名很乱
+82. DOM/BOM中的坐标与维度很乱
+83. IE6/7的offsetTop, offsetLeft, offsetParent取值有问题，offsetParent可能为某个触发
+    hasLayout属性的父元素，而不是真正的父定位元素
+    http://w3help.org/zh-cn/causes/SD9018
+84. offsetLeft/offsetTop获取的值不包括offsetParent的边框宽度与外边距
+85. 即使下面的 #inner 元素定位到了 #outer 的外面，触发 #inner 的mouseover事件
+    仍能触发#outer的mouseover事件，因为是事件冒泡
+    <div id="outer">
+        <div id="inner"></div>
+    </div>
+86. jQuery.css()不会获取到 inherit 值，而是元素属性的实际值
+87. store.js 采用 userData 来支持IE6-8的本地存储功能，清理userData：
+    C:\Documents and Settings\Administrator\Local Settings\Application Data\Microsoft\Internet Explorer\DOMStore\
+    或参考：
+    http://stackoverflow.com/questions/7445892/how-can-data-stored-using-the-ie-userdata-behavior-deleted
+88. ie6 position:fixed setExpression
+    有时setExpression里的第二个参数需要用eval，不用expression使用js计算top时，无法防止上下跳动
+89. for loop 要比 forEach 速度快很多 http://jsperf.com/fast-array-foreach/67
+90. 注意在使用 $(document).height() 时，如果页面有 ajax 获取的内容，则$(document).height()的值可能会发生变化
+91. 第三方库，如 jQuery，查找某个事件监听器在 js 文件中定义的位置： Chrome/Chromium DevTools 设置断点，逐行执行，
+    找到第三方库内部事件机制中的 listener，在右侧 listener 函数名上右击，选择 Show Function Definition
+92. url解析及关键的查询参数解析
+    插件：purl（不依赖jQuery，可作为jQuery插件）
+        js-url（不依赖jQuery，可作为jQuery插件）
+        querystring（node与browser两者都可以用）
+    查询参数解析：http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript?answertab=votes#tab-top
+    Ref: http://en.wikipedia.org/wiki/Query_string
+    考虑的问题：
+        函数命名问题，getParameter, getParam, getAllParameters, getAllParams
+        是否使用RegExp，使用的效率似乎高些
+        第一次使用时应该将所有的查询参数保存到一个对象中，只解析一次
+        一个参数对应多个值是合法的，如field=value1&field=value2
+        URL编码解码及+与空格转换
+        Hitstory API，改变popstate事件触发时重新解析
+        一些Ajax应用中，hash片段作为参数呢，可以选择解析window.location.search还是window.location.hash
+        可作为jQuery与Zepto的插件，node呢
+        如果仅仅需要一个简单的查询参数解析函数呢
+93. Android4.0以下的 animation 只支持一次改变一个属性
+    http://daneden.me/2011/12/14/putting-up-with-androids-bullshit/
+94. title 属性在触屏设备上如何使用？该属性的目的是什么？可访问性？搜索引擎友好性呢？
+    Ref: http://blog.silktide.com/2013/01/i-thought-title-text-improved-accessibility-i-was-wrong/
+        http://stackoverflow.com/questions/15425552/replacement-for-title-attribute-that-work-in-touch-screen-environment
+95. 一个主要用来在页面顶部或底部显示活动/推广等信息的插件，比较简单
+    可以设置关闭按钮，可以设置延迟自动关闭，或高度自动变小，或自动变小移动到页面某个角落
+    可以利用 DOM 中已有的结构，或创建新的元素
+    桌面端与移动端分开？桌面端作成 jQuery 插件，移动端为 jQuery 2.0+/zepto 插件
+    常见的如顶部公告信息/电商网站促销信息/移动端底部推广链接，还可以提示浏览器升级
+    https://github.com/jasny/jquery.smartbanner
+96. 一个常见的效果：通过mouseover/click/touchstart等事件来控制显示/隐藏
+    并且还要切换class，显示与隐藏可能为动画效果，这可以作成一个小插件，
+    可以拆成两个，一个只可以执行回调，另一个配置一些默认的回调
+97. 一些人会用CSS结合几个元素组成一个图标，但是以后可能不好更换成别的，而且几个元素与一个元素哪个简单呢
+98. 移动端web性能是个复杂的问题，其中连接的延迟首先应该考虑，2G/2.5G/3G的延迟大
+    减少HTTP请求数很重要，尤其对于2G/2.5G网络
+    https://www.google.com.hk/#newwindow=1&q=mobile+web+performance+best+practices&safe=off
+    https://www.google.com.hk/#newwindow=1&q=mobile+web+latency&safe=off
+99. load 事件绑定在 window 上，而不是 document 或 document.body 上
+100. 用户账号与个人信息的安全管理，隐私管理
+    很多网站用户账户信息变更不安全，当然也要与网站定位适应
+101. opera mini 国内至多几个百分点的占有率，人数几百万吧，但是这个浏览器不支持很多 html5 es5 css3，只能算 wap 版浏览器
+102. <button>元素在表单中时默认具有 type="submit" 属性，因此默认情况下单击会提交表单
+    添加 type="button" 可以使其不再默认提交表单
+    input:submit 与 button 在表单即 form 元素外面时，单击不会提交表单
+103. 使用 jQuery 或 zepto 时，选择器为 class 或 id 时，经常忘记加 # 或 .
+104. label 增大了 input 的点击区域，但必须 for 与 input 的 id 属性值一样,
+    label 的 click 事件会触发 input 的 click 事件，绝大部分浏览器都支持，
+    使用 fastClick 插件时可能需要下面代码
+    http://css-tricks.com/snippets/jquery/click-input-when-label-clicked/
+    绑定 label 的 click 事件手动触发 input 的 click 事件
+    $("label").click(function(){
+        $("#" + $(this).attr("for")).click();
+    });
+105. setTimeout回调中 this 指向全局对象
+106. 触摸设备，点击与滑动事件怎么区分呢？
+    zepto 的 tap 与 swipe 可能在某些设备上不能严格区分，swipe 操作有可能触发 tap 事件
+107. 触摸事件：swipe 是指快速划过，而不是类似拖动一样
+    zepto 的 tap 事件会在拖动时触发
+108. jQuery 与 zepto 事件绑定，如何处理事件调用顺序的，是不是先绑定的先触发
+109. // clientX/clientY 在 iOS 4 及 Android 4.0 某些浏览器中会错误，如果放大或滚动页面的话
+    https://gist.github.com/gregersrygg/3828586
+110. grunt 压缩 cmd 模块，考虑到 js 文件的强制刷新，即带有一个时间/哈希值参数
+    seajs配置文件中配置根据url路径中是否带有某个特殊参数，如debug，来选择加载压缩版还是开发版
+    所有CMD模块:
+        对比所有文件未压缩版与压缩版修改时间
+        对于更改过的（考虑到不存在压缩版情况）用uglify压缩
+        然后将压缩后的文件再包装成CMD模块
+        修改seajs配置项alias的时间/哈希值参数用来强制刷新
+    非CMD模块，如seajs或config.js或init.js之类:
+        对比所有文件未压缩版与压缩版修改时间
+        对于更改过的（考虑到不存在压缩版情况）用uglify压缩
+111. seajs 开发调试实际应用中要注意的几个问题
+    调试问题：
+        方便切换压缩版与未压缩版,https://github.com/seajs/seajs/issues/780
+            触发切换的方式是什么？
+                域名/IP：可以区分本地版本与服务器版本
+                URL参数：比如debug，可以很方便的切换
+                seajs-debug的调试面板按钮也可以
+        合并请求/合并文件，这方面如何提高性能呢？而且应用起来比较简单，比 seajs-combo/seajs-flush 简单
+        使用了 seajs-combo/seajs-flush 的调试
+        多终端（PC与移动端各种浏览器）输出调试信息，感觉这个不应该是 seajs 考虑的问题
+        关于 seajs.find 插件，能否在开启调试（比如在url中加上debug关键字）后，加载调试需要的模块，而不开启时，不会加载
+    打包压缩问题：
+        必须提取 id 与 deps 吗？
+            手工写了id，采用了文件合并，则需要提取id，否则不需要,https://github.com/seajs/seajs/issues/887
+            如果define定义模块时没有deps参数，则最简单的压缩方式是，使用grunt uglify时配置排除的变量，
+                排除掉 require exports module，此时不需要提取deps，此时应该少些exports
+                而且通过gzip压缩之后，排除 require... 变量不一定就比不排除大，自己测试了公司触屏版发现大部分小于不排除的压缩版
+            为了提高压缩比，必须压缩所有变量，然后需要提取依赖，写在deps参数位置
+        seajs 提取依赖必须使用 require 关键字吗
+        在一个文件多个模块时，必须手写 id 吗
+            可以通过配置来指定合成后的文件名，合并时的id参数默认为被合并文件名，然后将被合并的多个文件名与合并后的文件名映射，
+            便于使用seajs.use时查找，这样就不用手工写id，不用担心seajs.use找不到模块
+            还要解决combo问题，以及全部合并成一个文件性能最优吗
+    本身功能：
+        require.async 要解决按需加载问题，如何管理页面中各模块的加载顺序问题呢
+    性能：
+        服务器配合设置 combo 功能更好，seajs收集require，一次请求就可以了，服务端把打包的发过来
+112. mi3 蓝色图标的微信内置浏览器中，<a>元素的背景总是灰色，似乎无法控制
+113. 手机上包括Android与iOS，点击一个链接/按钮，跳转到另一个页面，如果此链接或按钮正好对应另一个页面中
+    可以输入的元素（如input/textarea），则有可能激活输入法（soft keyboard）
+    解决方法：
+        可输入的元素设置 readonly，然后点击时再删除 readonly
+        先将另一个页面所有内容隐藏，js加载好后再显示
+        延迟跳转（没试过）
+114. 刷新静态资源缓存问题
+    常见两种方案：加查询参数与文件名更改
+    网上有文章说修改文件名方案更可靠，说查询参数在使用了代理的情况下每次都发送新的请求，这个要测试下
+    不使用模块加载器（如seajs）时如何方便的使用这两种方案
+    结合seajs来使用这两种方案，还要再考虑升级jquery zepto backbone 等文件情况
+115. 增量更新css与js问题，利用本地存储，参考已有方案
+    https://github.com/seajs/seajs/issues/964
+116. 菜鸟上手seajs：刚开始用seajs，说是5分钟上手，结果还要看各种文档，压缩打包问题，CMD源的问题都很复杂
+    刚开始就有个简单的DEMO，然后让别人开发一个极为简单（人人都会）的CMD模块，了解格式
+    源的问题，目前spm解决太麻烦，文档很不好，根本不要让用户学习或看到spm构建的问题，只要会下载，且源很稳定
+    压缩打包的问题，一定得学Grunt吗，做一个在线工具或一个软件集成方案，只是为了让人专注于理解seajs，而不是还要学node npm grunt 等等
+117. 触屏设备上，占比宽度100%的条状点击触发单选或多选或链接体验比较好
+    下面这种结构，li最好100%宽度，如果90%则有可能没有触发li的click/tap事件，但是input被选中了
+    <li><input type="radio">label></label></li>
+118. 发布一个 NPM 包
+    源码使用 git+github 管理
+    简单的文件结构：
+        package.json：各项意义看别人示例/官方文档/google可知
+        README.md：Introduction, Installation, Usage, Issues, LICENSE
+        入口文件：通常为index.js，或就是模块文件
+        LICENSE
+        .gitignore：.npmignore 不存在时默认用此文件，npm默认忽略包括 node_modules 及其他操作系统创建要忽略的，可参考文档
+    创建npmjs账号：使用npm adduser命令，按提示操作即可
+    每次发布前应该先在本地安装测试才发布：
+        npm install -g <local path>
+        or npm install <local path>
+    发布:
+        npm publish
+    更新：
+        更新后必须修改 package.json 中的 version 字段
+        npm publish
+119. diff tools (in linux):
+    diff 自带的，可以比较文件夹 -r，但是颜色单一，不能合并修改
+    colordiff diff的彩色版，命令相同
+    meld GUI 界面的 diff & merge 工具
+120. jQueryUI改造为seajs模块
+    if (typeof define === 'function' && !define.amd) {
+        define(function(require, exports, module) {
+            module.exports = factory;
+        });
+    } else if {
+121. ANSI, GBK, BIG5, Latin, ASCII区别：
+    ANSI编码不是一个正式的标准，通常用来指Windows系统中的内码页（code page），内码页是表示各种语言字符的编码表
+    通常，在西文字符环境，ANSI等于US-ASCII，等于Latin-1
+    简体中文环境，ANSI等于GBK（CP936，即内码页936页，与GBK可视为等同，有几十个汉字的差别，不知道现在修正了没）
+    繁体中文环境，ANSI等于BIG5
+122. grunt-seajs-transport要考虑的问题：
+    可提取压缩版/开发版CMD模块
+    配置项:
+        是否提取id(https://github.com/seajs/seajs/issues/426说必须提取id，否则IE6-9可能出现问题，不太懂）
+        是否提取依赖
+        id前缀
+        依赖为alias名还是路径名
+    id路径名的斜杠在windows与linux中不同
+    依赖为相对路径时
+    模板模块：是否嵌入js
+    CSS模块:
+    coffeescript模块
+    是否支持alias配置呢？利用seajs里的alias?配置了alias，可以把模块中require('modAliasName')替换为真实路径，就不用seajs里面的alias配置了，哪个好呢？
+    依赖字符串有占位符时：如require('lang-{locale}.js');
+    grunt配置中ext flatten等参数的合理处理
+    http://开头的第三方依赖
+123. 比较两个字符是否一样的方法性能对比：charCodeAt在Safari8, IE10中有较大优势，seajs里面就是用的charCodeAt
+    http://jsperf.com/string-equality-index-vs-charat-vs-charcodeat
+    http://jsperf.com/charcodeat-vs-string-comparison/3
+124. seajs没有用'use strict'，是因为在.Net中调试需要argument.caller.callee
+125. 日历引擎插件：与显示无关的一个日历组件，可扩展多语言支持，各国法定假日支持，日历UI组件，农历扩展，事件提醒等
+
+    对象分析：
+        Calendar:
+            获取指定年份，指定月份的“天”列表对象
+            获取当前月份的“天”列表对象
+            获取上一月份的“天”列表对象
+            获取下一月份的“天“列表对象
+            获取上一年同月份的“天”列表对象
+            获取下一年同月份的“天”列表对象
+
+        Month:
+            daysList
+        Day:
+            isCurrent
+            month
+126. linux shell 的 alias 命令可以创建快捷命令
+    如 alias = 'python /opt/goagent/local/proxy.py'
+127. 调试 grunt：node-debug $(which grunt)
+128. 静态资源缓存刷新：
+    静态资源：js/css/img
+    三种方式：文件名加字串，或引用url加查询参数，还有适用jquery bootstrap seajs之类的每个版本号都建立一个文件夹
+    字串：hash字串，时间，版本号
+    其中url加查询参数方式在某些情况下不会刷新缓存，不过大部分情况下够用
+    url位置：html文件，模板文件，css文件，seajs配置文件等
+    判断文件是否改变/一样：计算文件md5，利用mtime属性（此属性改变，文件内容不一定不同）
+    seajs里面：可以在map或alias配置中添加（可以利用 filerev 生成的 map 文件），当然也可以在服务器端设置
+129. 阅读源码的工具
+    只看源码，不太容易看清楚代码调用堆栈顺序，也不清楚代码里面的变量实际值，不能直观地看到代码如何处理数据的
+    当然，可以做一个实例，利用 Chrome Devtools 代码调式，打断点来看
+    另外对于临界值的处理，最好能有源码作者的注释，不然很难想到所有临界情况，也难以做一个呈现临界情况的demo
