@@ -16,10 +16,10 @@ nodeunit很不好用，废弃之，作者的一篇教程已经过时，且至少
 
 ##2014-10-08
 
-nodejs中的fs.exists尽量不要使用，使用fs.open检测失败就可以了，另外fs.exists可能被
+- nodejs中的fs.exists尽量不要使用，使用fs.open检测失败就可以了，另外fs.exists可能被
 放弃，某些版本不存在可以使用path.exists
 
-`mkdir -p`或者说node-mkdirp之类递归创建目录，可能参数：
+- `mkdir -p`或者说node-mkdirp之类递归创建目录，可能参数：
 ```bash
 mkdirp path
 mkdirp [mode] path
@@ -27,5 +27,4 @@ mkdirp path1 path2
 mkdirp path1 path2/subpath2
 mkdirp .
 mkdirp ..
-···
-
+```
