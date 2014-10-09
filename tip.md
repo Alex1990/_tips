@@ -20,33 +20,33 @@
 
 - 大概从1.4.13版本开始，npm 默认安装包时不会显示请求，可以：
 
-```bash
-npm install --loglevel http
-```
-或修改.npmrc：
+  ```bash
+  npm install --loglevel http
+  ```
+  或修改.npmrc：
 
-```bash
-loglevel = http
-```
+  ```bash
+  loglevel = http
+  ```
 
 - nodejs中的fs.exists尽量不要使用，使用fs.open检测失败就可以了，另外fs.exists可能被
 放弃，某些版本不存在可以使用path.exists
 
 - `mkdir -p`或者说node-mkdirp之类递归创建目录，可能参数：
-```bash
-mkdirp path
-mkdirp [mode] path
-mkdirp path1 path2
-mkdirp path1 path2/subpath2
-mkdirp .
-mkdirp ..
-```
+  ```bash
+  mkdirp path
+  mkdirp [mode] path
+  mkdirp path1 path2
+  mkdirp path1 path2/subpath2
+  mkdirp .
+  mkdirp ..
+  ```
 
 - remove BOM: `text.replace(^\uFEFF/, '');`
 
 - 将windows[\r\n]或osx[\r]系统下换行符替换成linux[\n]下换行符:
-```js
-if (text.indexOf('\r') > -1) {
-    text.replace(/\r/g, '');
-}
-```
+  ```js
+  if (text.indexOf('\r') > -1) {
+      text.replace(/\r/g, '');
+  }
+  ```
