@@ -14,7 +14,7 @@
     有时第一次**File协议打开页面**时，加载了字体但没有显示，有时快速刷新，
     大概十次有一次字体没有显示，**不过，本地服务器就没出现这种情况**。
 
-##3014-10-08
+##2014-10-08
 
 - node update：`npm install -g n` then `n 0.10.32`，另外也可以由高版本切换到低版本
 
@@ -33,6 +33,7 @@
 放弃，某些版本不存在可以使用path.exists
 
 - `mkdir -p`或者说node-mkdirp之类递归创建目录，可能参数：
+
   ```bash
   mkdirp path
   mkdirp [mode] path
@@ -45,8 +46,16 @@
 - remove BOM: `text.replace(^\uFEFF/, '');`
 
 - 将windows[\r\n]或osx[\r]系统下换行符替换成linux[\n]下换行符:
+
   ```js
   if (text.indexOf('\r') > -1) {
       text.replace(/\r/g, '');
   }
   ```
+
+##2014-10-09
+
+- markdown list multiple paragraphs:
+
+  like this:)
+
