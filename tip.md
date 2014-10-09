@@ -30,7 +30,7 @@
   ```
 
 - nodejs中的fs.exists尽量不要使用，使用fs.open检测失败就可以了，另外fs.exists可能被
-放弃，某些版本不存在可以使用path.exists
+  放弃，某些版本不存在可以使用path.exists
 
 - `mkdir -p`或者说node-mkdirp之类递归创建目录，可能参数：
 
@@ -58,4 +58,35 @@
 - markdown list multiple paragraphs:
 
   like this:)
+
+- 函数的某个参数，通常不指定，则为 undefined，若要其通常为 true，则
+  需要加上：
+
+  ```js
+  if (parameter == null) parameter = true;
+  ```
+
+  但是，如果参数只是用来判断的布尔值，何不反向判断，让参数含义也反过来
+  
+  ```js
+  function camelize(str, capitalize) {
+    if (capitalize  == null) capitalize = true;
+    // ...
+    if (capitalize) {
+      // ...
+    }
+  }
+  ```
+
+  to:
+
+  ```js
+  function camelize(str, notCapitalize) {
+    // ...
+    if (!notCapitalize) {
+      // ...
+    }
+  }
+  ```
+
 
