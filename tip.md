@@ -18,7 +18,7 @@
 
 - node update：`npm install -g n` then `n 0.10.32`，另外也可以由高版本切换到低版本
 
--大概从1.4.13版本开始，npm 默认安装包时不会显示请求，可以：
+- 大概从1.4.13版本开始，npm 默认安装包时不会显示请求，可以：
 
 ```bash
 npm install --loglevel http
@@ -27,6 +27,7 @@ npm install --loglevel http
 
 ```bash
 loglevel = http
+```
 
 - nodejs中的fs.exists尽量不要使用，使用fs.open检测失败就可以了，另外fs.exists可能被
 放弃，某些版本不存在可以使用path.exists
@@ -41,7 +42,7 @@ mkdirp .
 mkdirp ..
 ```
 
-- remove BOM: `text.replace(^\uFEFF/, '');
+- remove BOM: `text.replace(^\uFEFF/, '');`
 
 - 将windows[\r\n]或osx[\r]系统下换行符替换成linux[\n]下换行符:
 ```js
