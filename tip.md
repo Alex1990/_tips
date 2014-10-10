@@ -89,4 +89,13 @@
   }
   ```
 
+##2014-10-10
+
+- API design: 利用别名来增加灵活性，如：
+
+  ```js
+  exports.word_wrap = exports.wordWrap = function(text, width){
+    // ...
+  };
+  ```
 
