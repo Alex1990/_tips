@@ -93,3 +93,10 @@
 
 - jQuery(至少1.6以前): `$(document).width()` 在IE8中包含滚动条，应该用`$(document.body).width()`
 
+- API design: 利用别名来增加灵活性，如：
+
+  ```js
+  exports.word_wrap = exports.wordWrap = function(text, width){
+    // ...
+  };
+  ```
