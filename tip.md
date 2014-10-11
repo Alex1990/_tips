@@ -89,4 +89,7 @@
   }
   ```
 
+##2014-10-10
+
+- jQuery(至少1.6以前): `$(document).width()` 在IE8中包含滚动条，应该用`$(document.body).width()`
 
