@@ -107,3 +107,29 @@
   且没有检测是否是原型对象上的属性，从而把数组的所有可遍历属性都复制了，从而在IE8-中把数组原型上添加的属性也复制了，
   从而导致了点击分享上“更多”按钮时会报错。
   还有一个原因是因为IE8-中不可以设置对象（IE8中仅DOM对象可以）的属性为不可遍历（non-enumerable）
+
+##2014-10-15
+
+- nodejs 程序开机启动（startup)，利用/etc/rc.local:
+
+  ```bash
+  exec 2> /tmp/rc.local.log #把stderr发送到此文件
+  exec 1>&2                 #把stdout发送到此文件
+  set -x                    #告诉sh，在执行前显示参数
+  cd "/the/path/to/app"
+  /usr/local/bin/node "app.js" &
+
+  exit 0
+  ```
+
+  错误形式：
+  ```bash
+  #1
+  node "/the/path/to/app/app.js" &
+
+  #2
+  cd "/the/path/to/app" && $(which node) "app.js" &
+
+  #3
+  $(which node) "/the/path/to/app/app.js" &
+  ```
