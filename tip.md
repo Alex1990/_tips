@@ -116,8 +116,8 @@
   exec 2> /tmp/rc.local.log #把stderr发送到此文件
   exec 1>&2                 #把stdout发送到此文件
   set -x                    #告诉sh，在执行前显示参数
-  cd "/the/path/to/app"
-  /usr/local/bin/node "app.js" &
+  cd /the/path/to/app
+  /usr/local/bin/node app.js &
 
   exit 0
   ```
@@ -125,11 +125,14 @@
   错误形式：
   ```bash
   #1
-  node "/the/path/to/app/app.js" &
+  node /the/path/to/app/app.js &
 
   #2
-  cd "/the/path/to/app" && $(which node) "app.js" &
+  cd /the/path/to/app && $(which node) app.js &
 
   #3
-  $(which node) "/the/path/to/app/app.js" &
+  $(which node) /the/path/to/app/app.js &
+
+  #4
+  /usr/local/bin/node /the/path/to/app/app.js &
   ```
