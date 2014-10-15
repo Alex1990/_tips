@@ -143,3 +143,7 @@
   内嵌JS实现或者后端代码实现
 
   三种版本：线上压缩、线上未压缩、本地未压缩
+
+- 参数的默认值：使用`if`比`||`效率高20%-40%
+
+  http://jsperf.com/default-values-if-vs-or-operator
