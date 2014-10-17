@@ -147,3 +147,19 @@
 - 参数的默认值：使用`if`比`||`效率高20%-40%
 
   http://jsperf.com/default-values-if-vs-or-operator
+
+##2014-10-16
+
+- 使用nodemailer时，配置的host拼写错误，但是又没有报错，导致一两个小时
+  不知道什么原因，拼写错误一直伴随着
+
+##2014-10-17
+
+- mongoose的find/findOne等方法的查询结果为mongoose内部定义的对象，
+  直接添加属性时，可console.log出其属性值，但是console.log该对象时，
+  不会显示添加的属性，需要使用toObject()方法转为普通的对象
+
+- 应用的配置信息 config.js，开发版与生产版一样，使用git同步，但是可以
+  有一个 selfConfig.js 用来定义那些不同的配置，可以采用类似于
+  `$.extend(config, selfConfig)`方式获取最终配置
+
