@@ -163,3 +163,29 @@
   有一个 selfConfig.js 用来定义那些不同的配置，可以采用类似于
   `$.extend(config, selfConfig)`方式获取最终配置
 
+##2014-10-19
+
+- JS中的函数重载技术（function overloading)在API设计方面很有用，比如：
+
+  jQuery中很多getter/setter方法：
+
+  ```js
+  $(element).css(name); // Get the value of the property
+  $(element).css(name, value); // Set a property
+  $(element).css(keyValue); // Set a group of properties
+  ```
+
+  下面也经常使用：
+
+  ```js
+  function(data, replace, callback){
+    if (!callback) {
+      if (typeof replace === 'function') {
+        callback = replace;
+        replace = false; // The default value of replace
+      } else {
+        callback = function(){};
+      }
+    }
+    // ...
+  ```
