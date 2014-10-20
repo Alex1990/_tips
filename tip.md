@@ -189,3 +189,20 @@
     }
     // ...
   ```
+##2014-10-20
+
+- mongoose relationship/(foreign key): use populate() method,
+  and set the Schemas like the below:
+  ```js
+  var UserSchema = new Schema({
+    username: {type: String, required: true},
+    password: {type: String, required: true},
+    posts: [{type: Schema.ObjectId, ref: 'Post'}]
+  });
+
+  var PostSchema = new Schema({
+    title: {type: String, required: true, default: ''},
+    content: {type: String, required: true, default: ''},
+    user: {type: Schema.ObjectId, ref: 'User'}
+  });
+  ```
