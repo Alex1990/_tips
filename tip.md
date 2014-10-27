@@ -189,6 +189,7 @@
     }
     // ...
   ```
+
 ##2014-10-20
 
 - mongoose relationship/(foreign key): use populate() method,
@@ -206,3 +207,119 @@
     user: {type: Schema.ObjectId, ref: 'User'}
   });
   ```
+
+##2014-10-21
+
+- 插件调用方式：
+
+  符合jquery ui或bootstrap那样的调用方式:
+
+  ```js
+  $(selector).plugin(options);
+  ```
+
+  或者
+
+  ```js
+  var plugin = new Plugin(options)
+  ```
+
+  反正不要分成好几步，实例化/配置/初始化一部到位
+
+- 插件使用了多次，但是主题不同，最好能提供一个类似于命名空间的class用来覆盖默认主题，
+  当然你也可以在body标签或一个容器元素上添加命名空间class
+
+- 假如一个弹出层插件依赖一个遮罩插件（采用模块化细颗粒度开发），那么弹出层插件在调用时
+  是否传入遮罩插件的配置参数呢？比如遮罩的颜色或动画效果。
+
+- meta property og image是 Facebook Open Graph API，用于定制点击FB的like
+  或recommend按钮时的标题/图片/url等：
+  
+  https://developers.facebook.com/docs/graph-api
+
+- click事件在Android Chrome中几乎没延迟，在微信中有延迟，而且使用了zepto的tap事件
+  仍然和使用click差不多延迟（凭感觉），另外要注意简单的把click替换为tap事件可能会破坏程序的功能
+
+- jQuery html vs text：text()会将特殊字符转换为实体符号
+
+  **性能**：如果是纯文本，html会比text快一倍，然而使用innerHTML会比html()快三倍，
+  使用nodeValue会比innerHTML快20倍，可见原生JS效率还是比jQuery快很多的
+
+##2014-10-22
+
+- UC9.9无法使用meta标签使其不能缩放
+
+  **Note**: touchmove 事件时，`Touch.clientX/clientY/PageX`等只会改变一次，需用调用`preventDefault()`
+  阻止浏览器的默认行为
+
+##2014-10-23
+
+- 插件提供全局默认设置接口，这在多次调用插件时，很有用，因为有一部分配置参数相同，而另一部分配置参数需要单独配置:
+
+  ```js
+  Box.defaults = {
+    class: 'namespace-class',
+    template: $('#select-box-tpl').html()
+  };
+
+  Box.defaults.template = $('#alert-box-tpl').html();
+  ```
+
+- 配置对象的合并方法：`$.extend({}, defaults, opts)`,第一个空对象参数是为了每次调用都实例化一个对象
+
+  下面是不好的做法：
+
+  ```js
+  var defaults = {
+    // ...
+  };
+  opts = $.extend(defaults, opts);
+  ```
+
+  因为合并后返回的对象是 `defaults`，最终`opts`为指向`defaults`对象的引用，假如有一个Box插件，两次调用参数：
+
+  ```js
+  var box1 = new Box({
+    id: 'box1',
+    onopen: function(){
+      alert(1);
+    }
+  });
+  var box2 = new Box({
+    id: 'box1',
+    onopen: function(){
+      alert(2);
+    }
+  });
+  ```
+
+  以上实例化两个Box之后，再触发 box1 的 open 事件，调用的 onopen 会变成 box2 的，就是因为实例化 box2 时，
+  配置对象覆盖了第一个，
+
+##2014-10-24
+
+- Number() vs parseInt(): 
+
+  相同点：都能解析完全符合十六进制的字符串
+
+  不同点：Number不会把`'012'`当成八进制，还有
+  
+  ```js
+  Number('0xaaz'); // NaN
+  Number('12a'); // NaN
+  parseInt('0xaaz'); // 170
+  parseInt('12a'); // 12
+  ```
+
+  注意：parseInt('012')在IE8-中与IE9+表现不同，因为在ES5中不会把0开头的字符串当成八进制
+
+  ```js
+  // IE6-8
+  parseInt('012'); // 10
+
+  // IE9+及其他现代浏览器
+  parseInt('012'); // 12
+  ```
+
+- 十进制数字字符串转换成数值类型，使用一元符号`+`：`+'12'`, `+'-100'`
+
