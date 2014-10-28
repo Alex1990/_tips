@@ -336,3 +336,18 @@
 - input:checkbox：使用背景图片结合-webkit-appearance:none; 来替换默认的图标，则在iPhone4s/MX3/Mi3的微信5.4上，
   发现选择时反应有延迟，在Chrome Android就不会
 
+##2014-10-28
+
+- zepto的animate方法，或者说动画插件有问题，它检测是否支持transform时依赖的是transition，
+  应该分开检测的，参考jquery.transform.js插件的检测方法。另外下面这种写法：
+
+  ```js
+  $('#box').animate({
+    transform: 'translateY(200px)'
+  }, 200);
+  ```
+
+  应该在Android 4.4及以前的浏览器中加 vendor 前缀的
+
+  同样，zepto的css好像也有此问题，待查看源代码
+
