@@ -103,7 +103,7 @@
 
 ##2014-10-12
 
-- 不要扩展内置对象，应该向 underscore 那样（除非网站的代码全部由你控制，当然也不引入第三方代码），
+- 不要扩展内置对象，应该像 underscore 那样（除非网站的代码全部由你控制，当然也不引入第三方代码），
   公司以前代码扩展了 Array.prototype.indexOf，而百度分享代码有个 extend 方法，使用了 for...in
   且没有检测是否是原型对象上的属性，从而把数组的所有可遍历属性都复制了，从而在IE8-中把数组原型上添加的属性也复制了，
   从而导致了点击分享上“更多”按钮时会报错。
@@ -356,7 +356,70 @@
   }));
   ```
 
-##2014-10-30
+- zepto的animate方法，或者说动画插件有问题，它检测是否支持transform时依赖的是transition，
+  应该分开检测的，参考jquery.transform.js插件的检测方法。另外下面这种写法：
+
+  ```js
+  $('#box').animate({
+    transform: 'translateY(200px)'
+  }, 200);
+  ```
+
+  应该在Android 4.4及以前的浏览器中加 vendor 前缀的
+
+  同样，zepto的css好像也有此问题，待查看源代码
+
+##2014-10-29
+
+- force reflow/trigger reflow:
+
+  ```js
+  // Native
+  (element.offsetWidth);
+
+  // jQuery
+  $(elem).offset().left;
+
+  // Zepto $.fx.js
+  // Don't understand why need the latter part of the below statement
+  $(elem).size() && $(elem).get(0).clientLeft;
+  ```
+
+  Ref:
+  http://stackoverflow.com/questions/510213/when-does-reflow-happen-in-a-dom-environment
+  http://stackoverflow.com/questions/9016307/force-reflow-in-css-transitions-in-bootstrap
+
+- get The current value of `transform`:
+
+  ```js
+  // It maybe return a non-matrix string with zepto's(1.1.3) css method in Firefox. ('translate(0px, 200px)')
+  window.getComputedStyle(elem)['WebkitTransform'];
+  ```
+
+- Extract a matrix string:
+
+  ```js
+  // #1
+  var matrix = 'matrix(1, 0, 0, 1, 100, 200)';
+  matrix = matrix.split(/[(,)]/);
+  var m = {
+    a: parseFloat(matrix[1]),
+    b: parseFloat(matrix[2]),
+    c: parseFloat(matrix[3]),
+    d: parseFloat(matrix[4]),
+    e: parseFloat(matrix[5]),
+    f: parseFloat(matrix[6])
+  };
+
+  // #2
+  var matrix = 'matrix(1, 0, 0, 1, 100, 200)';
+  var m = new WebKitCSSMatrix(matrix);
+  ```
+
+##2014-10-31
+
+- Use for...in to enumerate the properties of an object, not to iterate the elements of an array.
+  The for loop is better, and faster than while loop.
 
 - Asymmetric animation timing (in generally):
 
@@ -369,4 +432,3 @@
   Source: https://developers.google.com/web/fundamentals/look-and-feel/animations/asymmetric-animation-timing
 
   PS: Google或其他大公司有不少好文档
-
