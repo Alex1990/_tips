@@ -103,7 +103,7 @@
 
 ##2014-10-12
 
-- 不要扩展内置对象，应该向 underscore 那样（除非网站的代码全部由你控制，当然也不引入第三方代码），
+- 不要扩展内置对象，应该像 underscore 那样（除非网站的代码全部由你控制，当然也不引入第三方代码），
   公司以前代码扩展了 Array.prototype.indexOf，而百度分享代码有个 extend 方法，使用了 for...in
   且没有检测是否是原型对象上的属性，从而把数组的所有可遍历属性都复制了，从而在IE8-中把数组原型上添加的属性也复制了，
   从而导致了点击分享上“更多”按钮时会报错。
@@ -397,3 +397,8 @@
   var matrix = 'matrix(1, 0, 0, 1, 100, 200)';
   var m = new WebKitCSSMatrix(matrix);
   ```
+
+##2014-10-30
+
+- Use for...in to enumerate the properties of an object, not to iterate the elements of an array.
+  The for loop is better, and faster than while loop.
