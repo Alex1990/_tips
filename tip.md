@@ -351,3 +351,49 @@
 
   同样，zepto的css好像也有此问题，待查看源代码
 
+##2014-10-29
+
+- force reflow/trigger reflow:
+
+  ```js
+  // Native
+  (element.offsetWidth);
+
+  // jQuery
+  $(elem).offset().left;
+
+  // Zepto $.fx.js
+  // Don't understand why need the latter part of the below statement
+  $(elem).size() && $(elem).get(0).clientLeft;
+  ```
+
+  Ref:
+  http://stackoverflow.com/questions/510213/when-does-reflow-happen-in-a-dom-environment
+  http://stackoverflow.com/questions/9016307/force-reflow-in-css-transitions-in-bootstrap
+
+- get The current value of `transform`:
+
+  ```js
+  // It maybe return a non-matrix string with zepto's(1.1.3) css method in Firefox. ('translate(0px, 200px)')
+  window.getComputedStyle(elem)['WebkitTransform'];
+  ```
+
+- Extract a matrix string:
+
+  ```js
+  // #1
+  var matrix = 'matrix(1, 0, 0, 1, 100, 200)';
+  matrix = matrix.split(/[(,)]/);
+  var m = {
+    a: parseFloat(matrix[1]),
+    b: parseFloat(matrix[2]),
+    c: parseFloat(matrix[3]),
+    d: parseFloat(matrix[4]),
+    e: parseFloat(matrix[5]),
+    f: parseFloat(matrix[6])
+  };
+
+  // #2
+  var matrix = 'matrix(1, 0, 0, 1, 100, 200)';
+  var m = new WebKitCSSMatrix(matrix);
+  ```
