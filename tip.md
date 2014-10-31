@@ -336,3 +336,37 @@
 - input:checkbox：使用背景图片结合-webkit-appearance:none; 来替换默认的图标，则在iPhone4s/MX3/Mi3的微信5.4上，
   发现选择时反应有延迟，在Chrome Android就不会
 
+##2014-10-28
+
+- 将jQuery/zepto插件改造成CMD/AMD模块，重要的一点是 jQuery/zepto 的名字有惯例，
+  针对CMD/seajs，jQuery别名为jquery和$，而针对zepto命名为zepto和$，如此下面代码：
+
+  ```js
+  // https://github.com/hammerjs/jquery.hammer.js/blob/master/jquery.hammer.js
+  (function(factory){
+    if (tyepof define === 'function' && define.cmd) {
+      define('', ['jquery'], factory);
+    } else if (typeof exports === 'object') {
+      factory(require('jquery', require('pluginjs'));
+    } else {
+      factory(jQuery, Hammer);
+    }
+  }(function($, Plugin){
+    // plugin main code
+  }));
+  ```
+
+##2014-10-30
+
+- Asymmetric animation timing (in generally):
+
+  - For UI animation triggered by a user's interaction, such as view
+    transitions or showing an element, have a fast intro (short duration),
+    but a slow outro (long duration).
+  - For UI animation triggered by your code, such as error or modal views,
+    have a slower intro (longer duration), but a fast outro (short duration).
+
+  Source: https://developers.google.com/web/fundamentals/look-and-feel/animations/asymmetric-animation-timing
+
+  PS: Google或其他大公司有不少好文档
+
