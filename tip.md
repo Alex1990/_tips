@@ -429,6 +429,28 @@
   - For UI animation triggered by your code, such as error or modal views,
     have a slower intro (longer duration), but a fast outro (short duration).
 
-  Source: https://developers.google.com/web/fundamentals/look-and-feel/animations/asymmetric-animation-timing
+  Source: [https://developers.google.com/web/fundamentals/look-and-feel/animations/asymmetric-animation-timing](https://developers.google.com/web/fundamentals/look-and-feel/animations/asymmetric-animation-timing)
 
   PS: Google或其他大公司有不少好文档
+
+- ease-out 最自然，就好像自然界的事物一样，渐渐停下来，而 ease-in 是逐渐加速离去，
+  实际上可以使用比 ease-out 更大的加速度，考虑 back-to-top 功能，如果页面高度比较大，则越快滚动到底部越好，
+  但停下来时也要有个缓冲的过程，直接跳到顶部太突兀。
+
+- 选择合适的动画 easing: http://easings.net
+
+  选择合适的动画持续时间(duration)，下面仅供参考：
+
+  - ease-in/ease-out: 200-500ms
+  - bounce/elastic: 800-1200ms
+
+- 屏幕的大小可能对动画的某些参数，如持续时间，延迟等要求不同
+
+- simple css-based offscreen/offcanvas tech: 
+
+  [https://developers.google.com/web/fundamentals/look-and-feel/animations/animating-between-views](https://developers.google.com/web/fundamentals/look-and-feel/animations/animating-between-views)
+
+- 跨设备跨系统同步配置文件：[http://dotfiles.github.io/](http://dotfiles.github.io/)
+
+  一直觉得配置好常用的系统、编辑器等是一件十分划算的事情，只需要累计花几天时间，却可以伴随三五年，或者更长。
+
