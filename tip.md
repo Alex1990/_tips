@@ -484,3 +484,26 @@
 - 打开或关闭开发者工具（内嵌方式）会触发 resize 事件，当然通常的用户不会这样做的
 
 - 如果只是写个小的插件，且master与gh-pages分支内容大部分一样，那就全部一样了，推送两次就可以了。
+
+##2014-11-12
+
+- （jobcn）SVN上面checkout一个项目时，需要配置：
+  - nginx
+  - resin
+  - Debug Configurations
+  - Configure Build Path
+  - Java Compiler - Compiler compliance level
+  - Content-Type - Text - Java Source File - Encoding
+  - ...
+
+##2014-11-14
+
+- HTML5规范中，<a>标签可以包含一些块级元素，如 div, p, section 等，HTML4.01中<a>不可以包含块级元素，无法通过验证
+  那对于 screen reader 和搜索引擎影响呢？
+  http://www.w3.org/TR/html5/text-level-semantics.html#the-a-element
+  http://stackoverflow.com/questions/1827965/is-putting-a-div-inside-an-anchor-ever-correct
+  http://stackoverflow.com/questions/1091739/html-div-in-link-problem
+
+- 调试JS时，如果错误发生在某个断点处，应该往调用栈的上面继续打断点调试
+
+- 一定要调试临界值，可以模拟后端数据，即直接附给变量临界值
