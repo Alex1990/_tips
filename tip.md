@@ -529,3 +529,17 @@
 ##2014-11-21
 
 - 后代选择器写样式，要比子代选择器对结构要求低，方便与JS插件结合使用，特别是CSS/JS两个人写时
+
+##2014-11-24
+
+- 在IE8中，点击带href属性的a标签时，会触发 beforeunload 事件(href属性只改变hash时不会）
+  解决方法：不带href，且设cursor: pointer;
+
+- 在IE8中，下面的CSS会报错，说是引起权限问题（IE8不支持otf格式）：
+  @font-face{font-family: 'Helvetica';src: url('/info/style/Helvetica.otf');}
+
+- IE6-8中，如果超链接是ajax加载后渲染的，点击超链接的虚线边框怎么去除
+
+- 一个（业务）模块中的全局变量管理，通常总是会有一些全局/模块级变量的，对于全局的字符串/数字等
+
+- jQuery.ajax获取数据时，如果不加刷新缓存的时间戳，则在IE8中会拿到缓存的数据，不会发送请求，在Chrome里可以获取最新数据
