@@ -587,3 +587,63 @@
 ##2014-12-01
 
 - 终于体会到 partial template 的用处了，优势就是可以提高初次渲染速度，当然能前后端共用模板就最佳了
+
+##2014-12-02
+
+- git忽略某个目录中除某个文件之外的所有子目录和文件：
+
+
+  ```
+  *
+  !foo.html
+  ```
+
+  下面的不起作用：
+
+  ```
+  !foo.html
+  ```
+
+  或
+
+  ```
+  ./
+  !foo.html
+  ```
+
+- shell 将一段文本写入文件：
+
+  ```bash
+  # 覆盖掉原内容
+  echo 'hello, world' > foo.txt
+
+  # 追加内容至文件尾部
+  echo 'hello, world' >> foo.txt
+  ```
+ 
+ ##2014-12-07
+
+- escape/unescape: 早期的非标准方法，会将非ASCII字符转义为%uhhhh形式；
+
+- encodeURI/decodeURI与encodeURIComponent/decodeURIComponent区别：
+  后者会比前者多转义一些字符，常用于各自转义querystring的key与value。
+
+  ```js
+  var ch;
+  var arr = [];
+
+  for (var i = 0; i < 256; i++) {
+    ch = String.fromCharCode(i);
+    if (encodeURI(ch) !== encodeURIComponent(ch)) {
+      arr.push({
+        charachter: ch,
+        encodeURI: encodeURI(ch),
+        encodeURIComponent: encodeURIComponent(ch)
+      });
+    }
+  }
+
+  console.table(arr);
+  ```
+
+
