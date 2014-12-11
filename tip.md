@@ -616,3 +616,29 @@
 - 修改seajs模块的文件名时，记得考虑alias/path以及引用该模块的文件。这个应该单独一个jira号或无jira号，
   反正不应该混入到未上线的投稿系统任务中，导致seajs配置文件上线了，但是模块文件未上线，引用不到模块，
   导致js报错，导致页面数据不显示的严重bug
+
+##2014-12-09
+
+- favicon request: 如果未指定favicon，在请求页面（包括iframe）时，都会产生一个根目录下的 /favicon.ico 请求
+  ，且通常该请求带有cookie。为了提高性能，可以采用下面的做法：
+
+  - 绝对不要返回404
+  - 可以将favicon图片尽可能减小，小于1kb，并且设置合理的缓存时间，参考：
+    https://developer.yahoo.com/performance/rules.html#favicon
+  - 可以使用base64编码：
+    `<link rel="icon" href="data:;base64,iVBORw0KGgo=">`
+    ，参考http://stackoverflow.com/questions/1321878/how-to-prevent-favicon-ico-requests#answer-13416784
+
+##2014-12-10
+
+- Win7原生IE9中，如果一个固定定位元素的margin-left为auto，其父元素margin-left也为auto，则该元素的margin-left等于其父元素的margin-left值
+
+  获取正确margin-left值的方法，可使用jQuery的offset().left ，假设固定定位元素为#inner，其父元素为#outer，则：
+
+  ```js
+  $('#inner').offset().left - $('#outer').offset().left - $('#outer').css('borderLeftWidth');
+  ```
+
+  另外也可以坚持，margin: auto不与固定或绝对定位同时使用。
+
+  还有，固定定位元素的 `offsetParent` 返回 `null`（Webkit中）
