@@ -590,6 +590,37 @@
 
 ##2014-12-02
 
+- git忽略某个目录中除某个文件之外的所有子目录和文件：
+
+
+  ```
+  *
+  !foo.html
+  ```
+
+  下面的不起作用：
+
+  ```
+  !foo.html
+  ```
+
+  或
+
+  ```
+  ./
+  !foo.html
+  ```
+
+- shell 将一段文本写入文件：
+
+  ```bash
+  # 覆盖掉原内容
+  echo 'hello, world' > foo.txt
+
+  # 追加内容至文件尾部
+  echo 'hello, world' >> foo.txt
+  ```
+ 
 - 将html文档转换成pdf文档（公司一个java类）时，font-family必须使用字体名称（非文件名称），用引号包裹
 
 - 可以通过模板语言的语法实现将某个引入的模块（比如网站的搜索模块）中的js代码（只是script标签中的引入代码）放到body前面，
@@ -605,6 +636,31 @@
 ##2014-12-05
 
 - WebJava + eclipse + nginx 时，有时脚本无法访问（403错误）可能是文件权限问题，递归设置下项目文件夹
+
+ ##2014-12-07
+
+- escape/unescape: 早期的非标准方法，会将非ASCII字符转义为%uhhhh形式；
+
+- encodeURI/decodeURI与encodeURIComponent/decodeURIComponent区别：
+  后者会比前者多转义一些字符，常用于各自转义querystring的key与value。
+
+  ```js
+  var ch;
+  var arr = [];
+
+  for (var i = 0; i < 256; i++) {
+    ch = String.fromCharCode(i);
+    if (encodeURI(ch) !== encodeURIComponent(ch)) {
+      arr.push({
+        charachter: ch,
+        encodeURI: encodeURI(ch),
+        encodeURIComponent: encodeURIComponent(ch)
+      });
+    }
+  }
+
+  console.table(arr);
+  ```
 
 ##2014-12-08
 
@@ -642,3 +698,19 @@
   另外也可以坚持，margin: auto不与固定或绝对定位同时使用。
 
   还有，固定定位元素的 `offsetParent` 返回 `null`（Webkit中）
+
+##2014-12-15
+
+- iframe页面的script标签中的脚本里，在Ubuntu 14.04 - Firefox 34 中后声明的函数先使用时会报引用错误，
+  显示函数未定义，即没有函数声明提升的效果
+
+##2014-12-16
+
+- IE6-8中，新创建的iframe的onload属性不能被赋值，必须通过IE的attachEvent来绑定onload事件。
+
+##2014-12-17
+
+- 一个操作元素的方法，比如`removeClass(elem, classes)`，假设调用该方法时元素为`null`呢，
+  是否在该方法中检测元素是否存在呢？还是让调用该方法的人保证元素必然存在？如果是选择后者，那么元素不存在，
+  仍然调用该方法就会报错，可以利用try..catch捕获错误让代码继续执行，不过还是检测更好，但是可能影响效率
+
