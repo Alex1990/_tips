@@ -673,9 +673,49 @@
   反正不应该混入到未上线的投稿系统任务中，导致seajs配置文件上线了，但是模块文件未上线，引用不到模块，
   导致js报错，导致页面数据不显示的严重bug
 
+##2014-12-09
+
+- favicon request: 如果未指定favicon，在请求页面（包括iframe）时，都会产生一个根目录下的 /favicon.ico 请求
+  ，且通常该请求带有cookie。为了提高性能，可以采用下面的做法：
+
+  - 绝对不要返回404
+  - 可以将favicon图片尽可能减小，小于1kb，并且设置合理的缓存时间，参考：
+    https://developer.yahoo.com/performance/rules.html#favicon
+  - 可以使用base64编码：
+    `<link rel="icon" href="data:;base64,iVBORw0KGgo=">`
+    ，参考http://stackoverflow.com/questions/1321878/how-to-prevent-favicon-ico-requests#answer-13416784
+
+##2014-12-10
+
+- Win7原生IE9中，如果一个固定定位元素的margin-left为auto，其父元素margin-left也为auto，则该元素的margin-left等于其父元素的margin-left值
+
+  获取正确margin-left值的方法，可使用jQuery的offset().left ，假设固定定位元素为#inner，其父元素为#outer，则：
+
+  ```js
+  $('#inner').offset().left - $('#outer').offset().left - $('#outer').css('borderLeftWidth');
+  ```
+
+  另外也可以坚持，margin: auto不与固定或绝对定位同时使用。
+
+  还有，固定定位元素的 `offsetParent` 返回 `null`（Webkit中）
+
+##2014-12-15
+
+- iframe页面的script标签中的脚本里，在Ubuntu 14.04 - Firefox 34 中后声明的函数先使用时会报引用错误，
+  显示函数未定义，即没有函数声明提升的效果
+
+##2014-12-16
+
+- IE6-8中，新创建的iframe的onload属性不能被赋值，必须通过IE的attachEvent来绑定onload事件。
+
+##2014-12-17
+
+- 一个操作元素的方法，比如`removeClass(elem, classes)`，假设调用该方法时元素为`null`呢，
+  是否在该方法中检测元素是否存在呢？还是让调用该方法的人保证元素必然存在？如果是选择后者，那么元素不存在，
+  仍然调用该方法就会报错，可以利用try..catch捕获错误让代码继续执行，不过还是检测更好，但是可能影响效率
+
 ##2014-12-18
 
 - ssh-copy-id: command not found in Mac OSX
   
   google or https://github.com/beautifulcode/ssh-copy-id-for-OSX
-
