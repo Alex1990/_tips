@@ -673,4 +673,9 @@
   反正不应该混入到未上线的投稿系统任务中，导致seajs配置文件上线了，但是模块文件未上线，引用不到模块，
   导致js报错，导致页面数据不显示的严重bug
 
+##2014-12-18
+
+- ssh-copy-id: command not found in Mac OSX
+  
+  google or https://github.com/beautifulcode/ssh-copy-id-for-OSX
 
