@@ -730,6 +730,10 @@
 
 - IE查看页面编码：右击菜单里面
 
+- ssh-copy-id: command not found in Mac OSX
+  
+  google or https://github.com/beautifulcode/ssh-copy-id-for-OSX
+
 ##2014-12-19
 
 - jQuery delegate可以使用`event.stopPropagation()`, `event.stopImmediatePropagation()`或`return false;`
@@ -753,3 +757,4 @@
 ##2014-12-23
 
 - hash不会发送到服务端
+
