@@ -714,3 +714,42 @@
   是否在该方法中检测元素是否存在呢？还是让调用该方法的人保证元素必然存在？如果是选择后者，那么元素不存在，
   仍然调用该方法就会报错，可以利用try..catch捕获错误让代码继续执行，不过还是检测更好，但是可能影响效率
 
+- 表单验证组件及写业务时，考虑到规则发生变化的情况
+
+- frecency algorithm: combine frequency and recency
+
+  一种推荐排序算法，Mozilla用于自己浏览器地址栏自动完成功能
+
+  https://developer.mozilla.org/en-US/docs/Mozilla/Tech/Places/Frecency_algorithm
+
+- ajax加载的内容，如分页时，且通过改变hash值来标记第几页时，百度不会收录，可以将页码链接写成参数形式，
+  后台可以根据这些参数生成相应页面，这样百度可以收录，而前端可以根据这些参数，通过ajax加载相应页面，
+  对于低版本浏览器改变url的hash值
+
+##2014-12-18
+
+- IE查看页面编码：右击菜单里面
+
+##2014-12-19
+
+- jQuery delegate可以使用`event.stopPropagation()`, `event.stopImmediatePropagation()`或`return false;`
+  来阻止事件冒泡，但是jquery版本必须>=1.7.0
+
+- node listen on port 80:
+
+  Linux中，监听在<=1024端口需要root权限，而且其他程序已经占用了80端口，可使用下面命令：
+
+  ```bash
+  sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 3000
+  ```
+
+  Ref:
+
+  - http://stackoverflow.com/questions/16573668/best-practices-when-running-node-js-with-port-80-ubuntu-linode#
+  - http://stackoverflow.com/questions/413807/is-there-a-way-for-non-root-processes-to-bind-to-privileged-ports-1024-on-l
+
+- 查看某一占用某一端口的程序：`netstat -plnt | grep "80"`
+
+##2014-12-23
+
+- hash不会发送到服务端
