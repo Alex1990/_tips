@@ -758,3 +758,54 @@
 
 - hash不会发送到服务端
 
+- ubuntu .bashrc中将路径赋值给一个变量，路径不要带引号
+
+- jQuery events namespace & custom events：
+  记住点号代表事件名称的命名空间，主要用于触发（trigger）或解绑（off）事件时更精细地区分，如下面：
+
+  ```js
+  $el.on('event.oneNamespace.twoNamespace', function(e) {
+    // Do some stuff
+    console.log(e.namespace);
+  });
+
+  $el.trigger('event'); // Fire the handler
+  $el.trigger('event.oneNamespace'); // Fire the handler
+  $el.trigger('event.twoNamespace'); // Fire the handler
+  $el.trigger('event.threeNamespace'); // Do not fire the handler
+
+  $el.off('event.oneNamespace'); // Unbind the handler
+  $el.trigger('event'); // Print the empty string
+  $el.off('event'); // Unbind all the handlers belong to `event`
+  ```
+
+  有时可能是想用自定义事件，但是并不打算用事件命名空间，就不要用点号分隔，可以使用冒号/下划线/连接符等
+
+##2014-12-24
+
+- 防止恶意注册：仅靠前端验证很难拦住，只能加点儿难度，手机号码注册可以比较有效防止吧？
+
+- jQuery.extend()参数情况：
+
+  - 参数只有1个或参数值有2个且第一个参数值为`true`时，复制参数属性到jQuery对象上面，返回值为jQuery对象本身
+  - 只有第一个参数`deep===true`时才深复制
+  - 可复制对象或数组，深复制对数组也会处理
+  - 对象属性值或数组元素值为`undefined`时不复制属性
+  - 对于多个参数，会忽略`null`/`undefined`参数，接着处理后面的参数
+  - 没有使用hasOwnProperty来检测
+  - 阻止循环引用：即将对象本身作为对象的某个属性值
+
+- jQuery.each()：如果回调函数返回值 `=== false`，则会中止迭代
+
+- 强制转换成字符串：`someVal + ''`
+
+- 正则：`\s`（空白符）、BOM（\uFEFF）、NBSP（`\0xA0`或`&#160;`）都显示为空白，去除字符串首尾空白或字符串当中空白时要注意。
+  原生的`trim()`方法对上面三种都有效，但是不明白jQuery 1.11.1源码中为什么加了`!trim.call("\uFEFF\xA0")'判断。
+
+- Mi3 Android4.1.1 微信内置浏览器：input:search元素不能应用text-indent，输入焦点会向下偏移大约一行，
+  而且输入框不能再次点击，必须在其下面位置点击才会出现光标，可输入文字，其他浏览器都正常。
+
+  另外大部分浏览器对input中的text-indent处理有点小小的问题，在input刚获取焦点时，
+  text-indent并未起作用，输入文字之后才会出现偏移量
+
+
