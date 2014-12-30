@@ -808,4 +808,16 @@
   另外大部分浏览器对input中的text-indent处理有点小小的问题，在input刚获取焦点时，
   text-indent并未起作用，输入文字之后才会出现偏移量
 
+##2014-12-29
 
+- 标签页（Tab）、下拉菜单（Dropdown）等插件切换的可访问性：应该提供只用键盘就可以切换，比如`tab`键切换焦点，或焦点+空格键
+
+- 一切插件的设计可以参考别人的思考，比如下面这些链接，不止这些，多搜索，从各方面考虑吧：
+
+  - [http://www.smashingmagazine.com/2009/03/24/designing-drop-down-menus-examples-and-best-practices/](http://www.smashingmagazine.com/2009/03/24/designing-drop-down-menus-examples-and-best-practices/)
+  - [http://www.smashingmagazine.com/2009/05/27/modal-windows-in-modern-web-design/](http://www.smashingmagazine.com/2009/05/27/modal-windows-in-modern-web-design/)
+  - [http://www.smashingmagazine.com/2014/09/15/making-modal-windows-better-for-everyone/](http://www.smashingmagazine.com/2014/09/15/making-modal-windows-better-for-everyone/)
+
+##2014-12-30
+
+- 验证码验证状态：填写正确/填写错误/时间过期
