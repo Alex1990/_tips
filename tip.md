@@ -714,16 +714,104 @@
   是否在该方法中检测元素是否存在呢？还是让调用该方法的人保证元素必然存在？如果是选择后者，那么元素不存在，
   仍然调用该方法就会报错，可以利用try..catch捕获错误让代码继续执行，不过还是检测更好，但是可能影响效率
 
+- 表单验证组件及写业务时，考虑到规则发生变化的情况
+
+- frecency algorithm: combine frequency and recency
+
+  一种推荐排序算法，Mozilla用于自己浏览器地址栏自动完成功能，其实编辑器的代码自动完成也可以利用这种算法
+
+  https://developer.mozilla.org/en-US/docs/Mozilla/Tech/Places/Frecency_algorithm
+
+- ajax加载的内容，如分页时，且通过改变hash值来标记第几页时，百度不会收录，可以将页码链接写成参数形式，
+  后台可以根据这些参数生成相应页面，这样百度可以收录，而前端可以根据这些参数，通过ajax加载相应页面，
+  对于低版本浏览器改变url的hash值
+
 ##2014-12-18
+
+- IE查看页面编码：右击菜单里面
 
 - ssh-copy-id: command not found in Mac OSX
   
   google or https://github.com/beautifulcode/ssh-copy-id-for-OSX
 
+##2014-12-19
+
+- jQuery delegate可以使用`event.stopPropagation()`, `event.stopImmediatePropagation()`或`return false;`
+  来阻止事件冒泡，但是jquery版本必须>=1.7.0
+
+- node listen on port 80:
+
+  Linux中，监听在<=1024端口需要root权限，而且其他程序已经占用了80端口，可使用下面命令：
+
+  ```bash
+  sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 3000
+  ```
+
+  Ref:
+
+  - http://stackoverflow.com/questions/16573668/best-practices-when-running-node-js-with-port-80-ubuntu-linode#
+  - http://stackoverflow.com/questions/413807/is-there-a-way-for-non-root-processes-to-bind-to-privileged-ports-1024-on-l
+
+- 查看某一占用某一端口的程序：`netstat -plnt | grep "80"`
+
 ##2014-12-20
 
 - fast-forward merge：不会保留feature branch，只保留master分支，这样以后看不出这个repository以前的具体合并分支，
   可以通过`--no-ff`参数不使用 fast-forward merge。
+
+##2014-12-23
+
+- hash不会发送到服务端
+
+- ubuntu .bashrc中将路径赋值给一个变量，路径不要带引号
+
+- jQuery events namespace & custom events：
+  记住点号代表事件名称的命名空间，主要用于触发（trigger）或解绑（off）事件时更精细地区分，如下面：
+
+  ```js
+  $el.on('event.oneNamespace.twoNamespace', function(e) {
+    // Do some stuff
+    console.log(e.namespace);
+  });
+
+  $el.trigger('event'); // Fire the handler
+  $el.trigger('event.oneNamespace'); // Fire the handler
+  $el.trigger('event.twoNamespace'); // Fire the handler
+  $el.trigger('event.threeNamespace'); // Do not fire the handler
+
+  $el.off('event.oneNamespace'); // Unbind the handler
+  $el.trigger('event'); // Print the empty string
+  $el.off('event'); // Unbind all the handlers belong to `event`
+  ```
+
+  有时可能是想用自定义事件，但是并不打算用事件命名空间，就不要用点号分隔，可以使用冒号/下划线/连接符等
+
+##2014-12-24
+
+- 防止恶意注册：仅靠前端验证很难拦住，只能加点儿难度，手机号码注册可以比较有效防止吧？
+
+- jQuery.extend()参数情况：
+
+  - 参数只有1个或参数值有2个且第一个参数值为`true`时，复制参数属性到jQuery对象上面，返回值为jQuery对象本身
+  - 只有第一个参数`deep===true`时才深复制
+  - 可复制对象或数组，深复制对数组也会处理
+  - 对象属性值或数组元素值为`undefined`时不复制属性
+  - 对于多个参数，会忽略`null`/`undefined`参数，接着处理后面的参数
+  - 没有使用hasOwnProperty来检测
+  - 阻止循环引用：即将对象本身作为对象的某个属性值
+
+- jQuery.each()：如果回调函数返回值 `=== false`，则会中止迭代
+
+- 强制转换成字符串：`someVal + ''`
+
+- 正则：`\s`（空白符）、BOM（\uFEFF）、NBSP（`\0xA0`或`&#160;`）都显示为空白，去除字符串首尾空白或字符串当中空白时要注意。
+  原生的`trim()`方法对上面三种都有效，但是不明白jQuery 1.11.1源码中为什么加了`!trim.call("\uFEFF\xA0")`判断。
+
+- Mi3 Android4.1.1 微信内置浏览器：input:search元素不能应用text-indent，输入焦点会向下偏移大约一行，
+  而且输入框不能再次点击，必须在其下面位置点击才会出现光标，可输入文字，其他浏览器都正常。
+
+  另外大部分浏览器对input中的text-indent处理有点小小的问题，在input刚获取焦点时，
+  text-indent并未起作用，输入文字之后才会出现偏移量
 
 ##2014-12-28
 
@@ -758,5 +846,23 @@
 
 - 似乎任何事物都会随着时间改变，StackOverflow上面的问题随着标准或其他的改变可能不再正确，MDN上面的文档随着标准及浏览器的快速变化也可能跟不上，有些该抛弃的仍然存在，新的又可能来不及写文档。
 
+##2014-12-29
 
+- 标签页（Tab）、下拉菜单（Dropdown）等插件切换的可访问性：应该提供只用键盘就可以切换，比如`tab`键切换焦点，或焦点+空格键
 
+- 一切插件的设计可以参考别人的思考，比如下面这些链接，不止这些，多搜索，从各方面考虑吧：
+
+  - [http://www.smashingmagazine.com/2009/03/24/designing-drop-down-menus-examples-and-best-practices/](http://www.smashingmagazine.com/2009/03/24/designing-drop-down-menus-examples-and-best-practices/)
+  - [http://www.smashingmagazine.com/2009/05/27/modal-windows-in-modern-web-design/](http://www.smashingmagazine.com/2009/05/27/modal-windows-in-modern-web-design/)
+  - [http://www.smashingmagazine.com/2014/09/15/making-modal-windows-better-for-everyone/](http://www.smashingmagazine.com/2014/09/15/making-modal-windows-better-for-everyone/)
+
+##2014-12-30
+
+- 验证码验证状态：填写正确/填写错误/时间过期
+
+##2014-12-31
+
+- Fullscreen API：几乎所有浏览器都支持，F11（或其他快捷键）全屏切换，个人现在认为github在线编辑的全屏编辑模式就可以了，
+  当然自定义视频播放器UI时，可能要利用JS来控制全屏
+
+- Modal/Box等弹出层插件支持键盘操作：比如`ESC`关闭，`Enter`确认等
