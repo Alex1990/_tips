@@ -718,7 +718,7 @@
 
 - frecency algorithm: combine frequency and recency
 
-  一种推荐排序算法，Mozilla用于自己浏览器地址栏自动完成功能
+  一种推荐排序算法，Mozilla用于自己浏览器地址栏自动完成功能，其实编辑器的代码自动完成也可以利用这种算法
 
   https://developer.mozilla.org/en-US/docs/Mozilla/Tech/Places/Frecency_algorithm
 
@@ -821,3 +821,10 @@
 ##2014-12-30
 
 - 验证码验证状态：填写正确/填写错误/时间过期
+
+##2014-12-31
+
+- Fullscreen API：几乎所有浏览器都支持，F11（或其他快捷键）全屏切换，个人现在认为github在线编辑的全屏编辑模式就可以了，
+  当然自定义视频播放器UI时，可能要利用JS来控制全屏
+
+- Modal/Box等弹出层插件支持键盘操作：比如`ESC`关闭，`Enter`确认等
