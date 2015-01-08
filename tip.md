@@ -828,3 +828,45 @@
   当然自定义视频播放器UI时，可能要利用JS来控制全屏
 
 - Modal/Box等弹出层插件支持键盘操作：比如`ESC`关闭，`Enter`确认等
+
+2015
+====
+
+##2015-01-05
+
+- HTML entity(实体符号)：HTML5相比HTML4多增加了一些，另外有些多了一些别名。部分低版本的浏览器，如IE6，不支持新增的实体符号或别名
+
+  - [http://dev.w3.org/html5/html-author/charref](http://dev.w3.org/html5/html-author/charref)
+  - [http://www.w3.org/TR/html4/sgml/entities.html](http://www.w3.org/TR/html4/sgml/entities.html)
+
+- label与表单元素：要想点击label使表单元素获取焦点，除了label包裹外，还要设置label的for属性为表单元素的id属性值
+
+- `a`元素没有设置href属性时，在IE6中，点击时仍会重新加载当前页面
+
+##2015-01-07
+
+- 国际化中常见语言（可参考Google/Microsoft/Facebook/Twitter等）：有些网站是按地区来分的，就好像不同国家的英语会有区别，如英国、美国、印度等。
+
+  - 英语
+  - 法语
+  - 西班牙语
+  - 葡萄牙语
+  - 荷兰语
+  - 葡萄牙语
+  - 阿拉伯语
+  - 俄语
+  - 日本语
+  - 韩语
+  - 中文（简体）
+  - 中文（繁体）
+  - 等等
+
+  好像只有CJK不属于字母文字，其他常用的都是用有限的字母来表示，会用空格分割成单词。
+
+- Zero-width space (ZWSP)：零宽空格是一个非打印字符，可以区分单词边界，其Unicode为`U+200B`，HTML实体符号为`&#8203`。参考[http://en.wikipedia.org/wiki/Zero-width_space](http://en.wikipedia.org/wiki/Zero-width_space)。
+
+##2015-01-08
+
+- 采用动态合并请求来处理js/css的合并；另外整体上就应该设计（拆分）好业务模块，而不是一个页面对应一个业务js/css文件，有些模块好多地方用，当然也包括CSS。
+
+- 重构比新做还要难
