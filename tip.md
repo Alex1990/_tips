@@ -754,6 +754,11 @@
 
 - 查看某一占用某一端口的程序：`netstat -plnt | grep "80"`
 
+##2014-12-20
+
+- fast-forward merge：不会保留feature branch，只保留master分支，这样以后看不出这个repository以前的具体合并分支，
+  可以通过`--no-ff`参数不使用 fast-forward merge。
+
 ##2014-12-23
 
 - hash不会发送到服务端
@@ -800,13 +805,46 @@
 - 强制转换成字符串：`someVal + ''`
 
 - 正则：`\s`（空白符）、BOM（\uFEFF）、NBSP（`\0xA0`或`&#160;`）都显示为空白，去除字符串首尾空白或字符串当中空白时要注意。
-  原生的`trim()`方法对上面三种都有效，但是不明白jQuery 1.11.1源码中为什么加了`!trim.call("\uFEFF\xA0")'判断。
+  原生的`trim()`方法对上面三种都有效，但是不明白jQuery 1.11.1源码中为什么加了`!trim.call("\uFEFF\xA0")`判断。
 
 - Mi3 Android4.1.1 微信内置浏览器：input:search元素不能应用text-indent，输入焦点会向下偏移大约一行，
   而且输入框不能再次点击，必须在其下面位置点击才会出现光标，可输入文字，其他浏览器都正常。
 
   另外大部分浏览器对input中的text-indent处理有点小小的问题，在input刚获取焦点时，
   text-indent并未起作用，输入文字之后才会出现偏移量
+
+##2014-12-28
+
+- vim fold/unfold (折叠代码/展开代码):`:help fold`
+
+  - **zo** Open one fold under the cursor.
+  - **zc** Close one fold under the cursor.
+  - **zR** Open all folds.
+  - **zM** Close all folds.
+
+- data-* 命名限制：
+
+  - 不能以`xml`开头
+  - 不能包含冒号（U+003A）
+  - 不能包含大写字母 A-Z
+
+- draggable 属性不是一个布尔属性，是一个枚举属性（enumerated attribute），因此，不要省略`true`，写全。
+
+- id: 一个元素可以有多个不同的id属性
+
+- title：
+
+  - 对于值里面的换行符与空白符会保留，也就是可以多行
+  - 继承最近的祖先元素的title属性设置，但是通过设置`title=""`可以用于覆盖，不显示
+
+- `b` vs `strong`, `i` vs `em`: 在HTML5中，`b`与`i`也是语义标签，并未抛弃。关于它们的使用细节可以参考：
+
+  - [http://stellify.net/html5-b-and-i-tags-are-going-to-be-useful-read-semantic-again/](http://stellify.net/html5-b-and-i-tags-are-going-to-be-useful-read-semantic-again/)
+  - [http://www.w3.org/International/questions/qa-b-and-i-tags](http://www.w3.org/International/questions/qa-b-and-i-tags)
+
+  上面的文章中建议使用`i`与`b`时加上`class`属性，可区分不同用途的`i`或`b`，从而依照不同用途控制样式。（好麻烦）
+
+- 似乎任何事物都会随着时间改变，StackOverflow上面的问题随着标准或其他的改变可能不再正确，MDN上面的文档随着标准及浏览器的快速变化也可能跟不上，有些该抛弃的仍然存在，新的又可能来不及写文档。
 
 ##2014-12-29
 
