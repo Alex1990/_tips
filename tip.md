@@ -919,3 +919,42 @@
 
 - 重用代码，即可复用，使用函数或者模块化啊，而不是笨得去想着怎么快速复制代码文本。
 
+##2015-01-09
+
+- `<ul>`嵌套多层时，bullet样式在Chrome/Firefox/IE中表现一致，都是第一级为黑色小圆点，第二级为白色小圆点，第三级及以后都为黑色方框。
+
+- jQuery的`prop()`/`data()`/`attr()`/`toggle()`/`toggleClass()`等方法经常遇到根据某个布尔值判断的情况，这时，可以不用`if`，直接将判断条件作为第二个参数，如：
+
+  ```
+  $('.list input:checkbox').prop('checked', flag === 1);
+  ```
+
+  或者判断条件比较长时，可以将其赋值给一个变量。
+
+- 写一个方法，或者更常见的插件调用方法时，平衡参数控制与写死的常量，是否应该尽量使用变量控制呢？只要重复写过一次常量，就应该考虑使用变量？尤其对于显示相关的，如一段文本、颜色。
+
+- `text-overflow`的浏览器支持：IE6+及其他所有主流浏览器，包括移动端都支持，所以也不许要`-webkit-`前缀了。
+
+- 对于`display`属性值为`inline/inline-block`的元素，其宽度也会受到不同字体的影响。
+
+- placeholder color:
+
+  ```css
+  ::-webkit-input-placeholder {
+    color: red;
+  }
+
+  :-moz-placeholder { /* Firefox 18- */
+    color: red;
+  }
+
+  ::-moz-placeholder { /* Firefox 19+ */
+    color: red;
+  }
+
+  :-ms-input-placeholder {
+    color: red;
+  }
+  ```
+- alias 可以明显提高使用shell的效率，git也支持。
+
