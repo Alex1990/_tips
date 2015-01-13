@@ -958,3 +958,70 @@
   ```
 - alias 可以明显提高使用shell的效率，git也支持。
 
+##2015-01-12
+
+- Bash - 复制到并重命名一个文件：`cp httpd.conf{,.bak}`。这是因为`{}`符号，比如下面：
+
+  ```bash
+  echo {one,two,three}fish # Output onefish twofish threefish
+  echo {"1 ","2 ","3 "}apple #Output 1 apple 2 apple 3 apple
+  ```
+
+  注意：逗号后面不能有空格。
+
+- 脚本创建空文件方法：`touch test.txt` or `> test.txt`。
+
+- vim: open a file and jump to end of file:`vi + tips.md`。
+
+- 将Tab转换为空格（Convert tab to space）：
+
+  ```bash
+  expand -i -t 4 file.js > file1.js
+  ```
+
+  `-i`防止作为内容的tab被转换。
+
+  批量转换：
+
+  ```bash
+  find . -name '*.js' ! -type d -exec bash -c 'expand -t 4 "$0" > /tmp/e && mv /tmp/e "$0"' {} \
+  ```
+  
+  `/tmp`目录如果不与文件在同一个磁盘分区上时会导致速度很慢。
+
+  Ref: [http://stackoverflow.com/questions/11094383/how-can-i-convert-tabs-to-spaces-in-every-file-of-a-directory](http://stackoverflow.com/questions/11094383/how-can-i-convert-tabs-to-spaces-in-every-file-of-a-directory)
+
+##2015-01-13
+
+- Vim - Cancel the search highlight:
+
+  **Disabled the current search text:**
+
+  ```
+  :noh
+  ```
+
+  Or
+
+  ```
+  :nohlsearch
+  ```
+
+  **Disabled in current session:**
+
+  ```
+  :set nohlsearch
+  ```
+
+  Ref: [http://stackoverflow.com/questions/657447/vim-clear-last-search-highlighting](http://stackoverflow.com/questions/657447/vim-clear-last-search-highlighting)
+
+- `Enter/Return`提交表单交互行为：触发当前获取焦点的表单元素的祖先`form`元素的`submit`事件。例如，`input:submit`或`button`元素的默认按`Enter/Return`键提交表单行为，必须要有个表单元素获取焦点才行；另外，如果`input:submit`或`button`不是任何`form`元素的后代元素也不行。
+
+
+- 搞不懂`<option>`的`label`属性有什么用？[http://www.htmlhelp.com/reference/html40/forms/option.html](http://www.htmlhelp.com/reference/html40/forms/option.html)
+
+- `<fieldset>`的`min-width`默认值为`min-content`，这会在某些浏览器中见到不符合期望的样式，如：[http://stackoverflow.com/questions/17408815/fieldset-resizes-wrong-appears-to-have-unremovable-min-width-min-content](http://stackoverflow.com/questions/17408815/fieldset-resizes-wrong-appears-to-have-unremovable-min-width-min-content)。
+
+- `<progress>`标签的样式各浏览器都不一样，目前也很难用CSS精细控制，不好用，不如使用自己实现的，github有ProgressBar.js。
+
+
