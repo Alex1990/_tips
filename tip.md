@@ -1024,4 +1024,32 @@
 
 - `<progress>`标签的样式各浏览器都不一样，目前也很难用CSS精细控制，不好用，不如使用自己实现的，github有ProgressBar.js。
 
+##2015-01-19
+
+- input:checkbox 如果只写`checked`属性，而不是`checked="checked"`，则假设其对应元素为`check`，则`check.checked`值为`false`，而`check.getAttribute('checked')`值为空字符串。
+
+- input:checkbox的indeterminate状态UI在不同系统不同浏览器中不同。其实HTML元素带有的默认的UI，绝大多数都是这样，跟随系统与浏览器，比如按钮、警告窗口。
+
+- 脚本运行页面编码为GBK，脚本编码为UTF8，ajax(使用了$.when)获取UTF8编码的html文件，且请求头部设了UTF8编码，然后不知怎么至少IE9-都无法调用done。
+
+##2015-01-20
+
+- 旧代码中引入的全局jQuery对象与使用seajs引入的jQuery模块可能不是同一个，所以data()设置与获取不可以共享。
+
+##2015-01-21
+
+- 完成相同的功能，`innerHTML`、`appendChild`、`insertAdjacentHTML`效率对比：`appendChild`>`insertAdjacentHTML`>`innerHTML`。三者都兼容IE6+，但是`innerHTML`在IE6-9中对表格相关元素是只读的，`insertAdjacentHTML`在IE6中对表格相关元素无效。
+
+##2015-01-22
+
+- 跨浏览器获取选择文本：注意不同系统和浏览器对于跨“行”选择文本添加的换行符不同，比如Ubuntu Chromium下为`'\n'`，XP IE8中为`'r\n'`（还有可能包含一个空格）。
+
+  ```js
+  var text;
+  if (window.getSelection) { // IE9+
+    text = window.getSelection().toString();
+  } else if (document.selection) { // IE6-8
+    text = document.selection.createRange().text;
+  }
+  ```
 
