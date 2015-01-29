@@ -1052,4 +1052,42 @@
     text = document.selection.createRange().text;
   }
   ```
+## 2015-01-26
+
+- 自己抛出异常错误时，带有文件名和文件行号的方法：
+
+  ```js
+  var __fileName__ = 'fileName';
+  var __lineNumber__ = 0;
+
+  throw new Error('some error', __fileName__, __lineNumber__);
+  ```
+
+  然后构建时使用工具将作为参数的`__fileName__`与`__lineNumber__`替换为正确的文件名与行号。（这样太麻烦了吧）
+
+- 避免调用构造函数时忘记使用`new`关键字，可使用使用jshint检查，当然，有些插件或库的构造函数内部有一句代码来判断，比如underscore.js：
+
+  ```js
+  if (!(this instanceof _)) return new _(obj);
+  ```
+
+- 尽量避免判断内置对象的类型，在不同浏览器（主要是现代浏览器和IE8及以下不同），比如：
+
+  ```js
+  typeof document.getElementById; // 'object' in ie8
+  
+  var div = document.createElement('div');
+  typeof div.offsetParent; // 'unknown' in IE8
+  ```
+
+  可以参考underscore如何检测对象类型。
+
+- `Object.prototype.propertyIsEnumberable`：检测自有属性（owner property）是否可被遍历，与`for...in`或者说`in`不同。而`Object.keys`只返回可遍历的自有属性。
+
+- IE6-8中，宿主对象(host objects)没有`hasOwnProperty`方法，可使用`Object.prototype.hasOwnProperty`，如`Object.prototype.hasOwnProperty.call(window, 'name');`。
+
+##2015-01-29
+
+- Nginx有可以限制每个IP的访问速率和并发连接数：Limit Requests和Limit Conn。后端应该了解Nginx的有哪些常用的模块，了解配置。为什么我看到了这个呢？因为公司的职位信息被别人不断地爬取。限制访问速率可以降低很多来自恶意IP的压力，但是很难彻底解决这种问题。要综合各种方法，提高别人恶意的成本。
+
 
