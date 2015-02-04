@@ -1090,4 +1090,67 @@
 
 - Nginx有可以限制每个IP的访问速率和并发连接数：Limit Requests和Limit Conn。后端应该了解Nginx的有哪些常用的模块，了解配置。为什么我看到了这个呢？因为公司的职位信息被别人不断地爬取。限制访问速率可以降低很多来自恶意IP的压力，但是很难彻底解决这种问题。要综合各种方法，提高别人恶意的成本。
 
+- underscore的命名冲突解决方法是`var u = _.noConflict()`，源码：
+
+  ```js
+  var previousUnderscore = root._;
+
+  _.noConflict = function() {
+    root._ = previousUnderscore;
+    return this;
+  };
+  ```
+
+##2015-01-30
+
+- 返回一个数值组成的数组当中的最大/最小元素：
+
+  ```js
+  var arr = [0, 3, 2, 8, 3];
+  Math.max.apply(Math, arr); // 8
+  Math.min.apply(Math, arr); // 0
+  ```
+##2015-02-02
+
+- 在测试JS性能时，使用jsperf或者`new Date()`获取时间方式不一定可靠，发现只要先运行的函数运行慢，后运行的快，即运行顺序有影响，好比汽车加速一样。这是在测试underscore的`optimizeCb`函数发现的：[https://github.com/jashkenas/underscore/blob/95337a876784d5df7e62b2e55080ddf9199b6e9b/underscore.js#L63-L82](https://github.com/jashkenas/underscore/blob/95337a876784d5df7e62b2e55080ddf9199b6e9b/underscore.js#L63-L82)。
+
+- underscore 2015-02-02的master分支中的`_.extend()`方法，会复制原型上的属性，只要`in`可迭代的。[https://github.com/jashkenas/underscore/issues/2023](https://github.com/jashkenas/underscore/issues/2023)
+
+- 公司目前用的生成pdf文件的java包不是很好，比如需要严格的XML语法，在样式控制方面与浏览器有些不同，所以得单独针对打印版写些CSS。这个功能主要用来生成合同用的，每次管理部门都会使用Word设计一个合同样式，然后我们技术部门再更改，要不断调整样式，以接近Word的样式。
+
+  改进：
+  - 首先应该换一个可靠、兼容性更好的pdf生成库，如果没有好的java包，就换成其他语言的，比如js。
+  - 弄一个所见即所得的在线编辑器供制作合同的人使用，不要使用Word设计。Word的在线渲染难度不知道大不大，反正Word功能繁杂。
+
+- `String.prototype.slice`、`Array.prototype.indexOf`等函数的一些参数可取负值，其有效规则描述（以`Array.prototype.indexOf`的第二个参数`fromIndex`为例）：
+
+  ```js
+  startIndex = fromIndex >= 0 ? Math.min(array.length, fromIndex) : fromIndex < -array.length ? 0 : array.length + fromIndex；
+  ```
+
+- 求两个数的最大值或最小值：
+
+  - 最大值：`max(a,b) = 1/2(a + b + |a - b|)`
+  - 最小值：`min(a,b) = 1/2(a + b - |a - b|)`
+
+- 绝对值：`abs(x) = sqrt(x*x)`
+
+  `var abs(x) = function(x) { return x < 0 ? -x : x; }`
+
+##2015-02-03
+
+- Tab组件：hover交互效果，slide动画效果的组合，有些缺点：
+
+  - 相对其他效果比较复杂，费时间
+  - 如果能使用`transfrom`性能可以，但是IE9-的采用`margin`或定位方式都会触发重新布局
+  - 不好解决的缺陷：比如鼠标从title1滑动到title3，即使采用延迟策略但还是触发了title2对应的动画，然后title2对应动画未结束就要开始title3对应动画效果了，这样会出现重叠现象。当然，可以采用探测鼠标移动速度来决定是否触发，这就更复杂，性能更低了。而click交互可以最大可能避免这种缺陷。
+
+  **注**：上面的slide动画效果与另一种scroll组件的slide有区别，就是只会移动相关的两个项目，而不是移动整个容器。
+
+##2015-02-04
+
+- ie6-8的filter来设置半透明背景时，假设效果是：鼠标悬停时半透明背景元素出现，离开时元素隐藏。必须在`:hover`/`.hover`时设置半透明背景，离开时设置`filter:none;`。
+
+- ie6：假设有HTML结构`<a><span>button</span></a>`，则要设置`a{text-decoration:none;}`才可以消除可能出现在`span`元素的文字下划线。
+
 
