@@ -1153,4 +1153,24 @@
 
 - ie6：假设有HTML结构`<a><span>button</span></a>`，则要设置`a{text-decoration:none;}`才可以消除可能出现在`span`元素的文字下划线。
 
+- `\9;`css hack同样对IE9和IE10也有效，对IE11无效（网上查询得知）。
+
+  IE css hacks：
+
+  - IE6 `_width: 100px;`
+  - IE6-7 `*width: 100px;`
+  - IE9+ `:root width: 120px;`
+
+  可靠的方式还是采用条件注释式html标签class。
+
+   各类hack集合: [browserhacks.com](http://browserhacks.com);
+
+- 边框默认颜色（default border-color）是当前元素的文本颜色，而`<a>`标签默认未访问颜色为蓝色，已访问颜色为紫色，其默认边框颜色跟随文本颜色变化。
+
+##2015-02-05
+
+- 对`body`元素设置`background-color`，即使没写`body`元素，也会看到背景色，因为HTML parser会自动添加`body`元素。如果根元素`html`的背景色为`transparent`，且背景图为`none`，则**画布(canvas)**背景色设置为`body`元素的背景色。
+
+- IE8-9浏览器对于`background-color`计算值为`transparent`的元素，click事件穿透该元素，触发其下面元素的click事件（注意：在点击区域，这个元素没有内容，其下面元素也要有内容或非`transparent`背景色）。
+
 
