@@ -919,3 +919,9 @@
 
 - 重用代码，即可复用，使用函数或者模块化啊，而不是笨得去想着怎么快速复制代码文本。
 
+##2015-01-17
+
+- 退格符`\b`，在大部分系统的控制台中输出时，都不会删除前面的字符，只是移动光标，然后变成了替换模式，换行符`\n`的作用是将控制台中的光标移动到下一行的开头。例如，C语言中`printf("hello worl\b\bd\n");`输出`hello wodl`，参考[http://stackoverflow.com/questions/6792812/the-backspace-escape-character-b-in-c-unexpected-behavior/6792867#6792867](http://stackoverflow.com/questions/6792812/the-backspace-escape-character-b-in-c-unexpected-behavior/6792867#6792867)。
+
+- 控制台中发送/模拟文件结尾信号(EOF)：`Ctrl+D` (\*nix) or `Ctrl+Z` (Windows)
+
