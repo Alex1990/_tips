@@ -919,9 +919,263 @@
 
 - 重用代码，即可复用，使用函数或者模块化啊，而不是笨得去想着怎么快速复制代码文本。
 
+##2015-01-09
+
+- `<ul>`嵌套多层时，bullet样式在Chrome/Firefox/IE中表现一致，都是第一级为黑色小圆点，第二级为白色小圆点，第三级及以后都为黑色方框。
+
+- jQuery的`prop()`/`data()`/`attr()`/`toggle()`/`toggleClass()`等方法经常遇到根据某个布尔值判断的情况，这时，可以不用`if`，直接将判断条件作为第二个参数，如：
+
+  ```
+  $('.list input:checkbox').prop('checked', flag === 1);
+  ```
+
+  或者判断条件比较长时，可以将其赋值给一个变量。
+
+- 写一个方法，或者更常见的插件调用方法时，平衡参数控制与写死的常量，是否应该尽量使用变量控制呢？只要重复写过一次常量，就应该考虑使用变量？尤其对于显示相关的，如一段文本、颜色。
+
+- `text-overflow`的浏览器支持：IE6+及其他所有主流浏览器，包括移动端都支持，所以也不许要`-webkit-`前缀了。
+
+- 对于`display`属性值为`inline/inline-block`的元素，其宽度也会受到不同字体的影响。
+
+- placeholder color:
+
+  ```css
+  ::-webkit-input-placeholder {
+    color: red;
+  }
+
+  :-moz-placeholder { /* Firefox 18- */
+    color: red;
+  }
+
+  ::-moz-placeholder { /* Firefox 19+ */
+    color: red;
+  }
+
+  :-ms-input-placeholder {
+    color: red;
+  }
+  ```
+- alias 可以明显提高使用shell的效率，git也支持。
+
+##2015-01-12
+
+- Bash - 复制到并重命名一个文件：`cp httpd.conf{,.bak}`。这是因为`{}`符号，比如下面：
+
+  ```bash
+  echo {one,two,three}fish # Output onefish twofish threefish
+  echo {"1 ","2 ","3 "}apple #Output 1 apple 2 apple 3 apple
+  ```
+
+  注意：逗号后面不能有空格。
+
+- 脚本创建空文件方法：`touch test.txt` or `> test.txt`。
+
+- vim: open a file and jump to end of file:`vi + tips.md`。
+
+- 将Tab转换为空格（Convert tab to space）：
+
+  ```bash
+  expand -i -t 4 file.js > file1.js
+  ```
+
+  `-i`防止作为内容的tab被转换。
+
+  批量转换：
+
+  ```bash
+  find . -name '*.js' ! -type d -exec bash -c 'expand -t 4 "$0" > /tmp/e && mv /tmp/e "$0"' {} \
+  ```
+  
+  `/tmp`目录如果不与文件在同一个磁盘分区上时会导致速度很慢。
+
+  Ref: [http://stackoverflow.com/questions/11094383/how-can-i-convert-tabs-to-spaces-in-every-file-of-a-directory](http://stackoverflow.com/questions/11094383/how-can-i-convert-tabs-to-spaces-in-every-file-of-a-directory)
+
+##2015-01-13
+
+- Vim - Cancel the search highlight:
+
+  **Disabled the current search text:**
+
+  ```
+  :noh
+  ```
+
+  Or
+
+  ```
+  :nohlsearch
+  ```
+
+  **Disabled in current session:**
+
+  ```
+  :set nohlsearch
+  ```
+
+  Ref: [http://stackoverflow.com/questions/657447/vim-clear-last-search-highlighting](http://stackoverflow.com/questions/657447/vim-clear-last-search-highlighting)
+
+- `Enter/Return`提交表单交互行为：触发当前获取焦点的表单元素的祖先`form`元素的`submit`事件。例如，`input:submit`或`button`元素的默认按`Enter/Return`键提交表单行为，必须要有个表单元素获取焦点才行；另外，如果`input:submit`或`button`不是任何`form`元素的后代元素也不行。
+
+
+- 搞不懂`<option>`的`label`属性有什么用？[http://www.htmlhelp.com/reference/html40/forms/option.html](http://www.htmlhelp.com/reference/html40/forms/option.html)
+
+- `<fieldset>`的`min-width`默认值为`min-content`，这会在某些浏览器中见到不符合期望的样式，如：[http://stackoverflow.com/questions/17408815/fieldset-resizes-wrong-appears-to-have-unremovable-min-width-min-content](http://stackoverflow.com/questions/17408815/fieldset-resizes-wrong-appears-to-have-unremovable-min-width-min-content)。
+
+- `<progress>`标签的样式各浏览器都不一样，目前也很难用CSS精细控制，不好用，不如使用自己实现的，github有ProgressBar.js。
+
 ##2015-01-17
 
 - 退格符`\b`，在大部分系统的控制台中输出时，都不会删除前面的字符，只是移动光标，然后变成了替换模式，换行符`\n`的作用是将控制台中的光标移动到下一行的开头。例如，C语言中`printf("hello worl\b\bd\n");`输出`hello wodl`，参考[http://stackoverflow.com/questions/6792812/the-backspace-escape-character-b-in-c-unexpected-behavior/6792867#6792867](http://stackoverflow.com/questions/6792812/the-backspace-escape-character-b-in-c-unexpected-behavior/6792867#6792867)。
 
 - 控制台中发送/模拟文件结尾信号(EOF)：`Ctrl+D` (\*nix) or `Ctrl+Z` (Windows)
+
+##2015-01-19
+
+- input:checkbox 如果只写`checked`属性，而不是`checked="checked"`，则假设其对应元素为`check`，则`check.checked`值为`false`，而`check.getAttribute('checked')`值为空字符串。
+
+- input:checkbox的indeterminate状态UI在不同系统不同浏览器中不同。其实HTML元素带有的默认的UI，绝大多数都是这样，跟随系统与浏览器，比如按钮、警告窗口。
+
+- 脚本运行页面编码为GBK，脚本编码为UTF8，ajax(使用了$.when)获取UTF8编码的html文件，且请求头部设了UTF8编码，然后不知怎么至少IE9-都无法调用done。
+
+##2015-01-20
+
+- 旧代码中引入的全局jQuery对象与使用seajs引入的jQuery模块可能不是同一个，所以data()设置与获取不可以共享。
+
+##2015-01-21
+
+- 完成相同的功能，`innerHTML`、`appendChild`、`insertAdjacentHTML`效率对比：`appendChild`>`insertAdjacentHTML`>`innerHTML`。三者都兼容IE6+，但是`innerHTML`在IE6-9中对表格相关元素是只读的，`insertAdjacentHTML`在IE6中对表格相关元素无效。
+
+##2015-01-22
+
+- 跨浏览器获取选择文本：注意不同系统和浏览器对于跨“行”选择文本添加的换行符不同，比如Ubuntu Chromium下为`'\n'`，XP IE8中为`'r\n'`（还有可能包含一个空格）。
+
+  ```js
+  var text;
+  if (window.getSelection) { // IE9+
+    text = window.getSelection().toString();
+  } else if (document.selection) { // IE6-8
+    text = document.selection.createRange().text;
+  }
+  ```
+## 2015-01-26
+
+- 自己抛出异常错误时，带有文件名和文件行号的方法：
+
+  ```js
+  var __fileName__ = 'fileName';
+  var __lineNumber__ = 0;
+
+  throw new Error('some error', __fileName__, __lineNumber__);
+  ```
+
+  然后构建时使用工具将作为参数的`__fileName__`与`__lineNumber__`替换为正确的文件名与行号。（这样太麻烦了吧）
+
+- 避免调用构造函数时忘记使用`new`关键字，可使用使用jshint检查，当然，有些插件或库的构造函数内部有一句代码来判断，比如underscore.js：
+
+  ```js
+  if (!(this instanceof _)) return new _(obj);
+  ```
+
+- 尽量避免判断内置对象的类型，在不同浏览器（主要是现代浏览器和IE8及以下不同），比如：
+
+  ```js
+  typeof document.getElementById; // 'object' in ie8
+  
+  var div = document.createElement('div');
+  typeof div.offsetParent; // 'unknown' in IE8
+  ```
+
+  可以参考underscore如何检测对象类型。
+
+- `Object.prototype.propertyIsEnumberable`：检测自有属性（owner property）是否可被遍历，与`for...in`或者说`in`不同。而`Object.keys`只返回可遍历的自有属性。
+
+- IE6-8中，宿主对象(host objects)没有`hasOwnProperty`方法，可使用`Object.prototype.hasOwnProperty`，如`Object.prototype.hasOwnProperty.call(window, 'name');`。
+
+##2015-01-29
+
+- Nginx有可以限制每个IP的访问速率和并发连接数：Limit Requests和Limit Conn。后端应该了解Nginx的有哪些常用的模块，了解配置。为什么我看到了这个呢？因为公司的职位信息被别人不断地爬取。限制访问速率可以降低很多来自恶意IP的压力，但是很难彻底解决这种问题。要综合各种方法，提高别人恶意的成本。
+
+- underscore的命名冲突解决方法是`var u = _.noConflict()`，源码：
+
+  ```js
+  var previousUnderscore = root._;
+
+  _.noConflict = function() {
+    root._ = previousUnderscore;
+    return this;
+  };
+  ```
+
+##2015-01-30
+
+- 返回一个数值组成的数组当中的最大/最小元素：
+
+  ```js
+  var arr = [0, 3, 2, 8, 3];
+  Math.max.apply(Math, arr); // 8
+  Math.min.apply(Math, arr); // 0
+  ```
+##2015-02-02
+
+- 在测试JS性能时，使用jsperf或者`new Date()`获取时间方式不一定可靠，发现只要先运行的函数运行慢，后运行的快，即运行顺序有影响，好比汽车加速一样。这是在测试underscore的`optimizeCb`函数发现的：[https://github.com/jashkenas/underscore/blob/95337a876784d5df7e62b2e55080ddf9199b6e9b/underscore.js#L63-L82](https://github.com/jashkenas/underscore/blob/95337a876784d5df7e62b2e55080ddf9199b6e9b/underscore.js#L63-L82)。
+
+- underscore 2015-02-02的master分支中的`_.extend()`方法，会复制原型上的属性，只要`in`可迭代的。[https://github.com/jashkenas/underscore/issues/2023](https://github.com/jashkenas/underscore/issues/2023)
+
+- 公司目前用的生成pdf文件的java包不是很好，比如需要严格的XML语法，在样式控制方面与浏览器有些不同，所以得单独针对打印版写些CSS。这个功能主要用来生成合同用的，每次管理部门都会使用Word设计一个合同样式，然后我们技术部门再更改，要不断调整样式，以接近Word的样式。
+
+  改进：
+  - 首先应该换一个可靠、兼容性更好的pdf生成库，如果没有好的java包，就换成其他语言的，比如js。
+  - 弄一个所见即所得的在线编辑器供制作合同的人使用，不要使用Word设计。Word的在线渲染难度不知道大不大，反正Word功能繁杂。
+
+- `String.prototype.slice`、`Array.prototype.indexOf`等函数的一些参数可取负值，其有效规则描述（以`Array.prototype.indexOf`的第二个参数`fromIndex`为例）：
+
+  ```js
+  startIndex = fromIndex >= 0 ? Math.min(array.length, fromIndex) : fromIndex < -array.length ? 0 : array.length + fromIndex；
+  ```
+
+- 求两个数的最大值或最小值：
+
+  - 最大值：`max(a,b) = 1/2(a + b + |a - b|)`
+  - 最小值：`min(a,b) = 1/2(a + b - |a - b|)`
+
+- 绝对值：`abs(x) = sqrt(x*x)`
+
+  `var abs(x) = function(x) { return x < 0 ? -x : x; }`
+
+##2015-02-03
+
+- Tab组件：hover交互效果，slide动画效果的组合，有些缺点：
+
+  - 相对其他效果比较复杂，费时间
+  - 如果能使用`transfrom`性能可以，但是IE9-的采用`margin`或定位方式都会触发重新布局
+  - 不好解决的缺陷：比如鼠标从title1滑动到title3，即使采用延迟策略但还是触发了title2对应的动画，然后title2对应动画未结束就要开始title3对应动画效果了，这样会出现重叠现象。当然，可以采用探测鼠标移动速度来决定是否触发，这就更复杂，性能更低了。而click交互可以最大可能避免这种缺陷。
+
+  **注**：上面的slide动画效果与另一种scroll组件的slide有区别，就是只会移动相关的两个项目，而不是移动整个容器。
+
+##2015-02-04
+
+- ie6-8的filter来设置半透明背景时，假设效果是：鼠标悬停时半透明背景元素出现，离开时元素隐藏。必须在`:hover`/`.hover`时设置半透明背景，离开时设置`filter:none;`。
+
+- ie6：假设有HTML结构`<a><span>button</span></a>`，则要设置`a{text-decoration:none;}`才可以消除可能出现在`span`元素的文字下划线。
+
+- `\9;`css hack同样对IE9和IE10也有效，对IE11无效（网上查询得知）。
+
+  IE css hacks：
+
+  - IE6 `_width: 100px;`
+  - IE6-7 `*width: 100px;`
+  - IE9+ `:root width: 120px;`
+
+  可靠的方式还是采用条件注释式html标签class。
+
+   各类hack集合: [browserhacks.com](http://browserhacks.com);
+
+- 边框默认颜色（default border-color）是当前元素的文本颜色，而`<a>`标签默认未访问颜色为蓝色，已访问颜色为紫色，其默认边框颜色跟随文本颜色变化。
+
+##2015-02-05
+
+- 对`body`元素设置`background-color`，即使没写`body`元素，也会看到背景色，因为HTML parser会自动添加`body`元素。如果根元素`html`的背景色为`transparent`，且背景图为`none`，则**画布(canvas)**背景色设置为`body`元素的背景色。
+
+- IE8-9浏览器对于`background-color`计算值为`transparent`的元素，click事件穿透该元素，触发其下面元素的click事件（注意：在点击区域，这个元素没有内容，其下面元素也要有内容或非`transparent`背景色）。
 
