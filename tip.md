@@ -1179,3 +1179,26 @@
 
 - IE8-9浏览器对于`background-color`计算值为`transparent`的元素，click事件穿透该元素，触发其下面元素的click事件（注意：在点击区域，这个元素没有内容，其下面元素也要有内容或非`transparent`背景色）。
 
+##2015-02-26
+
+- 对于一个“布尔交互”（比如是否收藏商品），其中一个状态（false）可被设为默认状态，不需要传递数据，只需要请求某个链接（Restful）就行。其实只要是有限状态操作都可以。这是从Stackoverflow的收藏功能知道的，为了省流量，也是蛮拼的。
+
+- JS/CSS的Source Maps只要用来调试生产环境中的压缩/合并/编译代码的，可以将生产环境中的代码转换成原始的开发版代码。对于那些没有设置开发模式（比如通过参数可以加载开发版代码）的网站比较有用，而且只在打开调试工具时才加载Source maps，所以不会增加请求数。当然个人认为，还是提供了开发/调试模式接口的配置更好些。
+
+  可以使用Uglify生成
+
+  参考：http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/
+
+- 像日期对象的`toString()`方法一样，可以覆盖自定义对象的`toString()`方法，比如一个Color对象，可以使其`toString()`方法输出RGB字符串，可以接受颜色模型参数。不仅仅时`toString()`方法，其他方法属性也可以，比如`toJSON()`、`valueOf()`。
+
+- `null`/`undefined`转成数字：
+
+  ```js
+  +null; // 0
+  +undefined; // NaN
+  Number(null); // 0
+  Number(undefined); // NaN
+  Number(); // 0
+  ```
+
+
