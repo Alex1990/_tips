@@ -1223,4 +1223,25 @@
 
 - Font awesome的字体图标在XP的IE6中显示比较模糊，在未开启ClearType的情况下，非常模糊，都变形了，当然，其他宋体什么也是模糊。
 
+##2015-02-28
+
+- IE9中，删除内容交互时，`onpropertychange`与`input`事件不会触发。其中，删除交互包括退格键/Delete键/Ctrl+X/右键菜单的剪切和删除选项。实际应用中可以只探测退格键，比如统计输入字数时。参考：http://help.dottoro.com/ljhxklln.php和http://help.dottoro.com/ljufknus.php。
+
+- 至少IE9中，当`textarea`中有内容时，按`ESC`键会删除部分或全部内容。
+
+- IE6中，在设置`body`高度为`$(window).height()`，且设置了`overflow: hidden;`属性后，可能会出现滚动条，可以设置`html`。
+
+- 假设一个`div`有以下样式：
+
+  ```css
+  div {
+    width: 300px;
+    white-space: pre-wrap;
+    _white-space: pre;
+    overflow: hidden;
+  }
+  ```
+
+  其内容以Windows下的`\r\n`字符作为行结尾符时，则在IE8中，会有空行，在IE6换行，但是似乎把`\n`显示成了空格的效果。如果行结尾符是`\n`，则IE6中不会换行，但似乎显示为空格效果，IE8会换行，不会有空行。
+
 
