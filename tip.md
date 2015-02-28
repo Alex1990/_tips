@@ -1201,4 +1201,26 @@
   Number(); // 0
   ```
 
+##2015-02-27
+
+- 变量/函数名等命名习惯，读更多别人的代码，了解命名习惯，有些人起得名字就是怪怪的。一半单词缩写时，取前三个或四个字母，或者取辅音字母。
+
+- Font Awesome字体的HTML entities：[http://fortawesome.github.io/Font-Awesome/cheatsheet/](http://fortawesome.github.io/Font-Awesome/cheatsheet/)
+
+  由于IE6-7不支持`:before`/`:after`/`content`，所以可以使用HTML实体符号，另外也是图片也是官方提供的一种回退方案。
+
+- jQuery删除某个css属性：`$(selector).css(property, emptyString)`。
+
+- `opacity`小于1时，会创建新的Stacking Context，效果似乎是同正常的文档流中出现的顺序，`z-index`的值无影响，除非利用定位创建Stacking Context。
+
+  参考：
+  - http://philipwalton.com/articles/what-no-one-told-you-about-z-index/
+  - http://jsfiddle.net/4L3hgwjg/1/
+
+- 在Ubuntu 14.04 LTS/Chromium 39中，当光标焦点在`textarea`中时，按`ESC`键，第一次会使`textarea`失去焦点，且不`textarea`和`document`的`keyup`事件。当其失去焦点时，且没有任何元素获取焦点时，默认焦点元素为`document`，此时按`ESC`会触发`document`的`keyup`事件。所以导致在github的zen code mode中需要按两次`ESC`才能退出全屏模式。
+
+  而Firefox及Windows上面的浏览器不会这样。
+
+- Font awesome的字体图标在XP的IE6中显示比较模糊，在未开启ClearType的情况下，非常模糊，都变形了，当然，其他宋体什么也是模糊。
+
 
