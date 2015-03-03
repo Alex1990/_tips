@@ -1244,4 +1244,25 @@
 
   其内容以Windows下的`\r\n`字符作为行结尾符时，则在IE8中，会有空行，在IE6换行，但是似乎把`\n`显示成了空格的效果。如果行结尾符是`\n`，则IE6中不会换行，但似乎显示为空格效果，IE8会换行，不会有空行。
 
+##2015-03-02
+
+- MDN上有些DOM文档质量有待改善，help.dottoro.com值得参考，比如`scrollHeight`与`change`事件文档。
+
+- 假设一个`textarea`被设置以下样式，假设`rows=1`：
+
+  ```css
+  textarea {
+    font-size: 14px;
+    line-height: 20px;
+    overflow: hidden;
+  }
+  ```
+
+  在IE6/7/8中，`textarea`的实际`height`是18px，`line-height`不会影响显示高度，但是会影响`scrollHeight`，即内容的滚动高度，此时为28px(IE7/8)/26px(IE6/9)，因为默认的`padding`不同。注：`scrollHeight`包含内边距。实际使用中，最好明确设置`height`值为`line-height`的N倍。
+
+##2015-03-03
+
+- IE6/7或文档模式为IE7时，`clientWidth`/`clientHeight`对于`hasLayout`为`false`的元素，值为0。
+
+- slider，即图片轮播组件，只有一张图片的处理。
 
