@@ -1196,4 +1196,113 @@
   - 安装位置在Preferences->Extensions里面。
   - U盘先让主系统（Mac OSX）识别，然后虚拟机系统启动后，需要Eject U盘，虚拟机系统才会自动识别U盘
 
+##2015-02-26
+
+- 对于一个“布尔交互”（比如是否收藏商品），其中一个状态（false）可被设为默认状态，不需要传递数据，只需要请求某个链接（Restful）就行。其实只要是有限状态操作都可以。这是从Stackoverflow的收藏功能知道的，为了省流量，也是蛮拼的。
+
+- JS/CSS的Source Maps只要用来调试生产环境中的压缩/合并/编译代码的，可以将生产环境中的代码转换成原始的开发版代码。对于那些没有设置开发模式（比如通过参数可以加载开发版代码）的网站比较有用，而且只在打开调试工具时才加载Source maps，所以不会增加请求数。当然个人认为，还是提供了开发/调试模式接口的配置更好些。
+
+  可以使用Uglify生成
+
+  参考：http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/
+
+- 像日期对象的`toString()`方法一样，可以覆盖自定义对象的`toString()`方法，比如一个Color对象，可以使其`toString()`方法输出RGB字符串，可以接受颜色模型参数。不仅仅时`toString()`方法，其他方法属性也可以，比如`toJSON()`、`valueOf()`。
+
+- `null`/`undefined`转成数字：
+
+  ```js
+  +null; // 0
+  +undefined; // NaN
+  Number(null); // 0
+  Number(undefined); // NaN
+  Number(); // 0
+  ```
+
+##2015-02-27
+
+- 变量/函数名等命名习惯，读更多别人的代码，了解命名习惯，有些人起得名字就是怪怪的。一半单词缩写时，取前三个或四个字母，或者取辅音字母。
+
+- Font Awesome字体的HTML entities：[http://fortawesome.github.io/Font-Awesome/cheatsheet/](http://fortawesome.github.io/Font-Awesome/cheatsheet/)
+
+  由于IE6-7不支持`:before`/`:after`/`content`，所以可以使用HTML实体符号，另外也是图片也是官方提供的一种回退方案。
+
+- jQuery删除某个css属性：`$(selector).css(property, emptyString)`。
+
+- `opacity`小于1时，会创建新的Stacking Context，效果似乎是同正常的文档流中出现的顺序，`z-index`的值无影响，除非利用定位创建Stacking Context。
+
+  参考：
+  - http://philipwalton.com/articles/what-no-one-told-you-about-z-index/
+  - http://jsfiddle.net/4L3hgwjg/1/
+
+- 在Ubuntu 14.04 LTS/Chromium 39中，当光标焦点在`textarea`中时，按`ESC`键，第一次会使`textarea`失去焦点，且不`textarea`和`document`的`keyup`事件。当其失去焦点时，且没有任何元素获取焦点时，默认焦点元素为`document`，此时按`ESC`会触发`document`的`keyup`事件。所以导致在github的zen code mode中需要按两次`ESC`才能退出全屏模式。
+
+  而Firefox及Windows上面的浏览器不会这样。
+
+- Font awesome的字体图标在XP的IE6中显示比较模糊，在未开启ClearType的情况下，非常模糊，都变形了，当然，其他宋体什么也是模糊。
+
+##2015-02-28
+
+- IE9中，删除内容交互时，`onpropertychange`与`input`事件不会触发。其中，删除交互包括退格键/Delete键/Ctrl+X/右键菜单的剪切和删除选项。实际应用中可以只探测退格键，比如统计输入字数时。参考：http://help.dottoro.com/ljhxklln.php和http://help.dottoro.com/ljufknus.php。
+
+- 至少IE9中，当`textarea`中有内容时，按`ESC`键会删除部分或全部内容。
+
+- IE6中，在设置`body`高度为`$(window).height()`，且设置了`overflow: hidden;`属性后，可能会出现滚动条，可以设置`html`。
+
+- 假设一个`div`有以下样式：
+
+  ```css
+  div {
+    width: 300px;
+    white-space: pre-wrap;
+    _white-space: pre;
+    overflow: hidden;
+  }
+  ```
+
+  其内容以Windows下的`\r\n`字符作为行结尾符时，则在IE8中，会有空行，在IE6换行，但是似乎把`\n`显示成了空格的效果。如果行结尾符是`\n`，则IE6中不会换行，但似乎显示为空格效果，IE8会换行，不会有空行。
+
+##2015-03-02
+
+- MDN上有些DOM文档质量有待改善，help.dottoro.com值得参考，比如`scrollHeight`与`change`事件文档。
+
+- 假设一个`textarea`被设置以下样式，假设`rows=1`：
+
+  ```css
+  textarea {
+    font-size: 14px;
+    line-height: 20px;
+    overflow: hidden;
+  }
+  ```
+
+  在IE6/7/8中，`textarea`的实际`height`是18px，`line-height`不会影响显示高度，但是会影响`scrollHeight`，即内容的滚动高度，此时为28px(IE7/8)/26px(IE6/9)，因为默认的`padding`不同。注：`scrollHeight`包含内边距。实际使用中，最好明确设置`height`值为`line-height`的N倍。
+
+##2015-03-03
+
+- IE6/7或文档模式为IE7时，`clientWidth`/`clientHeight`对于`hasLayout`为`false`的元素，值为0。
+
+- slider，即图片轮播组件，只有一张图片的处理。
+
+- 似乎只有`keyup`事件才会在中文输入法状态下返回期望的`event.keyCode`值。
+
+- 单选/多选按钮的文字与按钮关联，单击文字都起作用，时刻注意这个问题吧。
+
+##2015-03-04
+
+- 一个很奇怪的问题，在做一个检测到input里面输入的字符为中英文分号功能（onproperty or input事件），在IE6里，使用搜狗或QQ输入法输入中文分号时，IE6说mshtml.dll加载项遇到故障，然后浏览器就会关闭，使用智能ABC没问题。最后退而求其次，使用`keyup`事件解决了。
+
+- `ime-mode`属性可以控制输入法是否激活，只有Firefox与IE5+支持。
+
+- Ubuntu 14.04/Firefox 36中，`textarea`中被选择的内容会自动删除，无论通过快捷键选择，还是鼠标，还是菜单。
+
+- 快速定位文件及方法：可以在本地配置在页面输出页面对应的JSP文件本地路径，包括Include进来的，输出到注释里，可快速定位JSP文件。所有的页面JS文件入口也尽量只有一个，放在页面底部
+
+##2015-03-05
+
+- 默认不设宽度的`textarea`，设定了`overflow:hidden`，当内容增加到一定高度，设置`overflowY:auto`出现滚动条时，IE8中滚动条会增加宽度，而Chrome中就不会，浏览器不一致，可以显式设定宽度。
+
+##2015-03-06
+
+- `textarea:hover`选择器似乎不起作用，在Chrome中也是，可以外面套一层`div`，或者通过`mouseover`事件。
+
 
