@@ -1179,3 +1179,21 @@
 
 - IE8-9浏览器对于`background-color`计算值为`transparent`的元素，click事件穿透该元素，触发其下面元素的click事件（注意：在点击区域，这个元素没有内容，其下面元素也要有内容或非`transparent`背景色）。
 
+##2015-02-25
+
+- 远程服务器上传递（上传/下载）文件，可使用SFTP，基于SSH的FTP，使用下面一行命令建立SFTP控制台会话：
+
+  ```bash
+  sftp username@ipaddress
+  ```
+
+  `help`命令查看帮助。
+
+- Mac OSX上面，VirtualBox识别USB接口设备（如U盘）步骤：
+
+  - 确保虚拟机系统处于关闭状态。
+  - 对应虚拟机的Settings->Ports->USB里面，选择"Enable USB 2.0 (EHCI) Controller"，此时会提示安装VirtualBox扩展包，可到官网下载，需要注意扩展包版本号不能大于VirtualBox版本号。
+  - 安装位置在Preferences->Extensions里面。
+  - U盘先让主系统（Mac OSX）识别，然后虚拟机系统启动后，需要Eject U盘，虚拟机系统才会自动识别U盘
+
+
