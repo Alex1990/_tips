@@ -1305,4 +1305,19 @@
 
 - `textarea:hover`选择器似乎不起作用，在Chrome中也是，可以外面套一层`div`，或者通过`mouseover`事件。
 
+##2015-03-07
+
+- Sublime正则替换捕获组使用`${1}`表示第一个。
+
+- `rm`删除连接符`-`开头的文件名：
+
+  ```bash
+  rm -- -abc.txt
+  ```
+
+##2015-03-08
+
+- github仓库语言统计标记主语言错误，使用.gitattributes配置，查看：
+  https://github.com/github/linguist#troubleshooting
+
 
