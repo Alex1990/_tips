@@ -1344,4 +1344,16 @@
 
 - 在Chrome中（至少今天以前）如果祖先元素应用了`transform`之类的CSS属性，那么该元素固定定位的相对点变成了应用`transform`的祖先元素。参考：http://meyerweb.com/eric/thoughts/2011/09/12/un-fixing-fixed-elements-with-css-transforms/和http://stackoverflow.com/questions/2637058/positions-fixed-doesnt-work-when-using-webkit-transform
 
+##2015-03-19
+
+- NPM一次安装多个包：
+
+  ```bash
+  npm install gulp-jshint gulp-uglify --save-dev
+  ```
+
+##2015-03-20
+
+- Mutation events(deprecated)的DOMAttrModified事件只能由脚本触发，用户交互不会触发。Webkit系浏览器不支持该事件。
+
 
