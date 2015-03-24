@@ -1352,4 +1352,38 @@
 
 - Mutation events(deprecated)的DOMAttrModified事件只能由脚本触发，用户交互不会触发。Webkit系浏览器不支持该事件。
 
+- mousedown的默认事件包括选择文本操作，可以通过`Event.preventDefault()`阻止文本选择，IE9+才支持，
+
+##2015-03-24
+
+- `Node.contains` and `Node.compareDocumentPosition`：
+
+  ```js
+  // http://ejohn.org/blog/comparing-document-position/
+  function contains(a, b) {
+    return a.contains ?
+      a.contains(b) :
+      !!(a.compareDocumentPosition(b) & 16) || a === b;
+  }  
+  ```
+
+- Composition events：`compositionstart`/`compositionupdate`/`compositionend`三个事件，IE9+支持，但是三个事件在不同浏览器，或者不同系统平台的相同浏览器上表现不一致：
+
+ - IE9/Win7：测试最符合规范
+ - IE10：有说
+ - Chromium41/Ubuntu：`compositionupdate`在选择字符序列后不触发，直接触发的`compositionend`的`event.data`为空字符串，不对。
+ - Firefox36/Ubuntu：在获取焦点时竟然也会触发。
+ - IE10：没亲测，别人文章说在`compositionstart`之后只触发一次`compositionupdate`，然后就不触发了。
+ 
+  总之有不少问题，可能不同的输入法都不同，这么多系统平台/浏览器/输入法，不一致的细节太多。可能相同点就是会触发这三个事件。
+
+  Ref:
+
+  - http://blog.evanyou.me/2014/01/03/composition-event/
+  - http://www.cnblogs.com/chyingp/p/3599641.html?utm_source=tuicool
+
+- 禁止选择文本：兼容IE6+及其他现代浏览器。首先利用CSS属性`user-select`，不支持的使用`selectstart`事件的阻止默认动作`preventDefault()`/`returnValue=false`。对于IE/Opera，`unselectable`虽然可以，但是不能继承，只能对单个元素的文本内容有效。
+
+- `select`事件只能绑定在`input`/`textarea`元素上才有效。
+
 
