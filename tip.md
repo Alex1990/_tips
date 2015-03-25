@@ -1371,6 +1371,8 @@
   }  
   ```
 
+  注意：IE6-11中，`document`没有`contains`方法
+
 - Composition events：`compositionstart`/`compositionupdate`/`compositionend`三个事件，IE9+支持，但是三个事件在不同浏览器，或者不同系统平台的相同浏览器上表现不一致：
 
  - IE9/Win7：测试最符合规范
@@ -1389,5 +1391,15 @@
 - 禁止选择文本：兼容IE6+及其他现代浏览器。首先利用CSS属性`user-select`，不支持的使用`selectstart`事件的阻止默认动作`preventDefault()`/`returnValue=false`。对于IE/Opera，`unselectable`虽然可以，但是不能继承，只能对单个元素的文本内容有效。
 
 - `select`事件只能绑定在`input`/`textarea`元素上才有效。
+
+##2015-03-25
+
+- Focus Event Order：Chrome与标准不一样，focus->focusin或blur->focusout，而IE与标准一样
+
+- focusin/focusout：`FocusEvent.relatedTarget`，IE9+支持，IE6-9使用`e.fromElement`
+
+- Firefox36/Ubuntu14.04中，`<button>`元素的子元素`<span>`绑定的`click`事件没有触发。
+
+- 同一个元素，相同事件（支持捕获与冒泡）绑定两个事件监听器：一个冒泡阶段，一个捕获阶段。如果该元素处于**Target Phase**，则先绑定的事件监听器先执行。
 
 
