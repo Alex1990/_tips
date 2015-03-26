@@ -1360,4 +1360,50 @@
 
 - AltGr (also Alt Graph) key：用来输入特殊字符，比如`∑øπ`等，PC键盘上为右边的`Alt`键，OSX键盘上为任一`Option`键。参看维基：[http://en.wikipedia.org/wiki/AltGr_key](http://en.wikipedia.org/wiki/AltGr_key)。
 
+- mousedown的默认事件包括选择文本操作，可以通过`Event.preventDefault()`阻止文本选择，IE9+才支持，
+
+##2015-03-24
+
+- `Node.contains` and `Node.compareDocumentPosition`：
+
+  ```js
+  // http://ejohn.org/blog/comparing-document-position/
+  function contains(a, b) {
+    return a.contains ?
+      a.contains(b) :
+      !!(a.compareDocumentPosition(b) & 16) || a === b;
+  }  
+  ```
+
+  注意：IE6-11中，`document`没有`contains`方法
+
+- Composition events：`compositionstart`/`compositionupdate`/`compositionend`三个事件，IE9+支持，但是三个事件在不同浏览器，或者不同系统平台的相同浏览器上表现不一致：
+
+ - IE9/Win7：测试最符合规范
+ - IE10：有说
+ - Chromium41/Ubuntu：`compositionupdate`在选择字符序列后不触发，直接触发的`compositionend`的`event.data`为空字符串，不对。
+ - Firefox36/Ubuntu：在获取焦点时竟然也会触发。
+ - IE10：没亲测，别人文章说在`compositionstart`之后只触发一次`compositionupdate`，然后就不触发了。
+ 
+  总之有不少问题，可能不同的输入法都不同，这么多系统平台/浏览器/输入法，不一致的细节太多。可能相同点就是会触发这三个事件。
+
+  Ref:
+
+  - http://blog.evanyou.me/2014/01/03/composition-event/
+  - http://www.cnblogs.com/chyingp/p/3599641.html?utm_source=tuicool
+
+- 禁止选择文本：兼容IE6+及其他现代浏览器。首先利用CSS属性`user-select`，不支持的使用`selectstart`事件的阻止默认动作`preventDefault()`/`returnValue=false`。对于IE/Opera，`unselectable`虽然可以，但是不能继承，只能对单个元素的文本内容有效。
+
+- `select`事件只能绑定在`input`/`textarea`元素上才有效。
+
+##2015-03-25
+
+- Focus Event Order：Chrome与标准不一样，focus->focusin或blur->focusout，而IE与标准一样
+
+- focusin/focusout：`FocusEvent.relatedTarget`，IE9+支持，IE6-9使用`e.fromElement`
+
+- Firefox36/Ubuntu14.04中，`<button>`元素的子元素`<span>`绑定的`click`事件没有触发。
+
+- 同一个元素，相同事件（支持捕获与冒泡）绑定两个事件监听器：一个冒泡阶段，一个捕获阶段。如果该元素处于**Target Phase**，则先绑定的事件监听器先执行。
+
 
