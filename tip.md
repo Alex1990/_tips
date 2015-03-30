@@ -1424,4 +1424,12 @@
 
 - 业务规则与极端情况：一次获取公司发布过的职位信息（包括已停止招聘和已删除的），从而导致数据量最大可超过1M，而且随着时间积累会越来越多。数据是通过AJAX请求的，超时限制是10s，对于当前大部分人来说10s下载1M不成问题，但是网络连接差的或者数据量更大的会导致超时。个人认为要么改变业务规则，要么就要针对极端情况特殊处理了。
 
+##2015-03-30
+
+- 检测大部分DOM2事件可是使用这篇文章的方法：[http://perfectionkills.com/detecting-event-support-without-browser-sniffing/](http://perfectionkills.com/detecting-event-support-without-browser-sniffing/)，然后`focusin`/`focusout`事件在IE中可使用这种方法检测，Chrome/Firefox中不行，可使用一种不优雅的方法：[http://stackoverflow.com/questions/7337670/how-to-detect-focusin-support#answer-7337873](http://stackoverflow.com/questions/7337670/how-to-detect-focusin-support#answer-7337873)。
+
+- URL Hash通常可以跳到/滚动到页面内的某部分内容，但是这部分内容要是Ajax加载的就不会跳了，得手动控制。
+
+- 公司有一个`util.js`文件，感觉集合了太多功能模块，里面包含了：localStorage、History、alert、表单验证、underscore模板解析、URL解析、浏览器探测、遮罩层、loading层、键盘事件绑定、不完善的`input`事件等，虽然4000行代码不多，但在更改某个功能或者再想移除某个功能成单独模块就难了，所以一开始就应该细颗粒化。
+
 
