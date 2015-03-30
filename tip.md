@@ -1356,6 +1356,10 @@
 
 - Mutation events(deprecated)的DOMAttrModified事件只能由脚本触发，用户交互不会触发。Webkit系浏览器不支持该事件。
 
+##2015-03-22
+
+- AltGr (also Alt Graph) key：用来输入特殊字符，比如`∑øπ`等，PC键盘上为右边的`Alt`键，OSX键盘上为任一`Option`键。参看维基：[http://en.wikipedia.org/wiki/AltGr_key](http://en.wikipedia.org/wiki/AltGr_key)。
+
 - mousedown的默认事件包括选择文本操作，可以通过`Event.preventDefault()`阻止文本选择，IE9+才支持，
 
 ##2015-03-24
