@@ -1406,11 +1406,73 @@
 
 - 同一个元素，相同事件（支持捕获与冒泡）绑定两个事件监听器：一个冒泡阶段，一个捕获阶段。如果该元素处于**Target Phase**，则先绑定的事件监听器先执行。
 
+##2015-03-26
+
+- IE6-7（只测了IE7 simulated IE8)中使用`delete`删除宿主对象的属性会报错“对象不支持此操作“，比如：
+
+  ```js
+  var document.body.data123 = 22;
+  delete document.body.data123;
+  // 抛出异常”对象不支持此操作“
+  ```
+
+  可以使用`try...catch`捕获异常，对于元素对象可以使用`removeAttribute`删除元素属性。
+
 ##2015-03-27
 
 - sed replace multiple files on OSX: `sed -i -E 's/\(foo\)\(123\)/\1 \2/g' *.txt`
 
+- 脚本触发一个事件，要考虑三个问题：
+
+  - 调用事件对应的所有监听器
+  - 事件的冒泡与阻止冒泡
+  - 事件的默认行为
+
+- 业务规则与极端情况：一次获取公司发布过的职位信息（包括已停止招聘和已删除的），从而导致数据量最大可超过1M，而且随着时间积累会越来越多。数据是通过AJAX请求的，超时限制是10s，对于当前大部分人来说10s下载1M不成问题，但是网络连接差的或者数据量更大的会导致超时。个人认为要么改变业务规则，要么就要针对极端情况特殊处理了。
+
 ##2015-03-30
 
 - Markdown输出反引号：双反引号，且与作为内容的反引号间隔一个空格，如`` `` ` `` ```
+
+- 检测大部分DOM2事件可是使用这篇文章的方法：[http://perfectionkills.com/detecting-event-support-without-browser-sniffing/](http://perfectionkills.com/detecting-event-support-without-browser-sniffing/)，然后`focusin`/`focusout`事件在IE中可使用这种方法检测，Chrome/Firefox中不行，可使用一种不优雅的方法：[http://stackoverflow.com/questions/7337670/how-to-detect-focusin-support#answer-7337873](http://stackoverflow.com/questions/7337670/how-to-detect-focusin-support#answer-7337873)。
+
+- URL Hash通常可以跳到/滚动到页面内的某部分内容，但是这部分内容要是Ajax加载的就不会跳了，得手动控制。
+
+- 公司有一个`util.js`文件，感觉集合了太多功能模块，里面包含了：localStorage、History、alert、表单验证、underscore模板解析、URL解析、浏览器探测、遮罩层、loading层、键盘事件绑定、不完善的`input`事件等，虽然4000行代码不多，但在更改某个功能或者再想移除某个功能成单独模块就难了，所以一开始就应该细颗粒化。
+
+##2015-03-31
+
+- `Event`/`MouseEvent`等事件对象的属性（非自定义）是只读的，在IE8中给事件对象赋值会报错“找不到成员”，在Chrome41中会静默失败，所以jQuery才自己创建一个事件对象。
+
+##2015-04-03
+
+- 修正一个弹窗内容在安卓平板上不显示问题（该页面及弹窗都是针对PC版的），另外在安卓自带浏览器及UC上也不显式，在Chrome中显示。问题原因是左浮动的元素没有设置宽度，且设置了`overflow-x:hidden`。但是我调试了一个半小时才找到原因，这也是由于国产浏览器难于调试，我只会`alert`，最终还是桌面上看CSS设置分析出来的，我的调试过程：
+
+  - 一开始我怀疑是DOM片段没有加载或者没有插入到文档中;
+  - 我用`alert`不断插入分析，手机输入用户名密码麻烦，而且我没有修改加载JS的路径配置，导致加载线上版本，我一直怀疑没清除干净缓存;
+  - 发现都没问题，然后这才怀疑CSS的问题，先是定位，然后是高度，然后竟然怀疑字体颜色问题；
+  - 最后通过Chrome在桌面分析样式发现设置了浮动，但是没设置宽度，才分析到点上。
+
+##2015-04-07
+
+- 无法获取本地存储数据----调试本地存储写入问题----发现搜索框值返回不正常----问后端人员是resin3没有配置编码问题，GBK相关
+
+##2015-04-08
+
+- Resin有个配置没配置好导致将Ajax请求的utf8编码的静态html强制转换为gbk，导致了乱码问题，使用nginx代理就好了。应该是配置问题。
+
+- 为什么ajax请求的utf8编码的中文内容（没有ASCII编码）显示在GBK页面时不乱码呢？
+
+- 无法获取焦点的元素，比如`div`，与键盘事件什么关系呢？
+
+##2015-04-09
+
+- `new RegExp`创建正则时注意字符串的特殊字符的转义。
+
+- jquery animate scrollTop: `$('html, body').animate({scrollTop: 0}, 400)`
+
+##2015-04-10
+
+- IE8中，`setTimeout`触发的时刻误差很大，比如`for`循环设置每 20ms 触发，共 300ms，结果变成了 20ms, 70ms, 120ms之类，大约持续时间 600ms 左右。不过可以根据当前已经过的时间来设置要改变的动画参数。
+
 
