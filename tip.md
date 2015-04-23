@@ -1510,3 +1510,36 @@
 
 - vim 设置了`expandtab`，输入 Tab 字符方式：`<C-V>Tab`
 
+##2015-04-20
+
+- 设置多个inline style时，使用`elem.style.cssText`属性只会触发一次reflow与repaint。
+
+##2015-04-21
+
+- 不同触屏设备的分辨率大小及像素比不同，使用像素图做图标在放大时会失真。
+
+- UC浏览器会识别页面底部的推广APP的广告条，然后屏蔽掉，使用IP访问可以显示。
+
+- UC浏览器开发者中心：[http://www.uc.cn/business/developer/](http://www.uc.cn/business/developer/)，包括UC浏览器开发者版、User-Agent使用说明书、U3内核扩展接口、开放参数数据字典等。
+
+- `localStorage`在有些（手机）浏览器的隐私模式/无痕浏览中可以使用，有些浏览器中不可以使用，使用`localStorage`之前必须检测是否可用，`typeof localStorage === 'undefined'`不可靠，可以使用：
+
+  ```js
+  try {
+    var ls = window.localStorage;
+    // while in private browsing mode, some browsers make
+    // localStorage available, but throw an error when used
+    ls.setItem('~~~', '!');
+    ls.removeItem('~~~');
+  } catch (err) {
+    ls = null;
+  }
+  ```
+
+  使用 Cookie 记录简单的数据，比如 1KB以内，甚至可以只用 Cookie 记录一个编号（如果用户没登录，可能涉及到如何唯一标记浏览器），服务端记录具体的数据。
+可以设置 Cookie 的 path，甚至将 Cookie 限制到一个 path 中，然后利用隐藏iframe技术读取。
+
+## 2015-04-23
+
+- 对于要加载很多资源的功能/模块，在正在加载时给出反馈信息，比如用个带有loading图的遮罩层，而不是当用户点击时告诉用户“正在加载中”，当长时间（30s以上）加载未完成时给出提示，像 Gmail 那样。
+
