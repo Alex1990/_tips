@@ -1380,9 +1380,8 @@
 - Composition events：`compositionstart`/`compositionupdate`/`compositionend`三个事件，IE9+支持，但是三个事件在不同浏览器，或者不同系统平台的相同浏览器上表现不一致：
 
  - IE9/Win7：测试最符合规范
- - IE10：有说
  - Chromium41/Ubuntu：`compositionupdate`在选择字符序列后不触发，直接触发的`compositionend`的`event.data`为空字符串，不对。
- - Firefox36/Ubuntu：在获取焦点时竟然也会触发。
+ - Firefox36/Ubuntu：只有鼠标点击就会一直触发，也会触发`input`事件。
  - IE10：没亲测，别人文章说在`compositionstart`之后只触发一次`compositionupdate`，然后就不触发了。
  
   总之有不少问题，可能不同的输入法都不同，这么多系统平台/浏览器/输入法，不一致的细节太多。可能相同点就是会触发这三个事件。
@@ -1542,4 +1541,21 @@
 ## 2015-04-23
 
 - 对于要加载很多资源的功能/模块，在正在加载时给出反馈信息，比如用个带有loading图的遮罩层，而不是当用户点击时告诉用户“正在加载中”，当长时间（30s以上）加载未完成时给出提示，像 Gmail 那样。
+
+## 2015-04-27
+
+- `mousedown`, `mouseup`, `click`, `blur`事件触发（非脚本）顺序：`mousedown`-->`blur`-->`mouseup`-->`click`。
+
+- Chrome 41支持`selectionchange`事件了，不知道确切什么时候开始支持的。不过以前用`selectionchange`来补救 IE9 中`input`事件的bug的判断条件写错了，不能通过`addEventListener`与`selectionchange`来判断是否是 IE9，可以使用`attachEvent`与`addEventListener`与`userAgent`，再结合`selectionchange`来判断。
+
+  注：以前的 Opera 也支持 `attachEvent`，可能是未采用 Blink 之前的，虽然份额非常非常低了。
+
+## 2015-04-28
+
+- 不要使用`self`代替`this`，因为`self`是个全局变量，指向当前`window`，可以使用`_this`/`that`之类。另外这种方式比 jQuery.proxy, Native bind, Underscore.js bind 之类的方法性能高好几倍：http://jsperf.com/bind-vs-jquery-proxy/5。
+
+## 2015-04-29
+
+- 有些问题不是布尔问题，而是 hash 问题，只不过特例正好是布尔问题，就不要使用布尔判断了，没扩展性。比如第三方登录有很多平台，刚开始正好只有两个：微博和QQ，于是使用`var title = loginType === 0 ? "微博登录" : "QQ登录";`，不久之后要添加微信登录，甚至还会添加其他登录，这代码还得重写。
+
 
