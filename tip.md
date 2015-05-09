@@ -1510,3 +1510,25 @@
 
 - vim 设置了`expandtab`，输入 Tab 字符方式：`<C-V>Tab`
 
+##2015-04-22
+
+- grunt-contrib-cssmin 在压缩类似下面样式时，默认配置下，层叠会出现错误：
+
+  ```css
+  .input {
+    padding: 10px 5px 5px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+  }
+  .submit {
+    padding: 0;
+    border: none;
+    border-bottom: 1px solid #ddd;
+  }
+  ```
+
+  可以配置`advanced: false`来关闭选择器属性合并，详细可查看 clean-css 的参数说明。
+
+- `@font-face`在 Virtualbox + XP + IE8 里面初次加载页面是可能不显示，需要鼠标移上去才显示。
+
+
