@@ -1531,4 +1531,20 @@
 
 - `@font-face`在 Virtualbox + XP + IE8 里面初次加载页面是可能不显示，需要鼠标移上去才显示。
 
+## 2015-05-09
+
+- `Storage`对象相关的`storage`事件触发条件：
+
+  - 在相同域名下的其他页面发生的改变，比如另一个标签页或`iframe`
+  - 改变是指域名对应的`Storage`对象发生改变，即设置、更新或删除数据项时，重复设置相同的键值不会触发该事件，`Storage.clear()`方法至多触发一次该事件。
+
+  注意：`sessionStorage`对象，即时相同域名，但是不同页面（新窗口或新标签页）对应不同的`sessionStorage`对象。
+
+  `storage`事件对应的事件对象包含额外的几个属性：
+
+  - storageArea：发生改变的存储对象
+  - url：发生改变的页面URL
+  - key：发生改变的数据项的键，不存在则为`null`（Ch41/FF37）或空字符串（Sf8）
+  - oldValue：发生改变前的旧值，不存在则为`null`
+  - newValue：发生改变后的新值，不存在则为`null`
 
