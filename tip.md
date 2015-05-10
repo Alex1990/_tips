@@ -1380,9 +1380,8 @@
 - Composition events：`compositionstart`/`compositionupdate`/`compositionend`三个事件，IE9+支持，但是三个事件在不同浏览器，或者不同系统平台的相同浏览器上表现不一致：
 
  - IE9/Win7：测试最符合规范
- - IE10：有说
  - Chromium41/Ubuntu：`compositionupdate`在选择字符序列后不触发，直接触发的`compositionend`的`event.data`为空字符串，不对。
- - Firefox36/Ubuntu：在获取焦点时竟然也会触发。
+ - Firefox36/Ubuntu：只有鼠标点击就会一直触发，也会触发`input`事件。
  - IE10：没亲测，别人文章说在`compositionstart`之后只触发一次`compositionupdate`，然后就不触发了。
  
   总之有不少问题，可能不同的输入法都不同，这么多系统平台/浏览器/输入法，不一致的细节太多。可能相同点就是会触发这三个事件。
@@ -1510,6 +1509,35 @@
 
 - vim 设置了`expandtab`，输入 Tab 字符方式：`<C-V>Tab`
 
+##2015-04-20
+
+- 设置多个inline style时，使用`elem.style.cssText`属性只会触发一次reflow与repaint。
+
+##2015-04-21
+
+- 不同触屏设备的分辨率大小及像素比不同，使用像素图做图标在放大时会失真。
+
+- UC浏览器会识别页面底部的推广APP的广告条，然后屏蔽掉，使用IP访问可以显示。
+
+- UC浏览器开发者中心：[http://www.uc.cn/business/developer/](http://www.uc.cn/business/developer/)，包括UC浏览器开发者版、User-Agent使用说明书、U3内核扩展接口、开放参数数据字典等。
+
+- `localStorage`在有些（手机）浏览器的隐私模式/无痕浏览中可以使用，有些浏览器中不可以使用，使用`localStorage`之前必须检测是否可用，`typeof localStorage === 'undefined'`不可靠，可以使用：
+
+  ```js
+  try {
+    var ls = window.localStorage;
+    // while in private browsing mode, some browsers make
+    // localStorage available, but throw an error when used
+    ls.setItem('~~~', '!');
+    ls.removeItem('~~~');
+  } catch (err) {
+    ls = null;
+  }
+  ```
+
+  使用 Cookie 记录简单的数据，比如 1KB以内，甚至可以只用 Cookie 记录一个编号（如果用户没登录，可能涉及到如何唯一标记浏览器），服务端记录具体的数据。
+可以设置 Cookie 的 path，甚至将 Cookie 限制到一个 path 中，然后利用隐藏iframe技术读取。
+
 ##2015-04-22
 
 - grunt-contrib-cssmin 在压缩类似下面样式时，默认配置下，层叠会出现错误：
@@ -1531,6 +1559,26 @@
 
 - `@font-face`在 Virtualbox + XP + IE8 里面初次加载页面是可能不显示，需要鼠标移上去才显示。
 
+## 2015-04-23
+
+- 对于要加载很多资源的功能/模块，在正在加载时给出反馈信息，比如用个带有loading图的遮罩层，而不是当用户点击时告诉用户“正在加载中”，当长时间（30s以上）加载未完成时给出提示，像 Gmail 那样。
+
+## 2015-04-27
+
+- `mousedown`, `mouseup`, `click`, `blur`事件触发（非脚本）顺序：`mousedown`-->`blur`-->`mouseup`-->`click`。
+
+- Chrome 41支持`selectionchange`事件了，不知道确切什么时候开始支持的。不过以前用`selectionchange`来补救 IE9 中`input`事件的bug的判断条件写错了，不能通过`addEventListener`与`selectionchange`来判断是否是 IE9，可以使用`attachEvent`与`addEventListener`与`userAgent`，再结合`selectionchange`来判断。
+
+  注：以前的 Opera 也支持 `attachEvent`，可能是未采用 Blink 之前的，虽然份额非常非常低了。
+
+## 2015-04-28
+
+- 不要使用`self`代替`this`，因为`self`是个全局变量，指向当前`window`，可以使用`_this`/`that`之类。另外这种方式比 jQuery.proxy, Native bind, Underscore.js bind 之类的方法性能高好几倍：http://jsperf.com/bind-vs-jquery-proxy/5。
+
+## 2015-04-29
+
+- 有些问题不是布尔问题，而是 hash 问题，只不过特例正好是布尔问题，就不要使用布尔判断了，没扩展性。比如第三方登录有很多平台，刚开始正好只有两个：微博和QQ，于是使用`var title = loginType === 0 ? "微博登录" : "QQ登录";`，不久之后要添加微信登录，甚至还会添加其他登录，这代码还得重写。
+
 ## 2015-05-09
 
 - `Storage`对象相关的`storage`事件触发条件：
@@ -1547,4 +1595,3 @@
   - key：发生改变的数据项的键，不存在则为`null`（Ch41/FF37）或空字符串（Sf8）
   - oldValue：发生改变前的旧值，不存在则为`null`
   - newValue：发生改变后的新值，不存在则为`null`
-
