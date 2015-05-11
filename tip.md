@@ -1538,6 +1538,27 @@
   使用 Cookie 记录简单的数据，比如 1KB以内，甚至可以只用 Cookie 记录一个编号（如果用户没登录，可能涉及到如何唯一标记浏览器），服务端记录具体的数据。
 可以设置 Cookie 的 path，甚至将 Cookie 限制到一个 path 中，然后利用隐藏iframe技术读取。
 
+##2015-04-22
+
+- grunt-contrib-cssmin 在压缩类似下面样式时，默认配置下，层叠会出现错误：
+
+  ```css
+  .input {
+    padding: 10px 5px 5px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+  }
+  .submit {
+    padding: 0;
+    border: none;
+    border-bottom: 1px solid #ddd;
+  }
+  ```
+
+  可以配置`advanced: false`来关闭选择器属性合并，详细可查看 clean-css 的参数说明。
+
+- `@font-face`在 Virtualbox + XP + IE8 里面初次加载页面是可能不显示，需要鼠标移上去才显示。
+
 ## 2015-04-23
 
 - 对于要加载很多资源的功能/模块，在正在加载时给出反馈信息，比如用个带有loading图的遮罩层，而不是当用户点击时告诉用户“正在加载中”，当长时间（30s以上）加载未完成时给出提示，像 Gmail 那样。
@@ -1569,4 +1590,21 @@
   也有说 script tag 加载方式需要重复写多个`<script>`标签，但是也可以写个工具函数来自动插入啊。
 
   总之我想说的是，AMD/CMD 加载方式只是解决了常规的 script 方式的缺点，但是本质上难道还不是 script 加载方式，只是概念的定义问题。
+
+## 2015-05-09
+
+- `Storage`对象相关的`storage`事件触发条件：
+
+  - 在相同域名下的其他页面发生的改变，比如另一个标签页或`iframe`
+  - 改变是指域名对应的`Storage`对象发生改变，即设置、更新或删除数据项时，重复设置相同的键值不会触发该事件，`Storage.clear()`方法至多触发一次该事件。
+
+  注意：`sessionStorage`对象，即时相同域名，但是不同页面（新窗口或新标签页）对应不同的`sessionStorage`对象。
+
+  `storage`事件对应的事件对象包含额外的几个属性：
+
+  - storageArea：发生改变的存储对象
+  - url：发生改变的页面URL
+  - key：发生改变的数据项的键，不存在则为`null`（Ch41/FF37）或空字符串（Sf8）
+  - oldValue：发生改变前的旧值，不存在则为`null`
+  - newValue：发生改变后的新值，不存在则为`null`
 
