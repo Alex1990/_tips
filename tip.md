@@ -1608,3 +1608,16 @@
   - oldValue：发生改变前的旧值，不存在则为`null`
   - newValue：发生改变后的新值，不存在则为`null`
 
+## 2015-05-11
+
+- Chrome 41：未开启 strict mode 时，`const`无效，`let`导致抛出错误。
+
+  **const**: 严格模式下，声明时必须被初始化，赋值会导致抛出`TypeError`异常，如果常量是个对象，则可以添加/修改/删除属性。
+
+- How do you pronounce "Mozilla"?
+
+  **Mo** as in Mosaic - **zilla** as in godzilla.
+
+
+
+
