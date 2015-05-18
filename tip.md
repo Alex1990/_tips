@@ -1618,6 +1618,16 @@
 
   **Mo** as in Mosaic - **zilla** as in godzilla.
 
+## 2015-05-18
 
+- 浏览器控制台下可使用`monitorEvents(Element)`来监听一个元素发生的所有事件，调式很好用。
 
+- 关闭 iPhone/iPad Safari 的自动大写首字母和自动纠正拼写功能：
+  `autocapitalize="off"`和`autocorrect="off"`。
+
+- 关于`autocomplete`属性的一个讨论：http://security.stackexchange.com/questions/49326/should-websites-be-allowed-to-disable-autocomplete-on-forms-or-fields。一些人使用标签（如`label`）来模拟`placeholder`属性，同时`autocomplete`功能开启时（默认），则鼠标移动到浏览器的自动完成列表选项上时，输入框的文本可能与`placeholder`的标签文本重合，而且目前没有相应的事件来监听，所以通常除了用户名与密码外关闭`autocomplete`功能，或者`placeholder`可以使用 [juery-placeholder](https://github.com/mathiasbynens/jquery-placeholder)。另外，验证码这种一次有效的绝对不能用`autocomplete`功能。
+
+  `autocomplate`属性值与输入框的`name`属性关联：https://html.spec.whatwg.org/multipage/forms.html#autofill
+
+- `transition`与`jQuery.animate()`一起用时，可能得不到期望的结果。
 
