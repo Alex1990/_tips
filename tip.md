@@ -1631,3 +1631,22 @@
 
 - `transition`与`jQuery.animate()`一起用时，可能得不到期望的结果。
 
+- `Element.oneventname` 方式绑定的事件，在 IE6-8 下事件回调函数第一个参数不是事件对象，而`attachEvent`绑定的方式，第一个参数是事件对象。（一直记错了）
+
+## 2015-05-19
+
+- Companion.JS 用来调试 IE6 JavaScript。
+
+- 使用浏览器探测技术的来决定功能时不可靠，比如依赖 IE >=9 支持`addEventListener`，但是浏览器模式为 IE9+，文档模式低于 IE9（这种情况在 360 浏览器可能发生）时，会发生错误。对于 IE 可使用 'document.documentMode'（该属性仅IE支持）来判断也比`navigator.userAgent`更可靠。
+
+  对于 360 使用极速模式：
+
+  ```html
+  <meta name="renderer" content="webkit">
+  ```
+
+  使用最高版本文档模式：
+  ```html
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  ```
+
