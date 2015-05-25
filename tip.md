@@ -1649,4 +1649,21 @@
   ```html
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
   ```
+## 2015-05-21
+
+- 判断 一个数值是正0，还是负0：`n === 0 && 1 / x === Infinity`和`n === 0 && 1 / x === -Infinity`。
+
+## 2015-05-24
+
+- 不能使用`Date.parse()`来判断一个值是否是日期字符串，因为当一串数字作为字符串尾字符串（忽略空白符）时，仍会被该方法解析，如`Date.parse('foo 42 ')`。
+
+- `navigator.cookieEnabled`不可靠，在某些 IE9 中，即使禁用了 Cookie，该属性仍然返回`true`，我自己虚拟机Win7/IE9测试没问题，更可靠的检测方法：
+
+  ```js
+  var enabled = ("cookie" in document && (document.cookie.length > 0 ||
+        (document.cookie = "test").indexOf.call(document.cookie, "test") > -1));
+  ```
+
+  参考：[http://stackoverflow.com/questions/6125330/javascript-navigator-cookieenabled-browser-compatibility](http://stackoverflow.com/questions/6125330/javascript-navigator-cookieenabled-browser-compatibility)
+
 
