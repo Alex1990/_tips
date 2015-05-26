@@ -1618,6 +1618,13 @@
 
   **Mo** as in Mosaic - **zilla** as in godzilla.
 
+- Terminal 中，`echo $(someVar)`会将换行符替换为空格，且删除末尾换行符。
 
+  http://stackoverflow.com/questions/8467424/echo-new-line-in-bash-prints-literal-n
 
+## 2015-05-24
+
+- Sublime 添加新的 Snippet，如果不起作用，可能是`<scope></scope>`值不在`"auto_complete_selector"`设置中。
+
+- 对于默认不可获取焦点的元素（如`div`、`li`），通过设置`tabindex`可以使其变为可获取焦点的元素。`tabindex`为负值时，无法通过`Tab`键使其获取焦点，为`0`时按元素在文档流中的顺序跳转，这也是其他可获取焦点元素的默认行为。而`HTMLElement.focus()`/`HTMLElement.blur()`方法可以控制一个元素是否处于获取焦点状态。
 
