@@ -1657,7 +1657,7 @@
 
 - 判断 一个数值是正0，还是负0：`n === 0 && 1 / x === Infinity`和`n === 0 && 1 / x === -Infinity`。
 
-## 2015-05-24
+## 2015-05-25
 
 - 不能使用`Date.parse()`来判断一个值是否是日期字符串，因为当一串数字作为字符串尾字符串（忽略空白符）时，仍会被该方法解析，如`Date.parse('foo 42 ')`。
 
@@ -1673,4 +1673,21 @@
 - Sublime 添加新的 Snippet，如果不起作用，可能是`<scope></scope>`值不在`"auto_complete_selector"`设置中。
 
 - 对于默认不可获取焦点的元素（如`div`、`li`），通过设置`tabindex`可以使其变为可获取焦点的元素。`tabindex`为负值时，无法通过`Tab`键使其获取焦点，为`0`时按元素在文档流中的顺序跳转，这也是其他可获取焦点元素的默认行为。而`HTMLElement.focus()`/`HTMLElement.blur()`方法可以控制一个元素是否处于获取焦点状态。
+
+## 2015-05-26
+
+- 通过一个对象（Hashmap）来映射方法调用，如：[http://jsperf.com/date-methods-hash](http://jsperf.com/date-methods-hash)。但是经过 Gzip 压缩之后大小几乎一样，但是性能确低一点点儿。所以还是根据具体情况考虑。
+
+- `new Date(dateString)`/`Date.parse(dateString)`中的`dateString`的最后是表示时区（Time zone），例如：`"Tue May 26 2015 10:21:13 GMT+0800 (CST)"`、`"Tue, 26 May 2015 02:21:55 GMT"`。有时相同的缩写表示不同的市区，缩写列表见：[List of time zone abbreviations](http://en.wikipedia.org/wiki/List_of_time_zone_abbreviations)。
+
+- `toUTCString()`在 Chrome 和 IE（至少6-9）中的返回值不同，Chrome 的时区缩写是`GMT`，IE 中是`UTC`。`toGMTString()`（被废弃）与`toUTCString()`返回值一样。
+
+- Cookie max-age 与 Cookie expires 区别：HTTP 1.1 已经抛弃了不易用的`expires`；几乎所有（IE6+）的浏览器都支持`expires`，而 IE6-8 不支持`max-age`，而支持`max-age`的会优先使用`max-age`。
+
+- 正则`/\s/`在IE9+及其他现代浏览器中等价于：`[ \f\n\r\t\v\u00a0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u2028\u2029\u202f\u205f\u3000]`，而在IE6-8中等价于`[ \f\n\r\t\v]`。
+
+## 2015-05-29
+
+- `blur`与`change`事件顺序：`change`>>>`blur`。两个事件不一定一起发生，比如`select`选择时，发生`change`但不发生`blur`；又比如`a`元素发生`blur`确不发生`change`。
+
 
