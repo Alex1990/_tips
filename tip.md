@@ -1622,7 +1622,53 @@
 
   http://stackoverflow.com/questions/8467424/echo-new-line-in-bash-prints-literal-n
 
+## 2015-05-18
+
+- 浏览器控制台下可使用`monitorEvents(Element)`来监听一个元素发生的所有事件，调式很好用。
+
+- 关闭 iPhone/iPad Safari 的自动大写首字母和自动纠正拼写功能：
+  `autocapitalize="off"`和`autocorrect="off"`。
+
+- 关于`autocomplete`属性的一个讨论：http://security.stackexchange.com/questions/49326/should-websites-be-allowed-to-disable-autocomplete-on-forms-or-fields。一些人使用标签（如`label`）来模拟`placeholder`属性，同时`autocomplete`功能开启时（默认），则鼠标移动到浏览器的自动完成列表选项上时，输入框的文本可能与`placeholder`的标签文本重合，而且目前没有相应的事件来监听，所以通常除了用户名与密码外关闭`autocomplete`功能，或者`placeholder`可以使用 [juery-placeholder](https://github.com/mathiasbynens/jquery-placeholder)。另外，验证码这种一次有效的绝对不能用`autocomplete`功能。
+
+  `autocomplate`属性值与输入框的`name`属性关联：https://html.spec.whatwg.org/multipage/forms.html#autofill
+
+- `transition`与`jQuery.animate()`一起用时，可能得不到期望的结果。
+
+- `Element.oneventname` 方式绑定的事件，在 IE6-8 下事件回调函数第一个参数不是事件对象，而`attachEvent`绑定的方式，第一个参数是事件对象。（一直记错了）
+
+## 2015-05-19
+
+- Companion.JS 用来调试 IE6 JavaScript。
+
+- 使用浏览器探测技术的来决定功能时不可靠，比如依赖 IE >=9 支持`addEventListener`，但是浏览器模式为 IE9+，文档模式低于 IE9（这种情况在 360 浏览器可能发生）时，会发生错误。对于 IE 可使用 'document.documentMode'（该属性仅IE支持）来判断也比`navigator.userAgent`更可靠。
+
+  对于 360 使用极速模式：
+
+  ```html
+  <meta name="renderer" content="webkit">
+  ```
+
+  使用最高版本文档模式：
+  ```html
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  ```
+## 2015-05-21
+
+- 判断 一个数值是正0，还是负0：`n === 0 && 1 / x === Infinity`和`n === 0 && 1 / x === -Infinity`。
+
 ## 2015-05-24
+
+- 不能使用`Date.parse()`来判断一个值是否是日期字符串，因为当一串数字作为字符串尾字符串（忽略空白符）时，仍会被该方法解析，如`Date.parse('foo 42 ')`。
+
+- `navigator.cookieEnabled`不可靠，在某些 IE9 中，即使禁用了 Cookie，该属性仍然返回`true`，我自己虚拟机Win7/IE9测试没问题，更可靠的检测方法：
+
+  ```js
+  var enabled = ("cookie" in document && (document.cookie.length > 0 ||
+        (document.cookie = "test").indexOf.call(document.cookie, "test") > -1));
+  ```
+
+  参考：[http://stackoverflow.com/questions/6125330/javascript-navigator-cookieenabled-browser-compatibility](http://stackoverflow.com/questions/6125330/javascript-navigator-cookieenabled-browser-compatibility)
 
 - Sublime 添加新的 Snippet，如果不起作用，可能是`<scope></scope>`值不在`"auto_complete_selector"`设置中。
 
