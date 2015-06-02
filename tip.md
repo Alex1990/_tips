@@ -1690,4 +1690,11 @@
 
 - `blur`与`change`事件顺序：`change`>>>`blur`。两个事件不一定一起发生，比如`select`选择时，发生`change`但不发生`blur`；又比如`a`元素发生`blur`确不发生`change`。
 
+## 2015-05-31
+
+- 注意：不同的域名或路径可以设置相同名称的 Cookie，因此把 Cookie 解析成对象时可能会有问题，当然这种情况实际应用中也不太可能出现。也没有完美的使用 JavaScript 删除 Cookie 的方法。参考：http://stackoverflow.com/questions/595228/how-can-i-delete-all-cookies-with-javascript。
+
+## 2015-06-01
+
+- 比较两个对象是否相等（非严格，比较属性相等就行，deeply），可以使用 Underscore/LoDash 的 `_.isEqual` 方法。
 
