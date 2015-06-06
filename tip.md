@@ -1712,10 +1712,44 @@
 
 ## 2015-06-04
 
-- 使用`input.type`来改变`type`属性时，在IE6-8（包括改变文档模式来模拟的）中会报错；使用`input.setAttribute()`时，在IE6/IE8/IE7(in IE8)中会报错，在IE9+模拟的IE7/8中不会报错。注：IE6-8，包括IE9+的文档模式，无法改变`type`属性值；IE10是根据网上反应，IE11未测。
+- 使用`input.type`来改变`type`属性时，在IE6-8（包括改变文档模式来模拟的）中会报错；使用`input.setAttribute()`时，在IE6/IE8/IE7(in IE8)中会报错，在IE9+模拟的IE7/8中不会报错。注：IE6-8，包括IE9+的文档模式，无法改变`type`属性值；IE10是根据网上反应，<del>IE11未测</del>。
 
 ## 2015-06-05
 
 - `try {} catch(err) {}`中的`err`参数不能省略，否则会报错。
 
+## 2015-06-06
+
+- 去掉/隐藏IE10+中`input`的清除按钮`X`或密码输入框的眼睛，该按钮会出现于IE10+浏览器，设置`documentMode`不会改变此行为，但由于下面的CSS只作用于文档模式为IE10+时，因此还不知道如何清除IE10+中文档模式为IE6-9中的该按钮。
+
+  ```css
+  .someinput::-ms-clear,
+  .someinput::-ms-reveal {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+  ```
+
+   暂时不清楚为什么有些人要`display:none`与`width:0;height:0;`都写，参考：http://stackoverflow.com/questions/14007655/remove-ie10s-clear-field-x-button-on-certain-inputs
+
+- 对赋值表达式求值得其右操作对象（right operand），因为左操作对象并不总是等于右操作对象，如：
+
+  ```js
+  console.log(document.cookie = 'test');
+  console.log(document.cookie);
+
+  console.log(input.value = 0);
+  console.log(input.value);
+
+  var obj = {};
+  Object.defineProperty(obj, 'value', {
+    configurable: true,
+    enumerable: true,
+    writable: false,
+    value: 10
+  });
+  console.log(obj.value = 0);
+  console.log(obj.value);
+  ```
 
