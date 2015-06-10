@@ -1753,8 +1753,20 @@
   console.log(obj.value);
   ```
 
-## 2015-06-7
+## 2015-06-07
 
 - 搜狗高速浏览器5.2.5.15987对于`input:password`右侧会出现一个软键盘按钮，点击出现一个搜狗自己的软键盘，在IE模式下会隐藏掉原先IE10+中的眼睛按钮及`input:text`的`X`清除按钮，不知道怎么通过代码隐藏，像个SB一样自作聪明，对开发者一点儿都不友好。反馈必须通过BBS，真是不爽。
+
+## 2015-06-08
+
+- 如何复制文件夹时排除某些文件或目录？比如排除`.git`, `.DS_Store`等。
+
+  通常可以使用`rsync`，见：http://stackoverflow.com/questions/3672480/cp-command-should-ignore-some-files
+
+  对于想要利用`.gitignore`配置的，且文件夹为一个 git repo，则可以使用`git archive`命令，参考：[http://stackoverflow.com/questions/160608/do-a-git-export-like-svn-export](http://stackoverflow.com/questions/160608/do-a-git-export-like-svn-export)。
+
+## 2015-06-09
+
+- `cp`复制隐藏文件（即`.`字符开头命名的文件）：`cp -r /foo/dir/. bar/dir`
 
 
