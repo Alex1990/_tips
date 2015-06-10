@@ -1690,7 +1690,13 @@
 
 - `blur`与`change`事件顺序：`change`>>>`blur`。两个事件不一定一起发生，比如`select`选择时，发生`change`但不发生`blur`；又比如`a`元素发生`blur`确不发生`change`。
 
+## 2015-05-31
+
+- 注意：不同的域名或路径可以设置相同名称的 Cookie，因此把 Cookie 解析成对象时可能会有问题，当然这种情况实际应用中也不太可能出现。也没有完美的使用 JavaScript 删除 Cookie 的方法。参考：http://stackoverflow.com/questions/595228/how-can-i-delete-all-cookies-with-javascript。
+
 ## 2015-06-01
+
+- 比较两个对象是否相等（非严格，比较属性相等就行，deeply），可以使用 Underscore/LoDash 的 `_.isEqual` 方法。
 
 - 更宽松的验证？比如固定电话（区号/电话号码/分机号）只要数字就行。这与比较严格的验证（比如，区号3/4位、电话号码7/8位）相比优劣呢？
 
@@ -1706,11 +1712,51 @@
 
 ## 2015-06-04
 
-- 使用`input.type`来改变`type`属性时，在IE6-8（包括改变文档模式来模拟的）中会报错；使用`input.setAttribute()`时，在IE6/IE8/IE7(in IE8)中会报错，在IE9+模拟的IE7/8中不会报错。注：IE6-8，包括IE9+的文档模式，无法改变`type`属性值；IE10是根据网上反应，IE11未测。
+- 使用`input.type`来改变`type`属性时，在IE6-8（包括改变文档模式来模拟的）中会报错；使用`input.setAttribute()`时，在IE6/IE8/IE7(in IE8)中会报错，在IE9+模拟的IE7/8中不会报错。注：IE6-8，包括IE9+的文档模式，无法改变`type`属性值；IE10是根据网上反应，<del>IE11未测</del>。
 
 ## 2015-06-05
 
 - `try {} catch(err) {}`中的`err`参数不能省略，否则会报错。
+
+## 2015-06-06
+
+- 去掉/隐藏IE10+中`input`的清除按钮`X`或密码输入框的眼睛，该按钮会出现于IE10+浏览器，设置`documentMode`不会改变此行为，但由于下面的CSS只作用于文档模式为IE10+时，因此还不知道如何清除IE10+中文档模式为IE6-9中的该按钮。
+
+  ```css
+  .someinput::-ms-clear,
+  .someinput::-ms-reveal {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+  ```
+
+   暂时不清楚为什么有些人要`display:none`与`width:0;height:0;`都写，参考：http://stackoverflow.com/questions/14007655/remove-ie10s-clear-field-x-button-on-certain-inputs
+
+- 对赋值表达式求值得其右操作对象（right operand），因为左操作对象并不总是等于右操作对象，如：
+
+  ```js
+  console.log(document.cookie = 'test');
+  console.log(document.cookie);
+
+  console.log(input.value = 0);
+  console.log(input.value);
+
+  var obj = {};
+  Object.defineProperty(obj, 'value', {
+    configurable: true,
+    enumerable: true,
+    writable: false,
+    value: 10
+  });
+  console.log(obj.value = 0);
+  console.log(obj.value);
+  ```
+
+## 2015-06-7
+
+- 搜狗高速浏览器5.2.5.15987对于`input:password`右侧会出现一个软键盘按钮，点击出现一个搜狗自己的软键盘，在IE模式下会隐藏掉原先IE10+中的眼睛按钮及`input:text`的`X`清除按钮，不知道怎么通过代码隐藏，像个SB一样自作聪明，对开发者一点儿都不友好。反馈必须通过BBS，真是不爽。
+
 
 ## 2016-06-09
 
@@ -1723,6 +1769,4 @@
 - 发现一些高star数的前端插件/模块写得代码并不好，比如这几天的 jquery.placeholder.js，作为3000多star，几年的项目了，发觉代码里面竟然有逻辑很不严密的地方，几十个人都没人贡献核心的代码。当然，写好一个优秀的模块比较辛苦，也越发佩服那些维护代码几万数十万行的人了。
 
 - 元素的`:focus`样式，通过设置`tabindex`属性来控制元素是否可通过`Tab`获取焦点。但是对`label`元素似乎不起作用，得仔细研究下。
-
-
 
