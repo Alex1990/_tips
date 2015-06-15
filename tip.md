@@ -1792,4 +1792,20 @@
 
 - IE6 不支持`transparent`设置`border-color`
 
+## 2015-06-15
+
+- IE6/FireFox/Safari（测试时使用最新版浏览器）的`input.focus()或input.select()`方法均需要设置一个延迟才会看到效果：
+
+  ```js
+  setTimeout(function(){
+    input.focus();
+  }, 0);
+  ```
+
+ -	http://blog.codeblack.nl/post/IE6-focus-problem.aspx
+ -	https://forum.jquery.com/topic/input-focus-for-firefox-and-safari-doesn-t-seem-to-work
+
+- 后端如何生成唯一的ID问题？比如生成唯一的用户名，考虑到并发情况，考虑到同一时刻，甚至不同服务器同一时刻问题。
+
+- 允许用户名/邮箱/手机号作为用户ID登录时，如何判断输入的字符串是哪一种？因为历史遗留问题，有可能用户名与另一个用户的邮箱或手机号相同，并且有可能密码都相同。假如之前用户名不能以数字开头，用户名不能是邮箱格式，则不会有这些问题。
 
