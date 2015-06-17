@@ -1769,9 +1769,6 @@
 
 - `cp`复制隐藏文件（即`.`字符开头命名的文件）：`cp -r /foo/dir/. bar/dir`
 
-
-## 2015-06-09
-
 - 点击验证码更换验证码图片，似乎应该等待图片加载好之后再替换`src`，因此需要`img`的`load`事件。
 
 ## 2015-06-10
@@ -1782,10 +1779,39 @@
 
 - 元素的`:focus`样式，通过设置`tabindex`属性来控制元素是否可通过`Tab`获取焦点。但是对`label`元素似乎不起作用，得仔细研究下。
 
+## 2015-06-11
+
+- 输入框获取焦点，也即触发`focus`事件时，将光标放在内容末尾：
+
+  ```js
+  input.focus(); // 这行必须首先执行
+  var val = input.value;
+  input.value = '';
+  input.value = val;
+  ```
+
+- IE6 不支持`transparent`设置`border-color`
+
 ## 2015-06-13
 
 - 函数命名问题：判断一个字符串是否为`""`/`null`/`undefined`，取名`isEmpty()`，而判断一个字符串是否为`""`/`null`/`undefined`以及连续的空白字符串（空白字符是取`/[ \f\n\r\t\v]/`呢？还是现代浏览器中的/\s/）取名`isBlank`。
 
 - [vim]：交换两行，就是上面一行移到下面一行的下面`ddp`或下面一行移到上面一行的上面`ddkP`。
 
+## 2015-06-15
+
+- IE6/FireFox/Safari（测试时使用最新版浏览器）的`input.focus()或input.select()`方法均需要设置一个延迟才会看到效果：
+
+  ```js
+  setTimeout(function(){
+    input.focus();
+  }, 0);
+  ```
+
+ -	http://blog.codeblack.nl/post/IE6-focus-problem.aspx
+ -	https://forum.jquery.com/topic/input-focus-for-firefox-and-safari-doesn-t-seem-to-work
+
+- 后端如何生成唯一的ID问题？比如生成唯一的用户名，考虑到并发情况，考虑到同一时刻，甚至不同服务器同一时刻问题。
+
+- 允许用户名/邮箱/手机号作为用户ID登录时，如何判断输入的字符串是哪一种？因为历史遗留问题，有可能用户名与另一个用户的邮箱或手机号相同，并且有可能密码都相同。假如之前用户名不能以数字开头，用户名不能是邮箱格式，则不会有这些问题。
 
