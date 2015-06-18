@@ -1792,6 +1792,12 @@
 
 - IE6 不支持`transparent`设置`border-color`
 
+## 2015-06-13
+
+- 函数命名问题：判断一个字符串是否为`""`/`null`/`undefined`，取名`isEmpty()`，而判断一个字符串是否为`""`/`null`/`undefined`以及连续的空白字符串（空白字符是取`/[ \f\n\r\t\v]/`呢？还是现代浏览器中的/\s/）取名`isBlank`。
+
+- [vim]：交换两行，就是上面一行移到下面一行的下面`ddp`或下面一行移到上面一行的上面`ddkP`。
+
 ## 2015-06-15
 
 - IE6/FireFox/Safari（测试时使用最新版浏览器）的`input.focus()或input.select()`方法均需要设置一个延迟才会看到效果：
