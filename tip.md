@@ -1809,3 +1809,37 @@
 
 - 允许用户名/邮箱/手机号作为用户ID登录时，如何判断输入的字符串是哪一种？因为历史遗留问题，有可能用户名与另一个用户的邮箱或手机号相同，并且有可能密码都相同。假如之前用户名不能以数字开头，用户名不能是邮箱格式，则不会有这些问题。
 
+  历史数据问题：假如存在两个用户邮件地址相同的话如何处理，另外就是后端插入数据之前检测了是否已存在邮件，没有并发情况，不考虑直接修改数据库的情况下，还有什么原因导致的呢？好难处理。一开始的规则设计很重要。
+
+## 2015-06-16
+
+- `seajs.use('foo.js')`与`seajs.use('foo')`在`alias`中配置了`foo`的话两者引用两次`foo.js`文件，执行两次。
+
+- `mousedown`/`mouseup`结合实现的效果，比如鼠标按下时显示明文，鼠标松开显示密文的切换效果，但是有人非要把鼠标移动元素之外再松开，此时不会触发该元素的`mouseup`事件，但是移出会触发`mouseleave`事件，此时也应该有必要触发`mouseup`相同的事件监听器。
+
+## 2015-06-18
+
+- 全屏背景图片，参考LinkedIn的登录页面：
+
+  - 兼容IE6-8：Respond.js
+  - 注意图片的高度不能太小
+
+  ```css
+  body {
+    background: url("bg_1920x960.png") no-repeat top center fixed transparent;
+    background-size: cover;
+  }
+
+  @media screen and (max-width:1152px) {
+    body {
+      background-image: url("bg_1152x800.jpg");
+    }
+  }
+
+  @media screen and (max-width: 1600px;) and (min-width: 1153px) {
+    body {
+      background-image: url("bg_1600x960.jpg");
+    }
+  }
+  ```
+
