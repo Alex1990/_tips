@@ -1815,3 +1815,10 @@
 
 - 允许用户名/邮箱/手机号作为用户ID登录时，如何判断输入的字符串是哪一种？因为历史遗留问题，有可能用户名与另一个用户的邮箱或手机号相同，并且有可能密码都相同。假如之前用户名不能以数字开头，用户名不能是邮箱格式，则不会有这些问题。
 
+## 2015-06-18
+
+- git rebase remote:
+
+  - http://stackoverflow.com/questions/7929369/how-to-rebase-local-branch-with-remote-master
+  - https://help.github.com/articles/resolving-merge-conflicts-after-a-git-rebase/
+
