@@ -1815,7 +1815,10 @@
 
 - 允许用户名/邮箱/手机号作为用户ID登录时，如何判断输入的字符串是哪一种？因为历史遗留问题，有可能用户名与另一个用户的邮箱或手机号相同，并且有可能密码都相同。假如之前用户名不能以数字开头，用户名不能是邮箱格式，则不会有这些问题。
 
-  历史数据问题：假如存在两个用户邮件地址相同的话如何处理，另外就是后端插入数据之前检测了是否已存在邮件，没有并发情况，不考虑直接修改数据库的情况下，还有什么原因导致的呢？好难处理。一开始的规则设计很重要。
+- git rebase remote:
+
+  - http://stackoverflow.com/questions/7929369/how-to-rebase-local-branch-with-remote-master
+  - https://help.github.com/articles/resolving-merge-conflicts-after-a-git-rebase/
 
 ## 2015-06-16
 
@@ -1859,5 +1862,11 @@
   - 获取历史关键词时，只有`keyword`值不为`null`/`undefined`时或者不能为字符串以外的值时才获取
   - 使用`encodeHTML`方法时做一个判断（这里检测太麻烦）
   - `encodeHTML`方法本身可接受任何类型的值
+
+- 历史数据问题：假如存在两个用户邮件地址相同的话如何处理，另外就是后端插入数据之前检测了是否已存在邮件，没有并发情况，不考虑直接修改数据库的情况下，还有什么原因导致的呢？好难处理。一开始的规则设计很重要。
+
+## 2015-06-24
+
+- 一些浏览器，比如Chrome，会在标签页处于非活动状态时降低`setTimeout()/setInterval()/requestAnimationFrame()`的帧率。
 
 
