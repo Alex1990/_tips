@@ -1869,4 +1869,16 @@
 
 - 一些浏览器，比如Chrome，会在标签页处于非活动状态时降低`setTimeout()/setInterval()/requestAnimationFrame()`的帧率。
 
+- 对于比较运算符，常量前置的优点是可以避免将`===`/`==`写成`=`，然后通常不会报错，缺点是需要习惯这种写法，一开始觉得这种写法可读性差。另外可以通过工具检测出这种误写的，此时这种写法不一定好多少。
+
+- IE7/8中命名函数相当于声明一个函数：
+
+  ```js
+  console.log(window.CustomEvent); // function string ...
+  console.log(window.foo); // undefined
+
+  window.CustomEvent = function CustomEvent() {};
+  window.foo = function(){};
+  ```
+
 
