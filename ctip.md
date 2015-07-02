@@ -55,4 +55,29 @@
 
 - 使用GCC编译时，`-ansi`选项可以按照 ISO C 标准来编译。GNU C 兼容 ISO C，并有自己的扩展及宽松的约束。
 
+## 2015-0629
+
+- 使用`free()`释放`struct`变量的内存时，记得释放结构成员为指针变量的内存。
+
+  ```c
+  free(buf->contents);
+  free(buf);
+  ```
+
+- `malloc()` vs `calloc()`：
+
+  - 两者请求的内存大小一样（当然前提是传合适的参数）
+  - `calloc()`会将内存位用0填充，而`malloc()`不会，好比：`calloc()` = `malloc()` + `memset()`。
+  - 性能对比，根据SO上面的说法，有些系统会优化`calloc()`的调用，具体不太了解
+
+  有人这样记忆：The *alloc variants are pretty mnemonic - clear-alloc, memory-alloc, re-alloc.
+
+  参考：http://stackoverflow.com/questions/1538420/difference-between-malloc-and-calloc
+
+- `cd -`表示跳转到上一次路径
+
+## 2015-07-02
+
+- 隐藏控制台/终端的光标：`printf("\e[?25l")`。
+
 
