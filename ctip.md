@@ -51,8 +51,46 @@
 
 - C Library 函数命名含义：这个不是所有都知道，有些直观（比如`math.h`中的函数），有些得搜索下（比如`strpbrk`），有些就暂时查不到（比如`strrch`）。
 
+## 2015-06-18
+
+- 使用GCC编译时，`-ansi`选项可以按照 ISO C 标准来编译。GNU C 兼容 ISO C，并有自己的扩展及宽松的约束。
+
 ## 2015-06-20
 
 - 注意一些概念：整数（integer）、正整数（positive integer）、自然数（natural number）、实数（real number）、小数（decimal）、小数部分（fractional part）、浮点数（floating number）。弄清这些好让写的正则或判断函数名字贴切。
 
 - [vim]替换的分隔符不仅仅可以使用`/`，还可以`!`、`$`等，这可以避免转义。
+
+## 2015-06-29
+
+- 使用`free()`释放`struct`变量的内存时，记得释放结构成员为指针变量的内存。
+
+  ```c
+  free(buf->contents);
+  free(buf);
+  ```
+
+- `malloc()` vs `calloc()`：
+
+  - 两者请求的内存大小一样（当然前提是传合适的参数）
+  - `calloc()`会将内存位用0填充，而`malloc()`不会，好比：`calloc()` = `malloc()` + `memset()`。
+  - 性能对比，根据SO上面的说法，有些系统会优化`calloc()`的调用，具体不太了解
+
+  有人这样记忆：The *alloc variants are pretty mnemonic - clear-alloc, memory-alloc, re-alloc.
+
+  参考：http://stackoverflow.com/questions/1538420/difference-between-malloc-and-calloc
+
+- `cd -`表示跳转到上一次路径
+
+## 2015-07-02
+
+- 隐藏控制台/终端的光标：`printf("\e[?25l")`。
+
+## 2015-07-03
+
+- 同时定义了一个函数和宏，名字都叫`max`，则默认使用宏，有两种方式调用函数定义：
+  - 名字两侧加括号，如`(max)`
+  - 使用`#undef max`
+
+- 使用宏定义函数功能时，注意两个问题：side-effect 和操作符优先级问题，查看实际例子：http://stackoverflow.com/questions/3437404/min-and-max-in-c
+
