@@ -1902,4 +1902,6 @@
   - https://github.com/sindresorhus/file-type
   - https://en.wikipedia.org/wiki/Magic_number_(programming)
 
+- TDI (Tabbed Document Interface) 一个缺点时打开的 Tab 太多时，打开的 Tab 的 Title 会难以查看，另外也难以用鼠标选择。见过多行显示以及 VS/Eclipse 那种隐藏部分Tab的处理方式。
+
 
