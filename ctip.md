@@ -51,3 +51,8 @@
 
 - C Library 函数命名含义：这个不是所有都知道，有些直观（比如`math.h`中的函数），有些得搜索下（比如`strpbrk`），有些就暂时查不到（比如`strrch`）。
 
+## 2015-06-20
+
+- 注意一些概念：整数（integer）、正整数（positive integer）、自然数（natural number）、实数（real number）、小数（decimal）、小数部分（fractional part）、浮点数（floating number）。弄清这些好让写的正则或判断函数名字贴切。
+
+- [vim]替换的分隔符不仅仅可以使用`/`，还可以`!`、`$`等，这可以避免转义。
