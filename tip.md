@@ -1893,4 +1893,13 @@
 
 - 与后端交互时，注意 loading 动画使用与禁止用户重复发送请求，比如用户点击一个按钮之后，在接受到请求响应前：阻止再次点击，按钮状态改变，显示loading状态等。
 
+## 2015-07-10
+
+- 文件类型探测（file type detection）：根据文件的 magic number 判断。前端JS/后端/Linux的`file`命令都可以做到。
+
+  参考：
+
+  - https://github.com/sindresorhus/file-type
+  - https://en.wikipedia.org/wiki/Magic_number_(programming)
+
 
