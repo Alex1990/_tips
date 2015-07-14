@@ -1926,3 +1926,17 @@
 
 - TDI (Tabbed Document Interface) 一个缺点时打开的 Tab 太多时，打开的 Tab 的 Title 会难以查看，另外也难以用鼠标选择。见过多行显示以及 VS/Eclipse 那种隐藏部分Tab的处理方式。
 
+## 2015-07-14
+
+- `$('form').submit(listener)`在 IE6 下不会触发`listener`回调，是因为必须要有`input:submit`元素，可用`$('button#save').click(listener)`替代，还要注意`Enter`的提交动作。
+
+- SVN 获取远程仓库提交记录命令：
+
+  ```bash
+  svn log -v -l 5 --xml --username testuser1 --password testpassword <remote-url>
+  ```
+
+  上面命令获取额外提交记录信息（如更改文件路径），只获取最近5条记录，以 XML 格式输出，`--username`与`--password`参数如果省略，会提示你输入，具体参数含义及其他参数通过`svn help log`或 Google 查看。
+
+
+
