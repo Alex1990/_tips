@@ -1938,5 +1938,32 @@
 
   上面命令获取额外提交记录信息（如更改文件路径），只获取最近5条记录，以 XML 格式输出，`--username`与`--password`参数如果省略，会提示你输入，具体参数含义及其他参数通过`svn help log`或 Google 查看。
 
+## 2015-08-11
+
+- Ubuntu/Sublime Text 3 的 PyV8 模块是 Python3+，Emmet 插件需要，可能会由于墙的问题导致无法安装成功，需要手动下载安装[https://github.com/emmetio/pyv8-binaries](https://github.com/emmetio/pyv8-binaries)，需要注意的是路径应该放到`Installed Packages`下，`Installed Packages > PyV8 > pyv8-linux64-ps`。
+
+- Linux自带的 vim 如果是非GUI版本，通常不支持系统剪贴板，即`vi --version`包含`-clipboard`，可以安装 vim-gnome, vim-athea or vim-gtx，参考：http://vimcasts.org/blog/2013/11/getting-vim-with-clipboard-support/。
+
+## 2015-08-12
+
+- `div`元素默认的`width`为`100%`父容器宽度，`transition`无法使`width`从默认值变化到其他设定的值。
+
+- Chrome Devtools > Sources，每次使用不同的值作为 JS 文件的参数时，加载的是不同的文件，导致必须重新打开，打的断点也没了，所以不能粗暴地使用当前时间戳来刷新静态资源的版本。
+
+## 2015-08-19
+
+- 批量删除：（如果只提供一次点击选择一个的话）没必要选择之后再删除，可以直接点击删除，另外再提供全删除交互。或者，批量选择交互更便捷。
+
+- 页面间共享信息/数据/状态，可通过 Cookie, localStorage，而不要通过 URL
+
+- 配置项的管理：复用，定制等。主要是各种组件都有配置项，有些页面的配置项是相似的。
+
+## 2015-08-27
+
+- `word-wrap`与`word-break`区别：测试数据<td>openapi����������ѯ�б�����������ӿ�Ƶ�ʿ���</td>
+
+### 2015-08-28
+
+- `click`事件是可取消的，即鼠标按下时移开元素范围，就不会触发，而`mousedown`事件按下机触发。
 
 
