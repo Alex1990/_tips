@@ -1966,4 +1966,18 @@
 
 - `click`事件是可取消的，即鼠标按下时移开元素范围，就不会触发，而`mousedown`事件按下机触发。
 
+### 2015-08-31
+
+- 元素`div.overlay`应用下面CSS设置，则它会向四个方向扩展，直到覆盖定位父元素。
+
+  ```css
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  ```
+
 
