@@ -94,3 +94,30 @@
 
 - 使用宏定义函数功能时，注意两个问题：side-effect 和操作符优先级问题，查看实际例子：http://stackoverflow.com/questions/3437404/min-and-max-in-c
 
+## 2015-07-26
+
+- 检测`char *`变量字符是否为 null character：`!*p`或`*p == '\0'`。注意空指针（`NULL`）与空字符（null character）不一样，但两者值相等，都为 0，
+
+- **byte-wise vs character-wise**：按字节处理与按字符处理，前者只能通常处理单字节字符，后者可处理多字节字符。
+
+- 注意字符串字面量（string literals）所占用的内存空间（allocated size）与其字符串长度（length）差 1，就是 terminating null character。
+
+## 2015-08-10
+
+- 创建一个目录并进入：`mkdir foo && cd $_`，`$_`存储最近的一个参数。
+
+  或者
+
+  ```bash
+  #!/bin/sh
+  mkdir $1 && cd $1
+  ```
+
+## 2015-08-12
+
+- 删除一个 symbolic link：`rm symbolic link`
+
+## 2015-09-18
+
+- Mac OSX下默认编译器，为啥不能直接写 -2147483648 原始值呢？提示应该使用`long`类型，而`1 << 31`就不会报错。
+

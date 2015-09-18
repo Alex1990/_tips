@@ -1938,5 +1938,37 @@
 
   上面命令获取额外提交记录信息（如更改文件路径），只获取最近5条记录，以 XML 格式输出，`--username`与`--password`参数如果省略，会提示你输入，具体参数含义及其他参数通过`svn help log`或 Google 查看。
 
+- `float`属性值为非`none`时，会使部分`display`属性的计算值转变为`block`，具体查看：[https://developer.mozilla.org/en-US/docs/Web/CSS/float](https://developer.mozilla.org/en-US/docs/Web/CSS/float)
+
+- 即使为文档根元素（`html`）设置`float: left`，浏览器仍然按照`float: none`来渲染。
+
+## 2015-07-26
+
+- 同一个作用域内，函数声明会覆盖变量声明，而变量声明不会覆盖函数声明：
+
+  ```js
+  var foo;
+  function foo(){};
+  console.log(foo); // function foo()
+  ```
+
+## 2015-08-29
+
+- `link`/`ln`命令的实际文件路径（source_file）用绝对路径
+
+- gem 安装 sass 报错，需要梯子：
+
+  ```bash
+  chaoalex:rubygems-2.4.8$ sudo gem install sass
+  ERROR:  While executing gem ... (Gem::RemoteFetcher::FetchError)
+      Errno::ECONNRESET: Connection reset by peer - SSL_connect (https://api.rubygems.org/quick/Marshal.4.8/sass-3.4.18.gemspec.rz)
+  ```
+
+## 2015-09-13
+
+- `input:radio`与`select`区别：
+
+  - `input:radio`：一次操作完成选择，但占用空间；
+  - `select`：两次操作完成，节省空间，适合选项很多时。
 
 
