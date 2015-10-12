@@ -1938,6 +1938,20 @@
 
   上面命令获取额外提交记录信息（如更改文件路径），只获取最近5条记录，以 XML 格式输出，`--username`与`--password`参数如果省略，会提示你输入，具体参数含义及其他参数通过`svn help log`或 Google 查看。
 
+- `float`属性值为非`none`时，会使部分`display`属性的计算值转变为`block`，具体查看：[https://developer.mozilla.org/en-US/docs/Web/CSS/float](https://developer.mozilla.org/en-US/docs/Web/CSS/float)
+
+- 即使为文档根元素（`html`）设置`float: left`，浏览器仍然按照`float: none`来渲染。
+
+## 2015-07-26
+
+- 同一个作用域内，函数声明会覆盖变量声明，而变量声明不会覆盖函数声明：
+
+  ```js
+  var foo;
+  function foo(){};
+  console.log(foo); // function foo()
+  ```
+
 ## 2015-08-11
 
 - Ubuntu/Sublime Text 3 的 PyV8 模块是 Python3+，Emmet 插件需要，可能会由于墙的问题导致无法安装成功，需要手动下载安装[https://github.com/emmetio/pyv8-binaries](https://github.com/emmetio/pyv8-binaries)，需要注意的是路径应该放到`Installed Packages`下，`Installed Packages > PyV8 > pyv8-linux64-ps`。
@@ -1966,6 +1980,18 @@
 
 - `click`事件是可取消的，即鼠标按下时移开元素范围，就不会触发，而`mousedown`事件按下机触发。
 
+## 2015-08-29
+
+- `link`/`ln`命令的实际文件路径（source_file）用绝对路径
+
+- gem 安装 sass 报错，需要梯子：
+
+  ```bash
+  chaoalex:rubygems-2.4.8$ sudo gem install sass
+  ERROR:  While executing gem ... (Gem::RemoteFetcher::FetchError)
+      Errno::ECONNRESET: Connection reset by peer - SSL_connect (https://api.rubygems.org/quick/Marshal.4.8/sass-3.4.18.gemspec.rz)
+  ```
+
 ## 2015-08-31
 
 - 元素`div.overlay`应用下面CSS设置，则它会向四个方向扩展，直到覆盖定位父元素。
@@ -1983,6 +2009,13 @@
 ## 2015-09-01
 
 - underscore 的`_.template`函数第二个参数从1.7.0开始不再接受一个数据对象，返回值永远是一个函数，原因看：//cdn.bootcss.com/underscore.js/1.8.2/underscore.js。其他注意 changelog，尤其是underscore不支持semver规范。
+
+## 2015-09-13
+
+- `input:radio`与`select`区别：
+
+  - `input:radio`：一次操作完成选择，但占用空间；
+  - `select`：两次操作完成，节省空间，适合选项很多时。
 
 ## 2015-10-08
 
@@ -2047,4 +2080,3 @@
   // 注意前面的点不能少
   $(document).off('.myNamespace');
   ```
-
