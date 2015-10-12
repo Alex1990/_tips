@@ -1980,3 +1980,71 @@
   }
   ```
 
+## 2015-09-01
+
+- underscore 的`_.template`函数第二个参数从1.7.0开始不再接受一个数据对象，返回值永远是一个函数，原因看：//cdn.bootcss.com/underscore.js/1.8.2/underscore.js。其他注意 changelog，尤其是underscore不支持semver规范。
+
+## 2015-10-08
+
+- `z-index`的全局规划，常见需要设定`z-index`属性的组件有：
+
+  - 固定元素：导航栏、侧边栏或其他元素
+  - 弹出层：菜单、弹框、提示框等
+  - 遮罩
+  - 系统组件：`select`, `input:date`等
+
+  可以参考 Material Design。
+
+- Modal 组件在出现时应该获取焦点，比如：点击一个弹出的菜单-->出现Modal，通常菜单组件是在失去焦点时自动关闭，但如果Modal不显示调用`.focus()`方法获取焦点，在菜单组件不会消失。
+
+## 2015-10-09
+
+- 几乎所有使用图标/简写词的位置都加上`title`属性或 tip 组件可以照顾小白用户，或者图标表达不清晰时。
+
+- [svg] `g`与`svg`嵌套时，`svg`的`x`属性与`g`元素的`transform`属性作用顺序
+
+  http://tutorials.jenkov.com/svg/g-element.html#g-drawback
+
+## 2015-10-12
+
+- 数组遍历相关方法[`forEach`/`filter`/`map`等]调用过程中使用`splice`方法删除了某些元素，则会跳过某些元素，比如：
+
+  ```js
+  var arr = [1, 2, 3];
+  arr.forEach(function(value, index) {
+    console.log(value);
+    if (value === 1) arr.splice(index, 1);
+  });
+  // Print:
+  // 1
+  // 3
+  ```
+
+  即跳过了第二个元素
+  ## 2015-10-12
+
+  - 数组遍历相关方法[`forEach`/`filter`/`map`等]调用过程中使用`splice`方法删除了某些元素，则会跳过某些元素，比如：
+
+    ```js
+    var arr = [1, 2, 3];
+    arr.forEach(function(value, index) {
+      console.log(value);
+      if (value === 1) arr.splice(index, 1);
+    });
+    // Print:
+    // 1
+    // 3
+    ```
+
+  即跳过了第二个元素. 另外，在使用 underscore 的`each`方法遍历时，由于其缓存了数组的长度，所以会越界访问
+
+- jQuery event namespace：
+  ```js
+  $(document).on('click.myNamespace', ...);
+  $(document).on('hover.myNamespace', ...);
+
+  // 解邦所有 myNamespace 命名空间下的事件
+  // 注意前面的点不能少
+  $(document).off('.myNamespace');
+  ```
+
