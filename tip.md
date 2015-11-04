@@ -2080,3 +2080,18 @@
   // 注意前面的点不能少
   $(document).off('.myNamespace');
   ```
+
+## 2015-10-20
+
+- 去掉`outline`显然是对可访问性很不好，那自定义一种样式呢？参考：
+
+  - http://tjvantoll.com/2013/01/28/stop-messing-with-the-browsers-default-focus-outline/
+  - https://drafts.csswg.org/mediaqueries-4/#pointer
+
+  默认的样式确实对大部分正常的人来说很难看，最好能区分设置两种样式。
+
+## 2015-11-03
+
+- 表单(form)的提交应该使用`submit`事件，而`<input>`里按`Enter`/`Return`键和点击`input:submit`/`button:submit`的`click`事件都会触发表单提交。另外 Ajax 提交表单还要阻止表单的默认提交`event.preventDefault()`。
+
+
