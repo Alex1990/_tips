@@ -2094,4 +2094,62 @@
 
 - 表单(form)的提交应该使用`submit`事件，而`<input>`里按`Enter`/`Return`键和点击`input:submit`/`button:submit`的`click`事件都会触发表单提交。另外 Ajax 提交表单还要阻止表单的默认提交`event.preventDefault()`。
 
+## 2015-11-06
+
+- 所有的删除操作必须要确认一次吗？另外的处理方式是，增加回收站，或者学习 Gmail 的，5s内可恢复。
+
+- jQuery没有`hover`事件，有`hover()`方法。
+
+## 2015-11-11
+
+- 常用的基础组件有哪些呢？PC端前台项目与后台项目不同，不同行业项目也不同，PC端与移动端也是不同的。目前经验是后台管理项目前端组件如下面列表，另外有些是纯粹的UI增强，非必须的，如 checkbox，当然这些在实际项目还要根据需要写更多其他的。
+
+  - module system
+  - util：类似于 lodash/underscore，但是方法更多
+  - browser：浏览器识别
+  - storage：cookie/localStroage/sessionStorage
+  - template
+  - history
+  - router
+  - animation
+  - Dropdown
+  - Tab
+  - Slide
+  - Modal
+  - Position
+  - Popup
+  - Popover
+  - Tooltip
+  - Popconfirm
+  - Alert
+  - Loading
+  - Message
+  - Collapse
+  - Affix
+  - Validate
+  - Autocomplete
+  - Datetimepicker
+  - Checkbox/Radio/Select
+  - Switch
+  - Progress
+  - Tag
+  - Pagination
+  - Batch check
+  - File uploader
+  - Image Crop
+  - Drag and drop
+  - Input clear button
+  - clipboard
+  - DataTable
+  - Chart
+  - Editor
+  - ImageBox
+  - Tree
+
+- Git 回滚操作:
+
+  比如 Master 的记录为：A->B->C->D->E，还有其他分支，采用 Gitflow 方式开发
+
+  - 从 E 回到 B，如何操作
+  - 取消 B，C 两次 Commit 的改动
 
