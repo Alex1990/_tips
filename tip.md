@@ -2153,3 +2153,110 @@
   - 从 E 回到 B，如何操作
   - 取消 B，C 两次 Commit 的改动
 
+## 2015-11-12
+
+- `getter`/`setter` style：
+
+  **合并为一**
+
+  ```
+  foo(); // getter
+  foo(10); // setter
+  ```
+
+  ** 两个独立函数**
+
+  ```
+  getFoo(); // getter
+  setFoo(10); // setter
+  ```
+
+  合并为一个写起来简单，两个独立的读起来直观，但是明白不传递值时为`getter`，传递值时为`setter`读起来并非不直观，或许这只是一种风格，一种与语言相关的风格。
+
+  参考：http://stackoverflow.com/questions/1610029/getters-and-setters-style
+
+## 2015-11-13
+
+- 文本或 URL 太长截断问题：
+
+  ```
+  .dont-break-out {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens;
+    hyphens: auto;
+  }
+  .ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  ```
+
+  参考：[https://css-tricks.com/snippets/css/prevent-long-urls-from-breaking-out-of-container/](https://css-tricks.com/snippets/css/prevent-long-urls-from-breaking-out-of-container/)
+
+## 2015-11-25
+
+- `let` vs `var`：在 ES2015 的新代码中使用`let`替换`var`，旧代码不能盲目替换，当然应该很少人去这样做，一篇相关文章：[For and against `let`](https://davidwalsh.name/for-and-against-let)，说实话，文章错误不能替换的原因个人不太认同。
+
+- `JSON.parse()`不能解析空白字符串，如`""`/`"\n"`，而使用`fs.readFile()`读取空文件时，字符串形式数据为`""`（该空文件通过`touch`命令创建）。
+
+## 2015-11-27
+
+- 直接使用`str.trim()`方法的缺点就是，假如`str`不是字符串时会报错。
+
+- 通过 POST/PUT 传递到后端的数据，全部用字符串类型，后端也应该这样假设。
+
+## 2015-12-01
+
+- 服务端搜索还是浏览器端搜索？被搜索的数据是否会改变？如果会改变，数据一致性要求高吗？如果高则必须采用服务端搜索。
+
+- 不会保持模块细颗粒度，抽象能力太弱，导致业务代码倾向冗余或者难于复用。比如做了一个功能A，后来又有需要做一个功能B，B与A有些相似性，但由于A功能的代码难于复用，导致功能B又要做些相同的事情，当然时间成本不一定增加很多，因为可以复制代码。后来，想要精简代码，就需要重构了，这个时候成本就增加了。
+
+## 2015-12-02
+
+- JSON VS JavaScript：JSON 不是 JavaScript 的子集，有效的 JSON 请参考 JSON 规范，比如`{'a': 2}`不是有效的 JSON，应该使用双引号，比如需要转义的特殊字符只能是：`"`, `\\`(反斜杠，此处两个为了 Markdown 显示）, `/`, `b`, `f`, `n`, `r`, `t`, `uxxxx`，即反斜杠`\\`后面不能跟其他字符。
+
+## 2015-12-11
+
+- `Function.prototype.bind`返回值是一个**bound function**，这个函数再次调用`bind`，其`this`不会被覆盖，但是每次传递的参数会改变。
+
+- 函数属于引用类型：
+
+  ```js
+  var obj1 = {
+    foo: function() {
+      console.log(this.value);
+    }
+  };
+  var obj2 = obj1;
+  var obj3 = {};
+  obj3.foo = obj1.foo;
+
+  obj1.foo = obj1.foo.bind({ value: 1 });
+  obj2.foo = obj2.foo.bind({ value: 2 });
+  obj3.foo = obj3.foo.bind({ value: 3 });
+
+  console.log(obj1.foo()); // 1
+  console.log(obj2.foo()); // 1
+  console.log(obj3.foo()); // 3
+  ```
+
+## 2015-12-14
+
+- Webpack 有时在文件改动后不重新编译，是 watch 的问题，解决方法：https://webpack.github.io/docs/troubleshooting.html。
+
+## 2015-12-15
+
+- URL Query <=> Form => Table：
+
+  - 根据 URL 查询条件决定表单元素的值，决定表格显示的数据
+  - 根据表单元素的值决定 URL 查询条件，决定表格显示的数据
+
