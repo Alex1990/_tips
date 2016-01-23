@@ -2006,12 +2006,64 @@
   }
   ```
 
+## 2015-09-01
+
+- underscore 的`_.template`函数第二个参数从1.7.0开始不再接受一个数据对象，返回值永远是一个函数，原因看：//cdn.bootcss.com/underscore.js/1.8.2/underscore.js。其他注意 changelog，尤其是underscore不支持semver规范。
+
 ## 2015-09-13
 
 - `input:radio`与`select`区别：
 
   - `input:radio`：一次操作完成选择，但占用空间；
   - `select`：两次操作完成，节省空间，适合选项很多时。
+
+## 2015-10-08
+
+- `z-index`的全局规划，常见需要设定`z-index`属性的组件有：
+
+  - 固定元素：导航栏、侧边栏或其他元素
+  - 弹出层：菜单、弹框、提示框等
+  - 遮罩
+  - 系统组件：`select`, `input:date`等
+
+  可以参考 Material Design。
+
+- Modal 组件在出现时应该获取焦点，比如：点击一个弹出的菜单-->出现Modal，通常菜单组件是在失去焦点时自动关闭，但如果Modal不显示调用`.focus()`方法获取焦点，在菜单组件不会消失。
+
+## 2015-10-09
+
+- 几乎所有使用图标/简写词的位置都加上`title`属性或 tip 组件可以照顾小白用户，或者图标表达不清晰时。
+
+- [svg] `g`与`svg`嵌套时，`svg`的`x`属性与`g`元素的`transform`属性作用顺序
+
+  http://tutorials.jenkov.com/svg/g-element.html#g-drawback
+
+## 2015-10-12
+
+- 数组遍历相关方法[`forEach`/`filter`/`map`等]调用过程中使用`splice`方法删除了某些元素，则会跳过某些元素，比如：
+
+  ```js
+  var arr = [1, 2, 3];
+  arr.forEach(function(value, index) {
+    console.log(value);
+    if (value === 1) arr.splice(index, 1);
+  });
+  // Print:
+  // 1
+  // 3
+  ```
+
+  即跳过了第二个元素. 另外，在使用 underscore 的`each`方法遍历时，由于其缓存了数组的长度，所以会越界访问
+
+- jQuery event namespace：
+  ```js
+  $(document).on('click.myNamespace', ...);
+  $(document).on('hover.myNamespace', ...);
+
+  // 解邦所有 myNamespace 命名空间下的事件
+  // 注意前面的点不能少
+  $(document).off('.myNamespace');
+  ```
 
 ## 2015-10-18
 
@@ -2032,6 +2084,149 @@
   fatal: Could not read from remote repository.
   ```
 
+## 2015-10-20
+
+- 去掉`outline`显然是对可访问性很不好，那自定义一种样式呢？参考：
+
+  - http://tjvantoll.com/2013/01/28/stop-messing-with-the-browsers-default-focus-outline/
+  - https://drafts.csswg.org/mediaqueries-4/#pointer
+
+  默认的样式确实对大部分正常的人来说很难看，最好能区分设置两种样式。
+
+## 2015-11-03
+
+- 表单(form)的提交应该使用`submit`事件，而`<input>`里按`Enter`/`Return`键和点击`input:submit`/`button:submit`的`click`事件都会触发表单提交。另外 Ajax 提交表单还要阻止表单的默认提交`event.preventDefault()`。
+
+## 2015-11-06
+
+- 所有的删除操作必须要确认一次吗？另外的处理方式是，增加回收站，或者学习 Gmail 的，5s内可恢复。
+
+- jQuery没有`hover`事件，有`hover()`方法。
+
+## 2015-11-11
+
+- 常用的基础组件有哪些呢？PC端前台项目与后台项目不同，不同行业项目也不同，PC端与移动端也是不同的。目前经验是后台管理项目前端组件如下面列表，另外有些是纯粹的UI增强，非必须的，如 checkbox，当然这些在实际项目还要根据需要写更多其他的。
+
+  - module system
+  - util：类似于 lodash/underscore，但是方法更多
+  - browser：浏览器识别
+  - storage：cookie/localStroage/sessionStorage
+  - template
+  - history
+  - router
+  - animation
+  - Dropdown
+  - Tab
+  - Slide
+  - Modal
+  - Position
+  - Popup
+  - Popover
+  - Tooltip
+  - Popconfirm
+  - Alert
+  - Loading
+  - Message
+  - Collapse
+  - Affix
+  - Validate
+  - Autocomplete
+  - Datetimepicker
+  - Checkbox/Radio/Select
+  - Switch
+  - Progress
+  - Tag
+  - Pagination
+  - Batch check
+  - File uploader
+  - Image Crop
+  - Drag and drop
+  - Input clear button
+  - clipboard
+  - DataTable
+  - Chart
+  - Editor
+  - ImageBox
+  - Tree
+
+- Git 回滚操作:
+
+  比如 Master 的记录为：A->B->C->D->E，还有其他分支，采用 Gitflow 方式开发
+
+  - 从 E 回到 B，如何操作
+  - 取消 B，C 两次 Commit 的改动
+
+## 2015-11-12
+
+- `getter`/`setter` style：
+
+  **合并为一**
+
+  ```
+  foo(); // getter
+  foo(10); // setter
+  ```
+
+  ** 两个独立函数**
+
+  ```
+  getFoo(); // getter
+  setFoo(10); // setter
+  ```
+
+  合并为一个写起来简单，两个独立的读起来直观，但是明白不传递值时为`getter`，传递值时为`setter`读起来并非不直观，或许这只是一种风格，一种与语言相关的风格。
+
+  参考：http://stackoverflow.com/questions/1610029/getters-and-setters-style
+
+## 2015-11-13
+
+- 文本或 URL 太长截断问题：
+
+  ```
+  .dont-break-out {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens;
+    hyphens: auto;
+  }
+  .ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  ```
+
+  参考：[https://css-tricks.com/snippets/css/prevent-long-urls-from-breaking-out-of-container/](https://css-tricks.com/snippets/css/prevent-long-urls-from-breaking-out-of-container/)
+
+## 2015-11-25
+
+- `let` vs `var`：在 ES2015 的新代码中使用`let`替换`var`，旧代码不能盲目替换，当然应该很少人去这样做，一篇相关文章：[For and against `let`](https://davidwalsh.name/for-and-against-let)，说实话，文章错误不能替换的原因个人不太认同。
+
+- `JSON.parse()`不能解析空白字符串，如`""`/`"\n"`，而使用`fs.readFile()`读取空文件时，字符串形式数据为`""`（该空文件通过`touch`命令创建）。
+
+## 2015-11-27
+
+- 直接使用`str.trim()`方法的缺点就是，假如`str`不是字符串时会报错。
+
+- 通过 POST/PUT 传递到后端的数据，全部用字符串类型，后端也应该这样假设。
+
+## 2015-12-01
+
+- 服务端搜索还是浏览器端搜索？被搜索的数据是否会改变？如果会改变，数据一致性要求高吗？如果高则必须采用服务端搜索。
+
+- 不会保持模块细颗粒度，抽象能力太弱，导致业务代码倾向冗余或者难于复用。比如做了一个功能A，后来又有需要做一个功能B，B与A有些相似性，但由于A功能的代码难于复用，导致功能B又要做些相同的事情，当然时间成本不一定增加很多，因为可以复制代码。后来，想要精简代码，就需要重构了，这个时候成本就增加了。
+
+## 2015-12-02
+
+- JSON VS JavaScript：JSON 不是 JavaScript 的子集，有效的 JSON 请参考 JSON 规范，比如`{'a': 2}`不是有效的 JSON，应该使用双引号，比如需要转义的特殊字符只能是：`"`, `\\`(反斜杠，此处两个为了 Markdown 显示）, `/`, `b`, `f`, `n`, `r`, `t`, `uxxxx`，即反斜杠`\\`后面不能跟其他字符。
+
 ## 2015-12-03
 
 - mongoosejs model 查询方法的 API 设计：
@@ -2042,10 +2237,61 @@
 
   另外，没有传入回调函数时，该函数也可以返回查询操作结果，也是一种接口方式。
 
+## 2015-12-11
+
+- `Function.prototype.bind`返回值是一个**bound function**，这个函数再次调用`bind`，其`this`不会被覆盖，但是每次传递的参数会改变。
+
+- 函数属于引用类型：
+
+  ```js
+  var obj1 = {
+    foo: function() {
+      console.log(this.value);
+    }
+  };
+  var obj2 = obj1;
+  var obj3 = {};
+  obj3.foo = obj1.foo;
+
+  obj1.foo = obj1.foo.bind({ value: 1 });
+  obj2.foo = obj2.foo.bind({ value: 2 });
+  obj3.foo = obj3.foo.bind({ value: 3 });
+
+  console.log(obj1.foo()); // 1
+  console.log(obj2.foo()); // 1
+  console.log(obj3.foo()); // 3
+  ```
+
+## 2015-12-14
+
+- Webpack 有时在文件改动后不重新编译，是 watch 的问题，解决方法：https://webpack.github.io/docs/troubleshooting.html。
+
+## 2015-12-15
+
+- URL Query <=> Form => Table：
+
+  - 根据 URL 查询条件决定表单元素的值，决定表格显示的数据
+  - 根据表单元素的值决定 URL 查询条件，决定表格显示的数据
+
+- 不要使用语言保留字作为属性，作为数据的 key（针对后端返回数据），IE8里面不支持 JS 保留字作为对象属性时，用`.`访问。
+
+## 2015-12-25
+
+- 一个比较复杂的项目可以有一个常用变量表，有些变量必须用很长的单词组合才能表达出其代表的含义，而取首字母或前几个字母的缩写方式不太直观，所以有个这种表还是有用的。
+
+- 使用`localStorage`或`sessionStorage`时改变了某个 key 的数据结构，则用户刷新到更新版本时可能产生报错，可以弄个只清理一次本地存储的方法。
+
+## 2016-01-05
+
+- 已经多次测试 Ajax 请求时忘记删除测试代码：
+  - 比如直接给请求返回结果赋值一些测试数据
+  - 比如提交数据时，提交测试数据
+
+  这种方法有问题
+
 ## 2016-01-09
 
 - Reload .vimrc file without restarting vim?
 
   `:so %` or `:so $MYVIMRC`
-
 
