@@ -2013,3 +2013,39 @@
   - `input:radio`：一次操作完成选择，但占用空间；
   - `select`：两次操作完成，节省空间，适合选项很多时。
 
+## 2015-10-18
+
+- git clone github.com 上面的 repository 报下面错误，打开VPN或配置git 的代理：
+
+  ```
+  chaoalex:node$ git clone https://github.com/gruntjs/gruntjs.com.git
+  Cloning into 'gruntjs.com'...
+  fatal: unable to access 'https://github.com/gruntjs/gruntjs.com.git/': Could not resolve host: github.com
+  ```
+
+  或
+
+  ```
+  chaoalex:node$ git clone git@github.com:gruntjs/gruntjs.com.git
+  Cloning into 'gruntjs.com'...
+  ssh: Could not resolve hostname github.com: nodename nor servname provided, or not known
+  fatal: Could not read from remote repository.
+  ```
+
+## 2015-12-03
+
+- mongoosejs model 查询方法的 API 设计：
+
+  当一个`calbback`函数：
+  - 传入时，会立即执行查询操作，结果会传给回调函数。
+  - 没有被传入时，返回一个`Query`的实例，该查询可以执行，`Query`可以混合 promise 接口。
+
+  另外，没有传入回调函数时，该函数也可以返回查询操作结果，也是一种接口方式。
+
+## 2016-01-09
+
+- Reload .vimrc file without restarting vim?
+
+  `:so %` or `:so $MYVIMRC`
+
+
