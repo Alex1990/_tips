@@ -121,3 +121,53 @@
 
 - Mac OSX下默认编译器，为啥不能直接写 -2147483648 原始值呢？提示应该使用`long`类型，而`1 << 31`就不会报错。
 
+## 2015-09-22
+
+- `void *`是一个指针，可以为任一类型，但是不可以使用间接引用操作符`*`获取指针所指向的值，必须先转成相应类型的指针，假如有`void *lh`，`lh`为`int`类型：
+
+  ```c
+  int *a = lh;
+  int b = *(int*) lh;
+  printf("%d\n", *(int*) lh);
+  ```
+
+## 2015-10-14
+
+- 假设有下面定义，则`malloc(sizeof(PtrToNode))`分配一个指针变量的内存空间，`malloc(sizeof(struct Node))`才会分配一个 Node 单元的空间。
+
+  ```c
+  struct Node;
+  typedef struct Node *PtrToNode;
+  typedef PtrToNode Position;
+  struct Node {
+    ElementType Element;
+    Position Next;
+  }
+  ```
+
+## 2015-10-21
+
+- Mac OSX 和 Ubuntu 14.04 里面不存在`syscalls.h`，可使用`unistd.h`，但是`BUFSIZ`不知道在哪里有定义。
+
+## 2015-12-27
+
+- 如何快速查看 Bash 手册页的 `read` 描述？
+
+  ```bash
+  help read
+  help -m read # man page like
+  help -m read | less
+  ```
+
+  可以将 Bash 手册打印成 pdf 或其他格式，然后方便参考。
+
+  Ref: http://unix.stackexchange.com/questions/96095/reading-and-searching-long-man-pages
+
+## 2016-01-24
+
+- `malloc`返回值是否需要强制类型转换？
+
+  **不需要**，首先，`malloc`返回值类型是`void *`，该类型可赋值给其他类型指针；其次， C 和 C++ 是两种语言，不需要相互兼容；还要，不需要写冗余的代码。
+
+  参考：http://stackoverflow.com/questions/605845/do-i-cast-the-result-of-malloc。
+
