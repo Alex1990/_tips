@@ -2053,22 +2053,6 @@
   // 3
   ```
 
-  即跳过了第二个元素
-  ## 2015-10-12
-
-  - 数组遍历相关方法[`forEach`/`filter`/`map`等]调用过程中使用`splice`方法删除了某些元素，则会跳过某些元素，比如：
-
-    ```js
-    var arr = [1, 2, 3];
-    arr.forEach(function(value, index) {
-      console.log(value);
-      if (value === 1) arr.splice(index, 1);
-    });
-    // Print:
-    // 1
-    // 3
-    ```
-
   即跳过了第二个元素. 另外，在使用 underscore 的`each`方法遍历时，由于其缓存了数组的长度，所以会越界访问
 
 - jQuery event namespace：
@@ -2079,6 +2063,25 @@
   // 解邦所有 myNamespace 命名空间下的事件
   // 注意前面的点不能少
   $(document).off('.myNamespace');
+  ```
+
+## 2015-10-18
+
+- git clone github.com 上面的 repository 报下面错误，打开VPN或配置git 的代理：
+
+  ```
+  chaoalex:node$ git clone https://github.com/gruntjs/gruntjs.com.git
+  Cloning into 'gruntjs.com'...
+  fatal: unable to access 'https://github.com/gruntjs/gruntjs.com.git/': Could not resolve host: github.com
+  ```
+
+  或
+
+  ```
+  chaoalex:node$ git clone git@github.com:gruntjs/gruntjs.com.git
+  Cloning into 'gruntjs.com'...
+  ssh: Could not resolve hostname github.com: nodename nor servname provided, or not known
+  fatal: Could not read from remote repository.
   ```
 
 ## 2015-10-20
@@ -2224,6 +2227,16 @@
 
 - JSON VS JavaScript：JSON 不是 JavaScript 的子集，有效的 JSON 请参考 JSON 规范，比如`{'a': 2}`不是有效的 JSON，应该使用双引号，比如需要转义的特殊字符只能是：`"`, `\\`(反斜杠，此处两个为了 Markdown 显示）, `/`, `b`, `f`, `n`, `r`, `t`, `uxxxx`，即反斜杠`\\`后面不能跟其他字符。
 
+## 2015-12-03
+
+- mongoosejs model 查询方法的 API 设计：
+
+  当一个`calbback`函数：
+  - 传入时，会立即执行查询操作，结果会传给回调函数。
+  - 没有被传入时，返回一个`Query`的实例，该查询可以执行，`Query`可以混合 promise 接口。
+
+  另外，没有传入回调函数时，该函数也可以返回查询操作结果，也是一种接口方式。
+
 ## 2015-12-11
 
 - `Function.prototype.bind`返回值是一个**bound function**，这个函数再次调用`bind`，其`this`不会被覆盖，但是每次传递的参数会改变。
@@ -2276,6 +2289,11 @@
 
   这种方法有问题
 
+
+- Reload .vimrc file without restarting vim?
+
+  `:so %` or `:so $MYVIMRC`
+
 ## 2016-01-11
 
 - Babel 目前不支持`Object.assign`，还不支持其他一些 ES6，可以查看 Babel 主页看支持哪些特性，可参考 kangax 的兼容性表格。
@@ -2291,5 +2309,4 @@
   ```
 
   debug 模块的所有功能只在线下环境有效，至于如何区分线上线下，可通过域名，或查询参数。
-
 
