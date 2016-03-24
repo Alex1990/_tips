@@ -2322,4 +2322,71 @@
 
 - 在实际项目中自己写一个组件，由于经验（无论应用还是设计，尤其是没有可参考对象时）不足，结果各方面设计的都很不好，比如命名不好、扩展性不好等等，如果升级的话难于与前面的版本兼容，兼容会使代码很糟糕，以后更难维护，这些情况该怎么管理呢。
 
+- OSX 文件系统不区分文件大小写，所以永远避免仅仅大小写不同的文件命名。
+
+## 2016-02-26
+
+- 越是基础，应用于很多个业务模块的模块，越应该提早设计好。
+
+
+## 2016-03-22
+
+- Git 在文件结构改变时分支操作注意顺序，比如：
+
+  **branch-a**分支下有`/client/images/logo.png`文件，而**branch-b**分支已经改成了`/images/logo.png`路径，然后分支**develop**先合并**branch-b**，然后应该先在分支**branch-a**下执行`git rebase develop`，再在分支**develop**下合并**branch-a**。
+
+## 2016-03-24
+
+- 通过 shelljs 的`exec`方法或 Node 的`child_process.exec`方法执行一个 Bash 脚本，Bash 脚本中执行 npm scripts，结果报错如下：
+
+  ```
+  npm ERR! Linux 2.6.32-431.el6.x86_64
+  npm ERR! argv "/usr/bin/node" "/usr/bin/npm" "run" "build"
+  npm ERR! node v5.7.1
+  npm ERR! npm  v3.6.0
+  npm ERR! file sh
+  npm ERR! path sh
+  npm ERR! code ELIFECYCLE
+  npm ERR! errno ENOENT
+  npm ERR! syscall spawn sh
+  npm ERR! odin-ui@1.0.0 build: `gulp build`
+  npm ERR! spawn sh ENOENT
+  npm ERR! 
+  npm ERR! Failed at the odin-ui@1.0.0 build script 'gulp build'.
+  npm ERR! Make sure you have the latest version of node.js and npm installed.
+  npm ERR! If you do, this is most likely a problem with the odin-ui package,
+  npm ERR! not with npm itself.
+  npm ERR! Tell the author that this fails on your system:
+  npm ERR!     gulp build
+  npm ERR! You can get information on how to open an issue for this project with:
+  npm ERR!     npm bugs odin-ui
+  npm ERR! Or if that isn't available, you can get their info via:
+  npm ERR!     npm owner ls odin-ui
+  npm ERR! There is likely additional logging output above.
+  npm ERR! Linux 2.6.32-431.el6.x86_64
+  npm ERR! argv "/usr/bin/node" "/usr/bin/npm" "run" "build"
+  npm ERR! node v5.7.1
+  npm ERR! npm  v3.6.0
+  npm ERR! code ELIFECYCLE
+
+  npm ERR! odin-ui@1.0.0 build: `gulp build`
+  npm ERR! Exit status -2
+  npm ERR! 
+  npm ERR! Failed at the odin-ui@1.0.0 build script 'gulp build'.
+  npm ERR! Make sure you have the latest version of node.js and npm installed.
+  npm ERR! If you do, this is most likely a problem with the odin-ui package,
+  npm ERR! not with npm itself.
+  npm ERR! Tell the author that this fails on your system:
+  npm ERR!     gulp build
+  npm ERR! You can get information on how to open an issue for this project with:
+  npm ERR!     npm bugs odin-ui
+  npm ERR! Or if that isn't available, you can get their info via:
+  npm ERR!     npm owner ls odin-ui
+  npm ERR! There is likely additional logging output above.
+
+  npm ERR! Please include the following file with any support request:
+  npm ERR!     /root/odin-ui/npm-debug.log
+  ```
+
+  最后发现使用`exec`方法时需要传入的`env.PATH`中加上`[package_root]/node_modules/.bin`路径。
 
