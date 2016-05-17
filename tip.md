@@ -2390,3 +2390,49 @@
 
   最后发现使用`exec`方法时需要传入的`env.PATH`中加上`[package_root]/node_modules/.bin`路径。
 
+## 2016-03-31
+
+- Git commit 是一个 Snapshot 的 hash 字符串，branch 是一个可移动的指针，指向 commit，当前分支 HEAD 所引用分支。
+
+## 2016-04-07
+
+- 为什么 Grunt 与 Gulp 不再流行？Webpack 相比他们有什么优势呢？感觉 Webpack 只是功能变得更强大了，并没有解决 Grunt/Gulp 存在的问题。插件生态问题，学习成本。
+
+## 2016-04-12
+
+- [Git] 假如有两个分支`dev`和`feature`，其中`dev`分支合并了`feature`分支后有合并了其他几个 Commit，`feature`之前开发是`git rebase dev`的。后来需要从`dev`去除`feature`分支引入的改动，采用了`git revert`命令，然后接着开发`feature`时，无论是执行`git rebase dev`还是`git merge dev`分支，都会因为之前在`dev`分支执行过`git revert`导致删除之前开发的代码。此时可以再 Revert Revert。
+
+## 2016-04-14
+
+- 一个`textarea`添加对`Enter`/`Return`快捷键事件时小心，仍然会插入一个换行符，如果调用`event.preventDefault()`则不能正常换行，此时可使用快捷键`Shift + Enter/Return`并阻止默认事件动作。
+
+## 2016-04-28
+
+- 一个请求的完整过程，从发出到接受到响应，有助于调试，包括经过多层代理，包括代理对不同类型链接的影响，还有浏览器缓存、操作系统 DNS 缓存、hosts 文件、杀毒软件等各种影响。调试的时候要跟着请求的过程来一步一步调试。
+
+- git 流程优化：下面的操作很频繁，可以组合为一个命令
+
+  ```shell
+  # Current branch idc-network
+  # After change
+
+  git add -A && git commit -m "Update 1"
+
+  git checkout sandbox
+
+  # Current branch sandbox
+
+  git merge idc-network
+  git push origin master
+  ```
+
+## 2016-04-29
+
+- 接口 API 设计时考虑到返回多条数据的接口，尽量减少前端与后端的请求数。
+
+- 组件的可扩展不是随便暴露个方法就完事了，要考虑如何快捷便利地扩展。
+
+## 2016-05-17
+
+- 常见的 jQuery 组件的回调或参数值为函数时，函数的`this`最好统一为组件的实例对象。
+
