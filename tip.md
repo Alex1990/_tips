@@ -2295,3 +2295,18 @@
 
   `:so %` or `:so $MYVIMRC`
 
+## 2016-02-02
+
+- `background-position`：CSS3 扩展了其值，支持 0~4 个值，详见 [https://drafts.csswg.org/css-backgrounds-3/#the-background-position](https://drafts.csswg.org/css-backgrounds-3/#the-background-position)。
+
+## 2016-02-14
+
+- Bootstrap v4-dev 的`_buttons.scss`为什么使用`.btn:active:focus`，是否多余？
+
+## 2016-05-25
+
+- NodeJS 中`__dirname`与`process.cwd()`区别：
+
+  - `__dirname`：文件所在目录
+  - `process.cwd()`：代码执行时的当前工作目录
+
