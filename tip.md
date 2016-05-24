@@ -2289,19 +2289,174 @@
 
   这种方法有问题
 
-## 2016-01-09
 
 - Reload .vimrc file without restarting vim?
 
   `:so %` or `:so $MYVIMRC`
 
+## 2016-01-11
+
+- Babel 目前不支持`Object.assign`，还不支持其他一些 ES6，可以查看 Babel 主页看支持哪些特性，可参考 kangax 的兼容性表格。
+
+  对于如何支持`Object.assign`的问题，可使用 jQuery/object-assign/lodash/core-js 等解决方案。
+
+## 2016-01-22
+
+- 调试用赋值工具，比如 Ajax 返回的数据，有时服务端没有数据，此时希望测试有数据时的样子，为了简便直接使用构造的数据（赋值给了 Ajax 成功回调数据），如果忘记删除，就可能上线了。如下工具解决：
+
+  ```js
+  debug.assign(res.data, [{ name: 'foo' }, { name: 'bar' }]);
+  ```
+
+  debug 模块的所有功能只在线下环境有效，至于如何区分线上线下，可通过域名，或查询参数。
+
 ## 2016-02-02
+
+- Modal 内容为表单，打开时自动获取焦点（`autofocus`），但是输入框有内容时，光标在内容最开头，这可能不是想要的，期望效果是内容末尾或选中内容。
 
 - `background-position`：CSS3 扩展了其值，支持 0~4 个值，详见 [https://drafts.csswg.org/css-backgrounds-3/#the-background-position](https://drafts.csswg.org/css-backgrounds-3/#the-background-position)。
 
 ## 2016-02-14
 
 - Bootstrap v4-dev 的`_buttons.scss`为什么使用`.btn:active:focus`，是否多余？
+
+## 2016-02-15
+
+- Mac OSX 平台下，不设置环境变量`EDITOR`时，默认编辑器为`vi`，其使用自己的`~/.vimrc`配置导致`exit code`为 1，这样`git commit`或`crontab -e`命令总是无法正常使用，可以在`.bash_profile`文件中设置`export EDITOR=/usr/bin/vim`解决。
+
+## 2016-02-17
+
+- 在实际项目中自己写一个组件，由于经验（无论应用还是设计，尤其是没有可参考对象时）不足，结果各方面设计的都很不好，比如命名不好、扩展性不好等等，如果升级的话难于与前面的版本兼容，兼容会使代码很糟糕，以后更难维护，这些情况该怎么管理呢。
+
+- OSX 文件系统不区分文件大小写，所以永远避免仅仅大小写不同的文件命名。
+
+## 2016-02-26
+
+- 越是基础，应用于很多个业务模块的模块，越应该提早设计好。
+
+
+## 2016-03-22
+
+- Git 在文件结构改变时分支操作注意顺序，比如：
+
+  **branch-a**分支下有`/client/images/logo.png`文件，而**branch-b**分支已经改成了`/images/logo.png`路径，然后分支**develop**先合并**branch-b**，然后应该先在分支**branch-a**下执行`git rebase develop`，再在分支**develop**下合并**branch-a**。
+
+## 2016-03-24
+
+- 通过 shelljs 的`exec`方法或 Node 的`child_process.exec`方法执行一个 Bash 脚本，Bash 脚本中执行 npm scripts，结果报错如下：
+
+  ```
+  npm ERR! Linux 2.6.32-431.el6.x86_64
+  npm ERR! argv "/usr/bin/node" "/usr/bin/npm" "run" "build"
+  npm ERR! node v5.7.1
+  npm ERR! npm  v3.6.0
+  npm ERR! file sh
+  npm ERR! path sh
+  npm ERR! code ELIFECYCLE
+  npm ERR! errno ENOENT
+  npm ERR! syscall spawn sh
+  npm ERR! odin-ui@1.0.0 build: `gulp build`
+  npm ERR! spawn sh ENOENT
+  npm ERR! 
+  npm ERR! Failed at the odin-ui@1.0.0 build script 'gulp build'.
+  npm ERR! Make sure you have the latest version of node.js and npm installed.
+  npm ERR! If you do, this is most likely a problem with the odin-ui package,
+  npm ERR! not with npm itself.
+  npm ERR! Tell the author that this fails on your system:
+  npm ERR!     gulp build
+  npm ERR! You can get information on how to open an issue for this project with:
+  npm ERR!     npm bugs odin-ui
+  npm ERR! Or if that isn't available, you can get their info via:
+  npm ERR!     npm owner ls odin-ui
+  npm ERR! There is likely additional logging output above.
+  npm ERR! Linux 2.6.32-431.el6.x86_64
+  npm ERR! argv "/usr/bin/node" "/usr/bin/npm" "run" "build"
+  npm ERR! node v5.7.1
+  npm ERR! npm  v3.6.0
+  npm ERR! code ELIFECYCLE
+
+  npm ERR! odin-ui@1.0.0 build: `gulp build`
+  npm ERR! Exit status -2
+  npm ERR! 
+  npm ERR! Failed at the odin-ui@1.0.0 build script 'gulp build'.
+  npm ERR! Make sure you have the latest version of node.js and npm installed.
+  npm ERR! If you do, this is most likely a problem with the odin-ui package,
+  npm ERR! not with npm itself.
+  npm ERR! Tell the author that this fails on your system:
+  npm ERR!     gulp build
+  npm ERR! You can get information on how to open an issue for this project with:
+  npm ERR!     npm bugs odin-ui
+  npm ERR! Or if that isn't available, you can get their info via:
+  npm ERR!     npm owner ls odin-ui
+  npm ERR! There is likely additional logging output above.
+
+  npm ERR! Please include the following file with any support request:
+  npm ERR!     /root/odin-ui/npm-debug.log
+  ```
+
+  最后发现使用`exec`方法时需要传入的`env.PATH`中加上`[package_root]/node_modules/.bin`路径。
+
+## 2016-03-31
+
+- Git commit 是一个 Snapshot 的 hash 字符串，branch 是一个可移动的指针，指向 commit，当前分支 HEAD 所引用分支。
+
+## 2016-04-07
+
+- 为什么 Grunt 与 Gulp 不再流行？Webpack 相比他们有什么优势呢？感觉 Webpack 只是功能变得更强大了，并没有解决 Grunt/Gulp 存在的问题。插件生态问题，学习成本。
+
+## 2016-04-12
+
+- [Git] 假如有两个分支`dev`和`feature`，其中`dev`分支合并了`feature`分支后有合并了其他几个 Commit，`feature`之前开发是`git rebase dev`的。后来需要从`dev`去除`feature`分支引入的改动，采用了`git revert`命令，然后接着开发`feature`时，无论是执行`git rebase dev`还是`git merge dev`分支，都会因为之前在`dev`分支执行过`git revert`导致删除之前开发的代码。此时可以再 Revert Revert。
+
+## 2016-04-14
+
+- 一个`textarea`添加对`Enter`/`Return`快捷键事件时小心，仍然会插入一个换行符，如果调用`event.preventDefault()`则不能正常换行，此时可使用快捷键`Shift + Enter/Return`并阻止默认事件动作。
+
+## 2016-04-28
+
+- 一个请求的完整过程，从发出到接受到响应，有助于调试，包括经过多层代理，包括代理对不同类型链接的影响，还有浏览器缓存、操作系统 DNS 缓存、hosts 文件、杀毒软件等各种影响。调试的时候要跟着请求的过程来一步一步调试。
+
+- git 流程优化：下面的操作很频繁，可以组合为一个命令
+
+  ```shell
+  # Current branch idc-network
+  # After change
+
+  git add -A && git commit -m "Update 1"
+
+  git checkout sandbox
+
+  # Current branch sandbox
+
+  git merge idc-network
+  git push origin master
+  ```
+
+## 2016-04-29
+
+- 接口 API 设计时考虑到返回多条数据的接口，尽量减少前端与后端的请求数。
+
+- 组件的可扩展不是随便暴露个方法就完事了，要考虑如何快捷便利地扩展。
+
+## 2016-05-17
+
+- 常见的 jQuery 组件的回调或参数值为函数时，函数的`this`最好统一为组件的实例对象。
+
+## 2016-05-18
+
+- 假如要在同后端交换（获取/提交)的 JSON 数据上添加只在前端使用的属性，即前端私有属性，比如命名下划线开头`_`，但是后端也可能返回下划线开头的属性，那应该防止命名冲突。
+
+## 2016-05-23
+
+- 数据为什么要有（创建/更新）日期字段？日期经常作为排序方式，且很实用。
+
+## 2016-05-24
+
+- AJAX API Path 格式：最好在一个子域名或目录下面，比如`api.domain.com`或`www.domain.com/api`，因为获取数据的 Ajax 与普通的页面请求某种角度看有区别，这个区别应该包含进来。
+
+  - 与正常的页面、静态资源等请求区分，如子域名或子目录下面。
+  - 版本管理，考虑到 API 将来会变更，通过 Path 或 Query string 区分，如`/v1/article/1`或`/article/1?version=1`。
+  - 是否需要授权访问，通过 URL 反应出来，如`/auth/v1/article/1`或`/v1/article/1?auth=true`。（个人倾向前一种）
 
 ## 2016-05-25
 
