@@ -2314,6 +2314,12 @@
 
 - Modal 内容为表单，打开时自动获取焦点（`autofocus`），但是输入框有内容时，光标在内容最开头，这可能不是想要的，期望效果是内容末尾或选中内容。
 
+- `background-position`：CSS3 扩展了其值，支持 0~4 个值，详见 [https://drafts.csswg.org/css-backgrounds-3/#the-background-position](https://drafts.csswg.org/css-backgrounds-3/#the-background-position)。
+
+## 2016-02-14
+
+- Bootstrap v4-dev 的`_buttons.scss`为什么使用`.btn:active:focus`，是否多余？
+
 ## 2016-02-15
 
 - Mac OSX 平台下，不设置环境变量`EDITOR`时，默认编辑器为`vi`，其使用自己的`~/.vimrc`配置导致`exit code`为 1，这样`git commit`或`crontab -e`命令总是无法正常使用，可以在`.bash_profile`文件中设置`export EDITOR=/usr/bin/vim`解决。
@@ -2457,6 +2463,13 @@
   ```js
   let { ns, isLeaf } = this.props.location.query;
   ```
+
+## 2016-05-25
+
+- NodeJS 中`__dirname`与`process.cwd()`区别：
+
+  - `__dirname`：文件所在目录
+  - `process.cwd()`：代码执行时的当前工作目录
 
 ## 2015-05-27
 
