@@ -2452,3 +2452,20 @@
   - 版本管理，考虑到 API 将来会变更，通过 Path 或 Query string 区分，如`/v1/article/1`或`/article/1?version=1`。
   - 是否需要授权访问，通过 URL 反应出来，如`/auth/v1/article/1`或`/v1/article/1?auth=true`。（个人倾向前一种）
 
+- React-router 解析 Querystring：
+
+  ```js
+  let { ns, isLeaf } = this.props.location.query;
+  ```
+
+## 2015-05-27
+
+- 环境：
+
+  - OS: Linux kvm32140.jx.somedomain.com 2.6.32-431.el6.x86_64 #1 SMP Fri Nov 22 03:15:09 UTC 2013 x86_64 x86_64 x86_64 GNU/Linux
+  - Node: 5.6.0
+  - npm: 3.6.0
+  - gcc/g++: 4.4.x
+
+  在安装包`selectize`的依赖的依赖`microtime`（C++写的）时，总是编译出错，后来升级 gcc/g++ 到 4.8.2 之后编译通过。
+
