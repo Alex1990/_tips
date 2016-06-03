@@ -2471,7 +2471,7 @@
   - `__dirname`：文件所在目录
   - `process.cwd()`：代码执行时的当前工作目录
 
-## 2015-05-27
+## 2016-05-27
 
 - 环境：
 
@@ -2481,4 +2481,73 @@
   - gcc/g++: 4.4.x
 
   在安装包`selectize`的依赖的依赖`microtime`（C++写的）时，总是编译出错，后来升级 gcc/g++ 到 4.8.2 之后编译通过。
+
+## 2016-05-31
+
+- 用户输入字符串时，要考虑是否自动清除空格。
+
+## 2016-06-01
+
+- 应用会有很多 Ajax 请求，这些请求或请求的 URL 应该统一管理（放入一个模块/文件）还是分散在各业务模块。
+
+## 2016-06-03
+
+- 使用 Ant Design 时，一个常见的情形是弹层里面有个表单（Form in Modal），假如有个表单元素是 Select，那么如何在每次显示弹层时，Select 都恢复初始状态。
+
+- 单页面中：弹层 VS 新页面，代码量，使用难度，比如 ant-design 的 Modal 组件
+
+- Ant Design 的 Message 组件不可以相对于某个元素定位，或者 Tooltip 组件得一个元素对应一个，不能多个元素对应一个，但是内容不同。这是否可以看成是 JSX 语言的劣势或者说 Ant Design 实现方面的劣势。
+
+- 即时在移动式优先的今天，也应该考虑大屏显示器，比如常见的 PC 显示器，即通常内容应该有个最大宽度，这样浏览和使用起来体验更好，否则需要经常扭头。
+
+- [React router]: 子路由与子组件以及 URL 之间的关系：
+
+  比如有两个页面：一个列表页面，一个详情页面。希望设置的路由为：
+
+  ```
+  /order - 列表页面
+  /order/detail/:id 或 /order/:id - 详情页面
+  ```
+
+  两个 React 组件为：Order.jsx 和 OrderDetail.jsx。其实希望文件结构为：
+
+  ```
+  - order/
+    |- Detail.jsx
+  - Order.jsx
+  ```
+
+  但是路由必须这样写：
+
+  ```js
+  let routeConfig = [
+    {
+      path: '/order',
+      component: Order
+    },
+    {
+      path: '/order/:id',
+      component: OrderDetail
+    }
+  ];
+  ```
+
+  如果写成下面这样：
+
+  ```js
+  let routeConfig = [
+    {
+      path: '/order',
+      component: Order,
+      childRoutes: [
+        {
+          path: '/:id',
+          component: OrderDetail
+        }
+      ]
+    }
+  ];
+  ```
+
+  则 React 会先渲染 Order 组件，除非 Order 组件里面显示了`this.props.children`，否则 OrderDetail 不会渲染。
 
