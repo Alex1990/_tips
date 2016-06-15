@@ -2551,3 +2551,19 @@
 
   则 React 会先渲染 Order 组件，除非 Order 组件里面显示了`this.props.children`，否则 OrderDetail 不会渲染。
 
+## 2016-06-08
+
+- ESLint 命令行指定一个配置文件，只是会将该配置文件与已有的配置合并，比如当前目录下有 .eslintrc 的化，.eslintrc 的配置仍会起作用。
+
+## 2016-06-14
+
+- `!important`只有没有其他选择时才使用。
+
+- 注意 CSS 选择器影响的范围，如果在某个特殊的场景下某个组件样式有问题，则不应该更改该组件的样式，避免影响全局。
+
+## 2016-06-15
+
+- [API 设计]：jQuery 的很多方法，如`attr()`/`addClass()`/`css()`等对整个 jQuery 对象生效，jQuery 对象是个集合/数组，几十集合内一个元素也没有也不会报错。
+
+- [API 设计]：添加一个和添加多个方法，可以定义两个：`addItem(value)`和`addItems(values)`，也可以定义一个支持两种参数（类似重载）：`addItem(value`，那种更好呢？
+
