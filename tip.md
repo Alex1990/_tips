@@ -47,12 +47,6 @@
 
 - 将windows[\r\n]或osx[\r]系统下换行符替换成linux[\n]下换行符:
 
-  ```js
-  if (text.indexOf('\r') > -1) {
-      text.replace(/\r/g, '');
-  }
-  ```
-
 ##2014-10-09
 
 - markdown list multiple paragraphs:
@@ -2566,4 +2560,71 @@
 - [API 设计]：jQuery 的很多方法，如`attr()`/`addClass()`/`css()`等对整个 jQuery 对象生效，jQuery 对象是个集合/数组，几十集合内一个元素也没有也不会报错。
 
 - [API 设计]：添加一个和添加多个方法，可以定义两个：`addItem(value)`和`addItems(values)`，也可以定义一个支持两种参数（类似重载）：`addItem(value`，那种更好呢？
+
+## 2016-06-16
+
+- 网站帮助系统设计：
+
+  - 历史问题记录
+  - 搜索
+  - UGC
+
+- 网站公告系统
+
+- 自己开发组件库 VS 使用第三方
+
+  自己开发组件：可以快速实现定制需求，但是前期工作较慢。
+
+  第三方：前期快速开发，但是定制需求很慢。
+
+  例外，开发者有自己的一套组件库或者对第三方的组件有很深的研究。
+
+- 建立一套测试系统非常非常重要，可提升开发效率，可快速检测出错误，尽量与线上环境一样，并且数据要模拟的真实。
+
+- URL 长度限制：避免 GET 请求的查询参数过长问题
+
+  - 浏览器地址栏限制
+  - Ajax 请求限制
+  - 代理服务器限制
+  - Nginx/Apache 服务器限制
+  - 后端框架限制
+  - 等等
+
+## 2016-06-29
+
+- npm3.x 总是出现 unmet dependency 警告：http://stackoverflow.com/questions/20764881/why-does-npm-install-say-i-have-unmet-dependencies。
+
+- Ajax 接口无权限时不能返回 302，因为浏览器会自动跳转，参考：http://stackoverflow.com/questions/8238727/how-to-prevent-ajax-requests-to-follow-redirects-using-jquery#answer-8241461
+
+- 尽量避免使用`$.ajaxSetup()`，可使用`.ajaxStart()`/`.ajaxComplete()`之类绑定回调。
+
+## 2016-07-04
+
+- Webpack 使用 loader 时，如何区分字体的 svg 与图片的 svg 文件呢
+
+## 2016-07-05
+
+- d3 的 UMD 定义就很好，如果是 AMD，就在额外执行`this.d3 = d3;`，这样在浏览器中就有了全局的`d3`变量，其他依赖 d3 的组件可以正常执行，也不用什么 ProvidePlugin，expose-loader 之类。
+
+## 2016-07-13
+
+- 目前公司的一个项目创建一个新业务模块的过程：
+
+  - 添加导航入口链接
+  - 创建业务模块**js**文件
+  - 创建业务模块**模板（html）**文件
+  - 创建业务模块**样式（CSS/SASS/LESS）**文件
+  - 然后经常需要在这些文件之间切换
+
+## 2016-07-14
+
+- 所有显示不定长内容的地方都应该考虑内容太长时如何处理显示问题。
+
+## 2016-07-27
+
+- 起始为`0.8`，终止值为`5.2`，步长为`0.4`，生成一个数列。
+    
+## 2016-08-02
+
+- 一个列表数据展示，考虑排序问题，可能字母顺序，可能部分高频在顶部，剩下按照字母排序，看情况选择排序策略。
 
