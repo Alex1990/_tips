@@ -2665,3 +2665,8 @@
 
 - Server Sent Events VS 轮询：假如 Server Sent Events 是用来推送周期性的数据，则不如轮询简单。
 
+## 2017-03-15
+
+- Redux 问题：
+  - Redux 中 actions 与 events 关系？另外`store.substribe(reducer)`+`store.dispatch(action)`与事件机制有何区别？
+  - 合适采用 Redux，或者说 Redux 用来解决哪些问题？小应用就不可以采用吗？参考[https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367)
