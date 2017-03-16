@@ -2676,3 +2676,4 @@
 ## 2017-03-16
 
 - [React] React 多层嵌套组件 props 传递问题，通过 object spread operator `{...props}`可以简化写法，context 方式官方不推荐
+- [Redux] `action.type`全局唯一
