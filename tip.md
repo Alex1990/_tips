@@ -47,12 +47,6 @@
 
 - 将windows[\r\n]或osx[\r]系统下换行符替换成linux[\n]下换行符:
 
-  ```js
-  if (text.indexOf('\r') > -1) {
-      text.replace(/\r/g, '');
-  }
-  ```
-
 ##2014-10-09
 
 - markdown list multiple paragraphs:
@@ -592,7 +586,6 @@
 
 - git忽略某个目录中除某个文件之外的所有子目录和文件：
 
-
   ```
   *
   !foo.html
@@ -1016,7 +1009,6 @@
   Ref: [http://stackoverflow.com/questions/657447/vim-clear-last-search-highlighting](http://stackoverflow.com/questions/657447/vim-clear-last-search-highlighting)
 
 - `Enter/Return`提交表单交互行为：触发当前获取焦点的表单元素的祖先`form`元素的`submit`事件。例如，`input:submit`或`button`元素的默认按`Enter/Return`键提交表单行为，必须要有个表单元素获取焦点才行；另外，如果`input:submit`或`button`不是任何`form`元素的后代元素也不行。
-
 
 - 搞不懂`<option>`的`label`属性有什么用？[http://www.htmlhelp.com/reference/html40/forms/option.html](http://www.htmlhelp.com/reference/html40/forms/option.html)
 
@@ -1485,7 +1477,6 @@
 - IE6/7的 UserData 每个路径都有大小限制，不过可以通过隐藏 iframe 来实现整站的，突破路径限制，但是每个域名也有限制：640kb-1024kb，每个路径限制是 64kb-128kb。可参考：https://github.com/mattpowell/localstorageshim。
 
 - `Date`对象有大小限制，也即表示的时间有范围，1970-01-01 00:00:00 两边各 8.64E15 毫秒，超过这个范围会变成 "Invalid Date"。规范：http://ecma-international.org/ecma-262/5.1/#sec-15.9.1.1
-
 
 ##2015-04-13
 
@@ -2289,7 +2280,6 @@
 
   这种方法有问题
 
-
 - Reload .vimrc file without restarting vim?
 
   `:so %` or `:so $MYVIMRC`
@@ -2333,7 +2323,6 @@
 ## 2016-02-26
 
 - 越是基础，应用于很多个业务模块的模块，越应该提早设计好。
-
 
 ## 2016-03-22
 
@@ -2458,6 +2447,12 @@
   - 版本管理，考虑到 API 将来会变更，通过 Path 或 Query string 区分，如`/v1/article/1`或`/article/1?version=1`。
   - 是否需要授权访问，通过 URL 反应出来，如`/auth/v1/article/1`或`/v1/article/1?auth=true`。（个人倾向前一种）
 
+- React-router 解析 Querystring：
+
+  ```js
+  let { ns, isLeaf } = this.props.location.query;
+  ```
+
 ## 2016-05-25
 
 - NodeJS 中`__dirname`与`process.cwd()`区别：
@@ -2465,15 +2460,185 @@
   - `__dirname`：文件所在目录
   - `process.cwd()`：代码执行时的当前工作目录
 
+## 2016-05-27
+
+- 环境：
+
+  - OS: Linux kvm32140.jx.somedomain.com 2.6.32-431.el6.x86_64 #1 SMP Fri Nov 22 03:15:09 UTC 2013 x86_64 x86_64 x86_64 GNU/Linux
+  - Node: 5.6.0
+  - npm: 3.6.0
+  - gcc/g++: 4.4.x
+
+  在安装包`selectize`的依赖的依赖`microtime`（C++写的）时，总是编译出错，后来升级 gcc/g++ 到 4.8.2 之后编译通过。
+
+## 2016-05-31
+
+- 用户输入字符串时，要考虑是否自动清除空格。
+
+## 2016-06-01
+
+- 应用会有很多 Ajax 请求，这些请求或请求的 URL 应该统一管理（放入一个模块/文件）还是分散在各业务模块。
+
+## 2016-06-03
+
+- 使用 Ant Design 时，一个常见的情形是弹层里面有个表单（Form in Modal），假如有个表单元素是 Select，那么如何在每次显示弹层时，Select 都恢复初始状态。
+
+- 单页面中：弹层 VS 新页面，代码量，使用难度，比如 ant-design 的 Modal 组件
+
+- Ant Design 的 Message 组件不可以相对于某个元素定位，或者 Tooltip 组件得一个元素对应一个，不能多个元素对应一个，但是内容不同。这是否可以看成是 JSX 语言的劣势或者说 Ant Design 实现方面的劣势。
+
+- 即时在移动式优先的今天，也应该考虑大屏显示器，比如常见的 PC 显示器，即通常内容应该有个最大宽度，这样浏览和使用起来体验更好，否则需要经常扭头。
+
+- [React router]: 子路由与子组件以及 URL 之间的关系：
+
+  比如有两个页面：一个列表页面，一个详情页面。希望设置的路由为：
+
+  ```
+  /order - 列表页面
+  /order/detail/:id 或 /order/:id - 详情页面
+  ```
+
+  两个 React 组件为：Order.jsx 和 OrderDetail.jsx。其实希望文件结构为：
+
+  ```
+  - order/
+    |- Detail.jsx
+  - Order.jsx
+  ```
+
+  但是路由必须这样写：
+
+  ```js
+  let routeConfig = [
+    {
+      path: '/order',
+      component: Order
+    },
+    {
+      path: '/order/:id',
+      component: OrderDetail
+    }
+  ];
+  ```
+
+  如果写成下面这样：
+
+  ```js
+  let routeConfig = [
+    {
+      path: '/order',
+      component: Order,
+      childRoutes: [
+        {
+          path: '/:id',
+          component: OrderDetail
+        }
+      ]
+    }
+  ];
+  ```
+
+  则 React 会先渲染 Order 组件，除非 Order 组件里面显示了`this.props.children`，否则 OrderDetail 不会渲染。
+
 ## 2016-06-08
 
+- ESLint 命令行指定一个配置文件，只是会将该配置文件与已有的配置合并，比如当前目录下有 .eslintrc 的化，.eslintrc 的配置仍会起作用。
+
 - 有些 Node 构建工具，如 browserify, eslint 可以将配置写在`package.json`文件里，这没什么，但是 browerify-shim **只**支持将配置写在`package.json`里面，实在是很恶心的设计。
+
+## 2016-06-14
+
+- `!important`只有没有其他选择时才使用。
+
+- 注意 CSS 选择器影响的范围，如果在某个特殊的场景下某个组件样式有问题，则不应该更改该组件的样式，避免影响全局。
+
+## 2016-06-15
+
+- [API 设计]：jQuery 的很多方法，如`attr()`/`addClass()`/`css()`等对整个 jQuery 对象生效，jQuery 对象是个集合/数组，几十集合内一个元素也没有也不会报错。
+
+- [API 设计]：添加一个和添加多个方法，可以定义两个：`addItem(value)`和`addItems(values)`，也可以定义一个支持两种参数（类似重载）：`addItem(value`，那种更好呢？
+
+## 2016-06-16
+
+- 网站帮助系统设计：
+
+  - 历史问题记录
+  - 搜索
+  - UGC
+
+- 网站公告系统
+
+- 自己开发组件库 VS 使用第三方
+
+  自己开发组件：可以快速实现定制需求，但是前期工作较慢。
+
+  第三方：前期快速开发，但是定制需求很慢。
+
+  例外，开发者有自己的一套组件库或者对第三方的组件有很深的研究。
+
+- 建立一套测试系统非常非常重要，可提升开发效率，可快速检测出错误，尽量与线上环境一样，并且数据要模拟的真实。
+
+- URL 长度限制：避免 GET 请求的查询参数过长问题
+
+  - 浏览器地址栏限制
+  - Ajax 请求限制
+  - 代理服务器限制
+  - Nginx/Apache 服务器限制
+  - 后端框架限制
+  - 等等
+
+## 2016-06-29
+
+- npm3.x 总是出现 unmet dependency 警告：http://stackoverflow.com/questions/20764881/why-does-npm-install-say-i-have-unmet-dependencies。
+
+- Ajax 接口无权限时不能返回 302，因为浏览器会自动跳转，参考：http://stackoverflow.com/questions/8238727/how-to-prevent-ajax-requests-to-follow-redirects-using-jquery#answer-8241461
+
+- 尽量避免使用`$.ajaxSetup()`，可使用`.ajaxStart()`/`.ajaxComplete()`之类绑定回调。
+
+## 2016-07-04
+
+- Webpack 使用 loader 时，如何区分字体的 svg 与图片的 svg 文件呢
+
+## 2016-07-05
+
+- d3 的 UMD 定义就很好，如果是 AMD，就在额外执行`this.d3 = d3;`，这样在浏览器中就有了全局的`d3`变量，其他依赖 d3 的组件可以正常执行，也不用什么 ProvidePlugin，expose-loader 之类。
+
+## 2016-07-13
+
+- 目前公司的一个项目创建一个新业务模块的过程：
+
+  - 添加导航入口链接
+  - 创建业务模块**js**文件
+  - 创建业务模块**模板（html）**文件
+  - 创建业务模块**样式（CSS/SASS/LESS）**文件
+  - 然后经常需要在这些文件之间切换
+
+## 2016-07-14
+
+- 所有显示不定长内容的地方都应该考虑内容太长时如何处理显示问题。
 
 ## 2016-07-23
 
 - 最常用的命令可以使用别名（alias）功能，比如：`alias g=git`, `alias nr="npm run"`
 
 - 在写代码或配置文件时，经常会使用类似 Map（`{ key: value, ... }`）数据结构，其属性按照字母顺序排列比较直观，容易查找，很多人都不注意这个细节。
+
+## 2016-07-27
+
+- 起始为`0.8`，终止值为`5.2`，步长为`0.4`，生成一个数列。
+    
+## 2016-08-02
+
+- 一个列表数据展示，考虑排序问题，可能字母顺序，可能部分高频在顶部，剩下按照字母排序，看情况选择排序策略。
+
+- 关于表单的需求，很多人总是提得不详细导致作为前端的我需要反复沟通确认：
+
+  - 字段的数据类型：字符串，数字还是什么；
+  - 字段对应的`label`/`name`属性；
+  - 使用的交互元素/表单元素/其他组件；
+  - 提示文字：placeholder、tooltip等方式；
+  - 是否是必填的，必填是否与非必填区分；
+  - 表单验证规则及反馈信息，反馈信息展示方式；
 
 ## 2016-08-21
 
@@ -2483,3 +2648,43 @@
   - 免费还是收费
   - 推荐星级：具有主观性
 
+## 2016-08-23
+
+- 单页面应用切换页面白页问题分析：
+
+  - 新的页面（模块）时会异步加载一个模块（js），通过 Webpack 打包的
+  - 结果该模块不存在了（因为此时前端上线了新代码，重新构建部署，老文件都会删掉）
+  - 然后服务器返回 302 重定向到首页
+  - 然后首页的HTML内容当成JS执行，报错`Uncaught SyntaxError: Unexpected token <`
+
+  结论：一是不应该返回 302，二是应该保留一段时间旧文件。
+
+## 2016-08-30
+
+- `order`属性在`inline-flex`容器中没起作用，测试于 Chrome Dev 55
+- `flex-grow`：该属性在`inline-flex`容器中不起作用，这合理，因为容器宽度根据内容宽度计算的。
+
+## 2016-09-12
+
+- 命名与抽象层级：比如一个 DBA 使用的工单审核系统，一开始只有简单的发送工单功能，于是文件名就叫`db/order.js`，后来又添加了审核于是合理的命名是`db/send.js`和`db/audit.js`（假如按文件分模块）。为啥一开始不直接命名`db/send.js`呢？可能是没有经验，也有没有多加思考，这样随着系统复杂，需要更高的抽象，然后命名也需要变化，不仅仅文件的名字，还包括函数名、变量名等。
+
+## 2016-09-30
+
+- 类似 ES5 ES6 polyfills，以及 ajax、extend 等方法应该在一个地方集中管理，并经过严格测试，为了以后随时可以使用。重写很容易犯错误，使用别人现成的总是提供多余的功能，导致体积比较大。
+
+## 2016-11-07
+
+- Server Sent Events VS 轮询：假如 Server Sent Events 是用来推送周期性的数据，则不如轮询简单。
+
+## 2017-03-15
+
+- Redux 问题：
+  - Redux 中 actions 与 events 关系？另外`store.substribe(reducer)`+`store.dispatch(action)`与事件机制有何区别？
+  - 合适采用 Redux，或者说 Redux 用来解决哪些问题？小应用就不可以采用吗？参考[https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367](https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367)
+
+- Arrow function VS closure VS `Function.prototype.bind()`: such as performance https://jsperf.com/arrow-function-vs-closure-vs-bind.
+
+## 2017-03-16
+
+- [React] React 多层嵌套组件 props 传递问题，通过 object spread operator `{...props}`可以简化写法，context 方式官方不推荐
+- [Redux] `action.type`全局唯一
