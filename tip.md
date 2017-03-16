@@ -2673,3 +2673,6 @@
 
 - Arrow function VS closure VS `Function.prototype.bind()`: such as performance https://jsperf.com/arrow-function-vs-closure-vs-bind.
 
+## 2017-03-16
+
+- [React] React 多层嵌套组件 props 传递问题，通过 object spread operator `{...props}`可以简化写法，context 方式官方不推荐
