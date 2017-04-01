@@ -24,3 +24,7 @@
 - 如果要使一个请求（通常是静态资源）永久缓存，建议的缓存时效为一年，`Cache-Control`的`max-age=31536000`，相应的`Expires`也设为一年后的日期。为什么是一年而不是大于一年的：http://stackoverflow.com/questions/7071763/max-value-for-cache-control-header-in-http。
 
 > To mark a response as "never expires," an origin server sends an Expires date approximately one year from the time the response is sent. HTTP/1.1 servers SHOULD NOT send Expires dates more than one year in the future.
+
+## 2017-04-01
+
+- 一个任务的执行通常会伴随着状态的变化，状态类接口既有当前执行状态，也有历史状态列表，千万别混淆两者。
